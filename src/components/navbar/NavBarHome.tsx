@@ -3,17 +3,18 @@ import type { FC } from "react";
 
 import Link from "next/link";
 import { getSession } from "@/lib/getSessions";
+import ThemeSwitcher from "../ui/ThemeSwitcher";
 
 
-interface HeaderHomeProps { }
+interface NavBarHomeProps { }
 
-const HeaderHome: FC<HeaderHomeProps> = async ({ }) => {
+const NavBarHome: FC<NavBarHomeProps> = async ({ }) => {
 
     const session = await getSession();
 
     return (
-        <header className="py-4 px-4 sm:px-10 z-50 min-h-[70px] shadow-md shadow-b">
-            <div className="relative flex  justify-between items-center gap-4 flex-wrap">
+        <header className="  py-4 px-4 sm:px-10 z-50 min-h-[70px] shadow-md shadow-b dark:shadow-white">
+            <div className="  relative flex  justify-between items-center gap-4 flex-wrap">
                 <Link
                     href={'/'}
                 >
@@ -27,7 +28,7 @@ const HeaderHome: FC<HeaderHomeProps> = async ({ }) => {
                     />
                 </Link>
                 <div>
-                    
+                    <ThemeSwitcher />
                 </div>
                 <div className="flex ">
                     {session?.token ? (
@@ -35,14 +36,14 @@ const HeaderHome: FC<HeaderHomeProps> = async ({ }) => {
                             href={"/dashboard"}
                             className="px-6 py-3 rounded-xl text-white bg-theme-color transition-all hover:opacity-85 duration-150"
                         >
-                           dashboard
+                            dashboard
                         </Link>
                     ) : (
                         <Link
                             href={"/login"}
                             className="px-6 py-3 rounded-xl text-white bg-theme-color transition-all hover:opacity-85 duration-150"
                         >
-                           Login
+                            Login
                         </Link>
                     )}
                 </div>
@@ -50,4 +51,4 @@ const HeaderHome: FC<HeaderHomeProps> = async ({ }) => {
         </header>
     );
 };
-export default HeaderHome;
+export default NavBarHome;

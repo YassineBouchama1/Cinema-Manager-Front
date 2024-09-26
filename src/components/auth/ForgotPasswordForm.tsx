@@ -15,6 +15,8 @@ export default function ForgotPasswordForm() {
 
     //send request to api useing server action
     async function onResetPassword(formData: FormData) {
+
+
         const { errorZod, error, success }: any = await forgotPassword(formData);
 
         // handle erros from api
@@ -28,9 +30,15 @@ export default function ForgotPasswordForm() {
                 toast.error(`${key} ${errorZod[key]}`);
             });
         } else {
+            console.log(success)
             toast.success("We Sent You Email");
         }
+
+
     }
+
+
+
 
     return (
         <form action={onResetPassword} className="space-y-4 md:space-y-6">

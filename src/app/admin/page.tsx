@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import HeaderHome from "@/components/ui/HeaderHome";
+import HeaderHome from "@/components/navbar/NavBarHome";
 
 
 

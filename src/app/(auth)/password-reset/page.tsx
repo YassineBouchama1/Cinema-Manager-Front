@@ -2,7 +2,7 @@
 
 
 import PasswordResetForm from "@/components/auth/PasswordResetForm";
-import HeaderHome from "@/components/ui/HeaderHome";
+import HeaderHome from "@/components/navbar/NavBarHome";
 
 
 export default function Page() {

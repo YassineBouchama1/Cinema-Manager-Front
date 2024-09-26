@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,16 +15,23 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        sidebar: {
-          active: "#4880FF",
-          background: "#f5f5ff",
-          iconColor: "#636c80",
-        },
-        theme: {
-          color: "#4880FF",
-          bodyInputs: "#F5F6FA",
-        },
-      },
+        // Using modern `rgb`
+        primary: 'rgb(var(--color-primary))',
+        secondary: 'rgb(var(--color-secondary))',
+
+      }
+      // colors: {
+      //   sidebar: {
+      //     active: "#4880FF",
+      //     background: "#f5f5ff",
+      //     iconColor: "#636c80",
+      //   },
+      //   theme: {
+      //     color: "#4880FF",
+      //     bodyInputs: "#F5F6FA",
+      //   },
+      // },
+
     },
   },
   plugins: [],

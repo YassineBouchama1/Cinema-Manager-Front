@@ -4,10 +4,17 @@ import fetchServer from "@/lib/fetch-server";
 import { schemaEmail } from "@/validators/auth";
 
 export const forgotPassword = async (formData: FormData) => {
+
+
+
+
+
     //2-validation
     const validatedFields = schemaEmail.safeParse({
         email: formData.get("email"),
     });
+
+
 
     //check validation
     if (!validatedFields.success) {
@@ -15,6 +22,7 @@ export const forgotPassword = async (formData: FormData) => {
             errorZod: validatedFields.error.flatten().fieldErrors,
         };
     }
+
 
     // fetch data
     try {
@@ -27,7 +35,7 @@ export const forgotPassword = async (formData: FormData) => {
 
         //after successfully
         return {
-            success: "Sent",
+            success: response,
             error: null,
         };
     } catch (error: any) {
