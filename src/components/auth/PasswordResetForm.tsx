@@ -1,9 +1,9 @@
 "use client";
 
 import { redirect, useRouter, useSearchParams } from "next/navigation";
-import { SubmitButton } from "../ui/SubmitButton";
+import { SubmitButton } from "../commen/SubmitButton";
 
-import { FormField } from "../ui/FormField";
+import { FormField } from "../commen/FormField";
 import toast from "react-hot-toast";
 import { useRef } from "react";
 import { resetPassword } from "@/actions/auth/resetPassword";

@@ -1,11 +1,11 @@
 "use client";
 
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { SubmitButton } from "@/components/commen/SubmitButton";
 
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../commen/FormField";
 import { forgotPassword } from "@/actions/auth/forgotPassword";
 
 

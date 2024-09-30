@@ -1,37 +1,47 @@
-// components/MovieCard.tsx
-interface MovieCardProps {
-    title: string;
-    image: string;
-    genres: string[];
-    watchingCount: number;
-}
+import React from 'react';
+import Image from 'next/image';
+import { Movie } from '@/types/movie';
 
-const MovieCard: React.FC<MovieCardProps> = ({ title, image, genres, watchingCount }) => {
-    return (
-        <div className="relative rounded-lg overflow-hidden">
-            <img src={image} alt={title} className="w-full h-64 object-cover" />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                <h2 className="text-white text-2xl font-bold">{title}</h2>
-                <p className="text-gray-300 text-sm">{genres.join(', ')}</p>
-                <div className="mt-2 flex items-center">
-                    <div className="flex -space-x-1 overflow-hidden">
-                        {[...Array(3)].map((_, i) => (
-                            <img
-                                key={i}
-                                className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
-                                src={`https://randomuser.me/api/portraits/men/${i + 1}.jpg`}
-                                alt=""
-                            />
-                        ))}
-                    </div>
-                    <span className="ml-2 text-sm text-white">{watchingCount} friends are watching</span>
+interface ShowTimeCardProps extends Movie { }
+
+const ShowTimeCard: React.FC<ShowTimeCardProps> = (movie) => (
+    <div key={movie.id} className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+        <div className="flex">
+            <div className="w-1/3 relative">
+                <Image src={movie.image} alt={movie.title} layout="fill" objectFit="cover" />
+                <div className="absolute top-2 left-2 bg-gray-900 text-white text-xs px-2 py-1 rounded">
+                    {movie.rating}
                 </div>
-                <button className="mt-2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300">
-                    Watch
+            </div>
+            <div className="w-2/3 p-4">
+                <h2 className="text-xl font-bold mb-2">{movie.title}</h2>
+                <p className="text-sm text-gray-400 mb-2">Genres: {movie.genres.join(', ')}</p>
+                <p className="text-sm mb-4">{movie.description}</p>
+                <div className="flex space-x-2 mb-4">
+                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.language}</span>
+                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.rating}</span>
+                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.dimension}</span>
+                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.duration}</span>
+                </div>
+                <h3 className="font-semibold mb-2">Session Times:</h3>
+                {movie.showTimes.map((showTime, index) => (
+                    <div key={index} className="mb-2">
+                        <p className="text-sm font-medium">{showTime.date}:</p>
+                        <div className="flex flex-wrap gap-2 mt-1">
+                            {showTime.times.map((time, timeIndex) => (
+                                <span key={timeIndex} className="bg-gray-700 text-white text-xs px-2 py-1 rounded">
+                                    {time}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+                <button className="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                    Buy Tickets
                 </button>
             </div>
         </div>
-    );
-};
+    </div>
+);
 
-export default MovieCard;
+export default ShowTimeCard;

@@ -45,7 +45,7 @@ const FilterShowTime: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex justify-between items-center mb-6">
+            {/* <div className="flex justify-between items-center mb-6">
                 <div className="flex space-x-4">
                     <button
                         className={`text-lg font-semibold ${activeTab === 'Now Playing' ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-400'}`}
@@ -61,7 +61,7 @@ const FilterShowTime: React.FC = () => {
                     </button>
                 </div>
                 <button className="text-purple-500">Reset Filter</button>
-            </div>
+            </div> */}
         </>
 
 

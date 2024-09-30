@@ -1,10 +1,10 @@
 "use client";
 import { login } from "@/actions/auth/login";
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { SubmitButton } from "@/components/commen/SubmitButton";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../commen/FormField";
 
 
 

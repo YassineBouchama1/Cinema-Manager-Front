@@ -3,7 +3,7 @@ import type { FC } from "react";
 
 import Link from "next/link";
 import { getSession } from "@/lib/getSessions";
-import ThemeSwitcher from "../ui/ThemeSwitcher";
+import ThemeSwitcher from "../commen/ThemeSwitcher";
 
 
 interface NavBarHomeProps { }

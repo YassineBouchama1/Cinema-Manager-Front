@@ -1,25 +1,27 @@
-'use client'
-import React, { useState } from 'react';
-import MovieCard from './MovieCard';
-import { Movie } from '@/types/movie';
+// 'use client'
+// import React, { useState } from 'react';
 
-interface MoviesCardProps {
-    movies: Movie[];
-}
-const MovieRecommendations: React.FC<MoviesCardProps> = ({ movies }) => {
+// import { ShowTime } from '@/types/showTime';
+// import ShowTimeCard from './ShowTimeCard';
+// import FilterShowTime from './FilterShowTime';
+
+// interface MoviesCardProps {
+//     showTime: ShowTime[];
+// }
+// const ShowTimeRecommendations: React.FC<MoviesCardProps> = ({ showTime }) => {
 
 
-    return (
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <MovieCard
-                title="Inception"
-                image="/images/poster.jpg"
-                genres={['Action', 'Adventure', 'Sci-Fi']}
-                watchingCount={18}
-            />
-        </div>
+//     return (
+//         <div className=" text-white min-h-screen p-6">
+//             <FilterShowTime />
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//                 {showTime.map((showtime, index) => (
+//                     <ShowTimeCard key={index} {...showtime} />
+//                 ))}
+//             </div>
+//         </div>
 
-    );
-}
+//     );
+// }
 
-export default MovieRecommendations;
+// export default ShowTimeRecommendations;
