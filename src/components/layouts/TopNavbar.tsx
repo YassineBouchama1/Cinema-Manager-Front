@@ -1,6 +1,12 @@
-import { Search } from 'lucide-react';
+'use client'
+import { useGlobalTheme } from '@/context/GlobalThemeContext';
+import { Menu } from 'lucide-react';
 
 const TopNavbar: React.FC = () => {
+
+    const { toggleSidebar } = useGlobalTheme();
+
+
     return (
         <header className="bg-white dark:bg-gray-900 shadow-sm">
 
@@ -8,17 +14,13 @@ const TopNavbar: React.FC = () => {
 
                 <div className="flex items-center  justify-start">
 
-                    {/* Hamburger button for mobile */}
-                    <button
-                        className="md:hidden z-50 focus:outline-none"
-                    >
-                        {/* Simple hamburger icon */}
-                        <div className="space-y-1">
-                            <span className="block w-6 h-1 bg-gray-800 dark:bg-white"></span>
-                            <span className="block w-6 h-1 bg-gray-800 dark:bg-white"></span>
-                            <span className="block w-6 h-1 bg-gray-800 dark:bg-white"></span>
-                        </div>
-                    </button>
+                    {/* Hamburger Icon visible only on mobile */}
+                    <div className="md:hidden ">
+                        <button onClick={toggleSidebar}>
+
+                            <Menu size={32} className="text-gray-800 dark:text-white" />
+                        </button>
+                    </div>
 
                     <div className=" flex">
                         <button className="px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
