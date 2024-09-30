@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { GlobalThemeProvider } from "@/Providers/GlobalThemeProvider";
 import { Toaster } from "react-hot-toast";
 import MotionWrapper from "@/components/Wrappers/MotionWrapper";
+import { GlobalThemeProvider } from "@/Providers/GlobalThemeProvider";
 
 
 

@@ -1,6 +1,6 @@
 import LoginForm from "@/components/auth/LoginForm";
 
-import HeaderHome from "@/components/navbar/NavBarHome";
+import HeaderHome from "@/components/layouts/NavBarHome";
 
 
 

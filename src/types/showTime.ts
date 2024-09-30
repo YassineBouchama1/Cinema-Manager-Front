@@ -1,5 +1,5 @@
 
-export interface Movie {
+export interface ShowTime {
     id: string;
     title: string;
     image: string;

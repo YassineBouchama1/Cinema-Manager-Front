@@ -13,7 +13,7 @@ const NavBarHome: FC<NavBarHomeProps> = async ({ }) => {
     const session = await getSession();
 
     return (
-        <header className="  py-4 px-4 sm:px-10 z-50 min-h-[70px] shadow-md shadow-b dark:shadow-white">
+        <header className=" py-4 px-4 sm:px-10 z-50 min-h-[70px] shadow-sm shadow-b  shadow-gray-700">
             <div className="  relative flex  justify-between items-center gap-4 flex-wrap">
                 <Link
                     href={'/'}

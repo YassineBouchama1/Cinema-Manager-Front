@@ -1,44 +1,37 @@
-// src/components/MovieCard.tsx
+// components/MovieCard.tsx
+interface MovieCardProps {
+    title: string;
+    image: string;
+    genres: string[];
+    watchingCount: number;
+}
 
-import React from 'react';
-import Image from 'next/image';
-import { Movie } from '@/types/movie';
-
-interface MovieCardProps extends Movie { }
-
-const MovieCard: React.FC<MovieCardProps> = ({
-    title,
-    image,
-    language,
-    ageRating,
-    dimension,
-    duration,
-    buyTicketsLink
-}) => (
-    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-        <div className="relative h-64">
-            <Image src={image} alt={title} layout="fill" objectFit="cover" />
-            <div className="absolute bottom-2 right-2 bg-black bg-opacity-50 rounded-full p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                </svg>
+const MovieCard: React.FC<MovieCardProps> = ({ title, image, genres, watchingCount }) => {
+    return (
+        <div className="relative rounded-lg overflow-hidden">
+            <img src={image} alt={title} className="w-full h-64 object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                <h2 className="text-white text-2xl font-bold">{title}</h2>
+                <p className="text-gray-300 text-sm">{genres.join(', ')}</p>
+                <div className="mt-2 flex items-center">
+                    <div className="flex -space-x-1 overflow-hidden">
+                        {[...Array(3)].map((_, i) => (
+                            <img
+                                key={i}
+                                className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+                                src={`https://randomuser.me/api/portraits/men/${i + 1}.jpg`}
+                                alt=""
+                            />
+                        ))}
+                    </div>
+                    <span className="ml-2 text-sm text-white">{watchingCount} friends are watching</span>
+                </div>
+                <button className="mt-2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300">
+                    Watch
+                </button>
             </div>
         </div>
-        <div className="p-4">
-            <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
-            <div className="flex flex-wrap gap-2 mb-3">
-                <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{language}</span>
-                <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{ageRating}</span>
-            </div>
-            <div className="flex justify-between items-center text-gray-400 text-sm mb-4">
-                <span>{dimension}</span>
-                <span>{duration}</span>
-            </div>
-            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                Buy Tickets
-            </button>
-        </div>
-    </div>
-);
+    );
+};
 
 export default MovieCard;
