@@ -3,7 +3,6 @@ import type { FC } from "react";
 
 import Link from "next/link";
 import { getSession } from "@/lib/getSessions";
-import ThemeSwitcher from "../commen/ThemeSwitcher";
 
 
 interface NavBarHomeProps { }
@@ -28,7 +27,7 @@ const NavBarHome: FC<NavBarHomeProps> = async ({ }) => {
                     />
                 </Link>
                 <div>
-                    <ThemeSwitcher />
+                    {/* <ThemeSwitcher /> */}
                 </div>
                 <div className="flex ">
                     {session?.token ? (

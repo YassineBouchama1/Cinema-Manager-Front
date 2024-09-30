@@ -14,15 +14,33 @@ const containerVariants = {
     exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
+
+// setting for model 
 const modalVariants = {
-    hidden: { scale: 0 },
-    visible: { scale: 1, transition: { duration: 0.3 } },
-    exit: { scale: 0, transition: { duration: 0.2 } },
+    hidden: { y: "100vh", opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.2,
+            type: "spring",
+            stiffness: 40
+        }
+    },
+    exit: {
+        y: "80vh",
+        opacity: 0,
+        transition: {
+            duration: 0.2
+        }
+    },
 };
 
 
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+
+
 
     return (
         <AnimatePresence>
@@ -41,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                         animate="visible"
                         exit="exit"
                         onClick={(e) => e.stopPropagation()}
-                        className="bg-white rounded-lg shadow-md p-4 w-auto mx-auto"
+                        className="self-end  bg-white rounded-t-md shadow-md p-4 w-screen  h-[95%] mx-auto"
                     >
                         {children}
                         <button

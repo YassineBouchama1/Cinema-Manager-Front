@@ -1,21 +1,10 @@
+import React from 'react';
 
-
-import Image from "next/image";
-import Link from "next/link";
-import HeaderHome from "@/components/layouts/NavBarHome";
-
-
-
-const AdminPage = async () => {
-
-    return (
-        <div className="max-w-[1920px] mx-auto">
-            <div className="bg-[#f8f9ff] font-[sans-serif] text-[#333] text-[15px]">
-                <HeaderHome />
-                <h1>Admin</h1>
-            </div>
-        </div>
-    );
-};
-
-export default AdminPage;
+export default function DashboardPage() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      {/* Add your dashboard content here */}
+    </div>
+  );
+}

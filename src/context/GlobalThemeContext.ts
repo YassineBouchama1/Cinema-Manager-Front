@@ -5,6 +5,8 @@ import { persist, PersistOptions } from 'zustand/middleware';
 interface GlobalThemeState {
     isSidebarOpen: boolean;
     toggleSidebar: () => void;
+    isModelOpen: boolean;
+    toggleModel: () => void;
 }
 
 type GlobalThemePersist = (
@@ -17,9 +19,13 @@ export const useGlobalTheme = create<GlobalThemeState>()(
         (set) => ({
             isSidebarOpen: false,
             toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+            isModelOpen: false,
+            toggleModel: () => set((state) => ({ isModelOpen: !state.isModelOpen })),
         }),
         {
             name: 'theme-sidebar-storage',
+
         }
     )
 );
+
