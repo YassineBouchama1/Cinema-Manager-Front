@@ -16,6 +16,7 @@ export const getMovies = async (params: Record<string, string | string[] | undef
 };
 
 
+
 export const getMovie = async (id: string) => {
 
     return api<unknown, MovieResponse>({

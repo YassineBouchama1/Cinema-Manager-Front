@@ -11,9 +11,9 @@ const FilterMovie: React.FC<FilterMovieProps> = ({ onFilter }) => {
 
     const handleFilter = () => {
         const filters: Record<string, string> = {};
-        if (genre) filters.cat = genre;
+        if (genre) filters.genre = genre;
         if (date) filters.date = date;
-        if (search) filters.movieName = search;
+        if (search) filters.search = search;
         onFilter(filters);
     };
 

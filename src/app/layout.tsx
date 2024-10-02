@@ -36,18 +36,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased  `}
       >
-        <GlobalThemeProvider>
-          <ReactQueryProvider>
-    
-              {children}
-      
-          </ReactQueryProvider>
-        </GlobalThemeProvider>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
+        <ReactQueryProvider>
+          <GlobalThemeProvider>
+
+            {children}
+
+          </GlobalThemeProvider>
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+          />
+        </ReactQueryProvider>
       </body>
-    </html>
+    </html >
   );
 }

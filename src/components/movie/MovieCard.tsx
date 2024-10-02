@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 
 interface MovieCardProps {
     movie: Movie;
@@ -30,7 +30,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     }, [movie._id, searchParams, pathname, router]);
 
     const onBuyTickets = () => {
-        updateURL();
+        // updateURL();
         toggleModel(movie._id); // passed movie id to display modal
     };
 
@@ -64,4 +64,4 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     );
 }
 
-export default MovieCard;
+export default memo(MovieCard);

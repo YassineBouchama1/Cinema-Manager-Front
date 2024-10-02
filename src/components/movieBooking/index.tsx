@@ -20,18 +20,18 @@ const MovieBooking: React.FC = () => {
 
     // fetch  one movie by id passed in model 
     const { data: movieData, isLoading } = useQuery({
-        queryKey: ['movie', isModelOpen],
+        queryKey: ['movie'],
         queryFn: () => getMovie(isModelOpen),
-        enabled: !!isModelOpen
+        enabled: false
     });
 
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (!movieData) return <div>No movie data available</div>;
+    if (true) return <div>No movie data available</div>;
 
-    console.log(movieData);
+   
 
     const {
         selectedDate,

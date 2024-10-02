@@ -15,6 +15,7 @@ import { Category } from "./category";
 // }
 
 export interface Movie {
+    map(arg0: (movie: Movie) => import("react").JSX.Element): import("react").ReactNode;
     _id: string;
     name: string;
     duration: string;
