@@ -1,39 +1,26 @@
 import React from 'react';
-
-import api from '@/utils/api';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import MovieRecommendations from '@/components/movie/MovieRecommendations';
-import { Movie } from '@/types/movie';
-import { movies } from '../../../dumydata/movies';
-import Hero from '@/components/layouts/hero';
+import getQueryClient from '@/utils/queryClient';
+import { getMovies } from '@/hooks/useMovies';
 
 
-
-
-
-
-export default async function pageDashboard({
+export default async function PageDashboard({
     searchParams,
 }: {
     searchParams: { [key: string]: string | string[] | undefined };
 }) {
 
-
-
-
-    const movies: { data: Movie[] } = await api({
-        url: `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/public/movie`,
-        method: 'GET',
-        isFormData: false
-    })
-    console.log(searchParams)
-    console.log(movies)
-    if (!movies.data) return <h2>no movies</h2>
+    // pre fetch movies in server than passed to client
+    const queryClient = getQueryClient();
+    await queryClient.prefetchQuery({
+        queryKey: ['movies', searchParams],
+        queryFn: () => getMovies(searchParams),
+    });
 
     return (
-        <>
-            {/* <Hero /> */}
-
-            <MovieRecommendations movies={movies.data} />
-        </>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <MovieRecommendations />
+        </HydrationBoundary>
     );
-};
+}

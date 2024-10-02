@@ -1,5 +1,5 @@
 'use client'
-import SeatSelection from '@/components/movie/SeatSelection';
+import SeatSelection from '@/components/movieBooking/SeatSelection';
 import React from 'react';
 
 
