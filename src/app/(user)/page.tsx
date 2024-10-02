@@ -12,7 +12,7 @@ export default async function PageDashboard({
 }) {
 
 
-    // const moviesResult = getMovies(searchParams)
+    // const moviesResult = getMovies()
 
     // pre fetch movies in server than passed to client
     const queryClient = getQueryClient();

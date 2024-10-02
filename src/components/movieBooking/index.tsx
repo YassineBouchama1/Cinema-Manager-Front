@@ -31,7 +31,7 @@ const MovieBooking: React.FC = () => {
 
     if (true) return <div>No movie data available</div>;
 
-   
+
 
     const {
         selectedDate,

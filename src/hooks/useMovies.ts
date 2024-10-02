@@ -1,13 +1,15 @@
 import { Movie } from '@/types/movie';
 import api from '@/utils/api';
+import { delay } from '@/utils/delay';
 
 
 interface MovieResponse {
     data: Movie;
 }
 
-export const getMovies = async (params: Record<string, string | string[] | undefined>) => {
+export const getMovies = async (params?: Record<string, string | string[] | undefined>) => {
     const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    await delay(2000);
     return api<unknown, MovieResponse>({
         url: `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/public/movie?${queryString}`,
         method: 'GET',
