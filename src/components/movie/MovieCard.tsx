@@ -1,47 +1,67 @@
-import React from 'react';
-import Image from 'next/image';
+'use client';
+import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { Movie } from '@/types/movie';
+import Image from 'next/image';
 
-interface ShowTimeCardProps extends Movie { }
+import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import React, { useCallback, useEffect, useState } from 'react';
 
-const ShowTimeCard: React.FC<ShowTimeCardProps> = (movie) => (
-    <div key={movie.id} className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-        <div className="flex">
-            <div className="w-1/3 relative">
-                <Image src={movie.image} alt={movie.title} layout="fill" objectFit="cover" />
-                <div className="absolute top-2 left-2 bg-gray-900 text-white text-xs px-2 py-1 rounded">
-                    {movie.rating}
-                </div>
+interface MovieCardProps {
+    movie: Movie;
+}
+
+const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+    const { isModelOpen, toggleModel } = useGlobalTheme();
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
+
+    const updateURL = useCallback(() => {
+        const params = new URLSearchParams(searchParams);
+        const currentMovieId = params.get('movieId');
+
+        // check if movieId is already in the URL
+        if (currentMovieId !== movie._id) {
+            params.set('movieId', movie._id);
+            router.push(`${pathname}?${params.toString()}`);
+        }
+    }, [movie._id, searchParams, pathname, router]);
+
+    const onBuyTickets = () => {
+        updateURL();
+        toggleModel(movie._id); // passed movie id to display modal
+    };
+
+
+
+
+    useEffect(() => {
+        // close modal and remove movieId from URL if modal is closed
+        if (!isModelOpen && searchParams.get('movieId') === movie._id) {
+            const params = new URLSearchParams(searchParams);
+            params.delete('movieId');
+            router.push(`${pathname}?${params.toString()}`);
+        }
+    }, [isModelOpen, searchParams, movie._id, router, pathname]);
+
+    return (
+        <button onClick={onBuyTickets} key={movie._id} className="md:w-60 w-full text-center">
+            <div className="rounded-xl w-full h-96 relative overflow-hidden">
+
+                <Image
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${movie.image}`}
+                    alt={movie.name}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-xl"
+
+                />
             </div>
-            <div className="w-2/3 p-4">
-                <h2 className="text-xl font-bold mb-2">{movie.title}</h2>
-                <p className="text-sm text-gray-400 mb-2">Genres: {movie.genres.join(', ')}</p>
-                <p className="text-sm mb-4">{movie.description}</p>
-                <div className="flex space-x-2 mb-4">
-                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.language}</span>
-                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.rating}</span>
-                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.dimension}</span>
-                    <span className="bg-gray-700 text-white text-xs px-2 py-1 rounded">{movie.duration}</span>
-                </div>
-                <h3 className="font-semibold mb-2">Session Times:</h3>
-                {movie.showTimes.map((showTime, index) => (
-                    <div key={index} className="mb-2">
-                        <p className="text-sm font-medium">{showTime.date}:</p>
-                        <div className="flex flex-wrap gap-2 mt-1">
-                            {showTime.times.map((time, timeIndex) => (
-                                <span key={timeIndex} className="bg-gray-700 text-white text-xs px-2 py-1 rounded">
-                                    {time}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-                <button className="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                    Buy Tickets
-                </button>
-            </div>
-        </div>
-    </div>
-);
+            <p className="mt-2 mb-4 text-white">{movie.name}</p>
+        </button>
+    );
+}
 
-export default ShowTimeCard;
+export default MovieCard;

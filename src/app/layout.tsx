@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import MotionWrapper from "@/components/Wrappers/MotionWrapper";
 import { GlobalThemeProvider } from "@/Providers/GlobalThemeProvider";
+import ReactQueryProvider from "@/Providers/ReactQueryProvider";
 
 
 
@@ -36,9 +37,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased  `}
       >
         <GlobalThemeProvider>
-          <MotionWrapper>
-            {children}
-          </MotionWrapper>
+          <ReactQueryProvider>
+    
+              {children}
+      
+          </ReactQueryProvider>
         </GlobalThemeProvider>
         <Toaster
           position="top-center"

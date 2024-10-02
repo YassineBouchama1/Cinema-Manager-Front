@@ -7,7 +7,7 @@ interface SeatSelectionProps {
     totalSeats: number;
     seatsPerRow: number;
     reservedSeats: number[];
-    onSelectionChange: (selectedSeats: number[]) => void;
+    onSelectionChange?: (selectedSeats: number[]) => void;
 }
 
 const SeatSelection: React.FC<SeatSelectionProps> = ({
@@ -29,9 +29,9 @@ const SeatSelection: React.FC<SeatSelectionProps> = ({
         });
     };
 
-    useEffect(() => {
-        onSelectionChange(selectedSeats);
-    }, [selectedSeats, onSelectionChange]);
+    // useEffect(() => {
+    //     onSelectionChange(selectedSeats);
+    // }, [selectedSeats, onSelectionChange]);
 
     // render seats
     const renderSeats = () => {
@@ -51,13 +51,12 @@ const SeatSelection: React.FC<SeatSelectionProps> = ({
                             key={seatNumber}
                             onClick={() => !isReserved && handleSeatClick(seatNumber)}
                             disabled={isReserved}
-                            className={`p-1 m-1 rounded-md transition-colors ${
-                                isReserved
-                                    ? 'bg-gray-400 cursor-not-allowed'
-                                    : isSelected
-                                        ? 'bg-purple-600 text-white'
-                                        : 'bg-gray-200 hover:bg-gray-300'
-                            }`}
+                            className={`p-1 m-1 rounded-md transition-colors ${isReserved
+                                ? 'bg-gray-400 cursor-not-allowed'
+                                : isSelected
+                                    ? 'bg-purple-600 text-white'
+                                    : 'bg-gray-200 hover:bg-gray-300'
+                                }`}
                         >
                             <Armchair size={20} />
                         </button>
@@ -95,7 +94,7 @@ const SeatSelection: React.FC<SeatSelectionProps> = ({
                     <span>Unavailable</span>
                 </div>
             </div>
-            
+
             <div className="mb-8 text-center">
                 <div className="w-3/4 h-14 mx-auto rounded-3xl border-t-2 border-gray-300 mb-4">
                     <p className='pt-5'>Screen</p>

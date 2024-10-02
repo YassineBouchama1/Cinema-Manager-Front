@@ -1,16 +1,14 @@
+import { Category } from "./category";
 
 export interface Movie {
-    id: string;
-    title: string;
+    _id: string;
+    name: string;
+    duration: number;
+    cinemaId: string;
+    category: Category;
     image: string;
-    genres: string[];
-    description: string;
-    rating: string;
-    language: string;
-    dimension: '3D' | '2D';
-    duration: string;
-    showTimes: {
-        date: string;
-        times: string[];
-    }[];
+    isDeleted: boolean;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
 }

@@ -3,8 +3,6 @@ import React from 'react';
 import api from '@/utils/api';
 import MovieRecommendations from '@/components/movie/MovieRecommendations';
 import { Movie } from '@/types/movie';
-import { movies } from '../../../dumydata/movies';
-import Hero from '@/components/layouts/hero';
 
 
 
@@ -31,7 +29,7 @@ export default async function pageDashboard({
 
     return (
         <>
-            {/* <Hero /> */}
+
 
             <MovieRecommendations movies={movies.data} />
         </>

@@ -12,7 +12,7 @@ export default function LoginForm() {
 
     //send request to api useing server action
     async function onLogin(formData: FormData) {
-        const { errorZod, error, success }: any = await login(formData);
+        const { errorZod, error, success } = await login(formData);
 
         if (success) {
             console.log(success);

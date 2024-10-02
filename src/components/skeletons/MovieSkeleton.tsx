@@ -3,7 +3,7 @@ import React from 'react';
 const MovieCardSkeleton: React.FC = () => {
     return (
 
-        <div className=" text-white min-h-screen  border-t-2 pt-10">
+        <div className=" text-white min-h-screen  pt-6">
 
             <div className="">
                 <h2 className=" text-2xl font-bold mb-4 text-gray-400 ">You may also like</h2>
@@ -24,7 +24,7 @@ const MovieCardSkeleton: React.FC = () => {
                                 </div>
                                 <div className="bg-gray-200 w-full h-8 animate-pulse rounded-full" />
                             </div>
-                            
+
                         </div>
                     ))}
                 </div>

@@ -46,7 +46,7 @@ const DragCloseDrawer: React.FC<DragCloseDrawerProps> = ({ isOpen, onClose, chil
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     onClick={handleClose}
-                    className="fixed inset-0 z-50 bg-neutral-950/70"
+                    className="fixed inset-0 z-50 bg-neutral-950/70 w-full left-0 right-0"
                 >
                     <motion.div
                         id="drawer"
@@ -57,7 +57,7 @@ const DragCloseDrawer: React.FC<DragCloseDrawerProps> = ({ isOpen, onClose, chil
                         transition={{
                             ease: "easeInOut",
                         }}
-                        className="absolute bottom-0 h-[98vh] w-full overflow-hidden rounded-t-3xl bg-gray-100"
+                        className="absolute bottom-0 h-[98vh]   w-full overflow-hidden rounded-t-3xl bg-gray-100"
                         style={{ y }}
                         drag="y"
                         dragControls={controls}
@@ -84,7 +84,7 @@ const DragCloseDrawer: React.FC<DragCloseDrawerProps> = ({ isOpen, onClose, chil
                                 className="h-2 w-14 cursor-grab touch-none rounded-full bg-gray-700 active:cursor-grabbing"
                             ></button>
                         </div>
-                        <div className="relative z-0 h-full overflow-y-scroll p-4 pt-12">
+                        <div className="relative z-0 h-full overflow-y-scroll p-4 pt-12 bg-gray-900">
                             {children}
                         </div>
                     </motion.div>

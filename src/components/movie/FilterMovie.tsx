@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
-const FilterShowTime: React.FC = () => {
-    const [activeTab, setActiveTab] = useState('Now Playing');
+const FilterMovie: React.FC = () => {
 
 
     return (
@@ -45,23 +44,7 @@ const FilterShowTime: React.FC = () => {
                 </div>
             </div>
 
-            {/* <div className="flex justify-between items-center mb-6">
-                <div className="flex space-x-4">
-                    <button
-                        className={`text-lg font-semibold ${activeTab === 'Now Playing' ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-400'}`}
-                        onClick={() => setActiveTab('Now Playing')}
-                    >
-                        Now Playing
-                    </button>
-                    <button
-                        className={`text-lg font-semibold ${activeTab === 'Coming Soon' ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-400'}`}
-                        onClick={() => setActiveTab('Coming Soon')}
-                    >
-                        Coming Soon
-                    </button>
-                </div>
-                <button className="text-purple-500">Reset Filter</button>
-            </div> */}
+
         </>
 
 
@@ -69,4 +52,4 @@ const FilterShowTime: React.FC = () => {
     );
 }
 
-export default FilterShowTime;
+export default FilterMovie;
