@@ -6,9 +6,22 @@ import { useRouter } from 'next/navigation'
 import { registerUser } from '@/utils/apis/Register'
 import { useAuthFormContext } from '@/context/AuthFormContext'
 import { X } from 'lucide-react'
+import { RegisterFormData, registerSchema } from '@/validators/auth'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function RegisterForm() {
     const { setAuthFormField } = useAuthFormContext();
+
+
+    //setup react hook
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<RegisterFormData>({
+        resolver: zodResolver(registerSchema),
+    });
 
 
     const registerMutation = useMutation({
@@ -24,11 +37,10 @@ export default function RegisterForm() {
         },
     })
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        registerMutation.mutate(formData)
+    const onSubmit = (data: RegisterFormData) => {
+        registerMutation.mutate(data)
     }
+
 
     return (
         <div className="bg-white rounded-lg shadow relative dark:bg-gray-700">
@@ -43,7 +55,7 @@ export default function RegisterForm() {
             </div>
             <form
                 className="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                     Create an account
@@ -53,26 +65,30 @@ export default function RegisterForm() {
                         Your name
                     </label>
                     <input
-                        type="text"
-                        name="name"
                         id="name"
+                        type="text"
+                        {...register('name')}
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="John Doe"
                         required
                     />
+                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+
                 </div>
                 <div>
                     <label htmlFor="email" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                         Your email
                     </label>
                     <input
-                        type="email"
-                        name="email"
                         id="email"
+                        type="email"
+                        {...register('email')}
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="name@company.com"
                         required
                     />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+
                 </div>
                 <div>
                     <label htmlFor="password" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
@@ -80,12 +96,14 @@ export default function RegisterForm() {
                     </label>
                     <input
                         type="password"
-                        name="password"
+                        {...register('password')}
                         id="password"
                         placeholder="••••••••"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         required
                     />
+                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+
                 </div>
                 <div>
                     <label htmlFor="passwordConfirm" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
@@ -93,12 +111,14 @@ export default function RegisterForm() {
                     </label>
                     <input
                         type="password"
-                        name="passwordConfirm"
+                        {...register('passwordConfirm')}
                         id="passwordConfirm"
                         placeholder="••••••••"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         required
                     />
+                    {errors.passwordConfirm && <p className="text-red-500 text-sm mt-1">{errors.passwordConfirm.message}</p>}
+
                 </div>
                 <button
                     type="submit"

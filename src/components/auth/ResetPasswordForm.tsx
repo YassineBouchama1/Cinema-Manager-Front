@@ -6,6 +6,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { resetPassword } from '@/utils/apis/resetPassword'
 import { X } from 'lucide-react'
 import { useAuthFormContext } from '@/context/AuthFormContext'
+import { ResetPasswordFormData, resetPasswordSchema } from '@/validators/auth'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function ResetPasswordForm() {
     const [password, setPassword] = useState('')
@@ -28,13 +31,24 @@ export default function ResetPasswordForm() {
         }
     }, [searchParams, router])
 
+
+    //setup hook form
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<ResetPasswordFormData>({
+        resolver: zodResolver(resetPasswordSchema),
+    });
+
+
+
     const resetPasswordMutation = useMutation({
 
 
-        mutationFn: ({ password, token }: { password: string; token: string }) =>
-            resetPassword(password, token), // send token and password 
+        mutationFn: ({ password }: { password: string }) => resetPassword(password, token),
         onSuccess: (data) => {
-            toast.success(data.message || 'Password reset successfully!')
+            toast.success(data.message || 'Password reset successfully!');
             // router.push('/login')
         },
         onError: (error: Error) => {
@@ -42,14 +56,9 @@ export default function ResetPasswordForm() {
         },
     })
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (password !== confirmPassword) {
-            toast.error('Passwords do not match')
-            return
-        }
-        resetPasswordMutation.mutate({ password, token })
-    }
+    const onSubmit = (data: ResetPasswordFormData) => {
+        resetPasswordMutation.mutate(data);
+    };
 
     return (
         <div className="bg-white rounded-lg shadow relative dark:bg-gray-700">
@@ -65,7 +74,7 @@ export default function ResetPasswordForm() {
             </div>
             <form
                 className="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                     Reset Your Password
@@ -75,15 +84,16 @@ export default function ResetPasswordForm() {
                         New Password
                     </label>
                     <input
-                        type="password"
-                        name="password"
                         id="password"
+                        type="password"
+                        {...register('password')}
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="••••••••"
                         required
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+
                     />
+                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                 </div>
                 <div>
                     <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">

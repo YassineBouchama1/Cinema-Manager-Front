@@ -14,6 +14,8 @@ export default function LoginForm() {
     const { closeModelAuth, setAuthFormField } = useAuthFormContext()
 
 
+
+    //setup react hook
     const {
         register,
         handleSubmit,

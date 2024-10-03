@@ -1,3 +1,4 @@
+import { RegisterFormData } from "@/validators/auth";
 import { delay } from "../delay";
 
 interface RegisterResponse {
@@ -35,22 +36,20 @@ interface BackendError {
     message?: string;
 }
 
-export async function registerUser(formData: FormData): Promise<RegisterResponse> {
+export async function registerUser(formData: RegisterFormData): Promise<RegisterResponse> {
     try {
 
 
         await delay(2000)
 
 
-        // convert formdata to json objecy
-        const jsonData = Object.fromEntries(formData.entries());
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(jsonData),
+            body: JSON.stringify(formData),
         });
 
 

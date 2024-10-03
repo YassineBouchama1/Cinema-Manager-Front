@@ -1,33 +1,43 @@
 'use client'
-import React, { useCallback, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
-import { forgotPassword } from '@/utils/apis/forgotPassword'
-import { useAuthFormContext } from '@/context/AuthFormContext'
-import { X } from 'lucide-react'
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { forgotPassword } from '@/utils/apis/forgotPassword';
+import { ForgotPasswordFormData, forgotPasswordSchema } from '@/validators/auth';
+import { useAuthFormContext } from '@/context/AuthFormContext';
+import { X } from 'lucide-react';
+
 
 export default function ForgotPasswordForm() {
-    const [email, setEmail] = useState('')
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<ForgotPasswordFormData>({
+        resolver: zodResolver(forgotPasswordSchema),
+    });
 
 
-    const { setAuthFormField, closeModelAuth } = useAuthFormContext()
+    const { closeModelAuth, setAuthFormField } = useAuthFormContext() // modal form states
+
     const forgotPasswordMutation = useMutation({
         mutationFn: forgotPassword,
         onSuccess: (data) => {
-            toast.success(data.message || 'Password reset email sent successfully!')
-            setEmail('') // clear the email input after successful submion
+            toast.success(data.message || 'Password reset email sent successfully!');
+
+
         },
         onError: (error: Error) => {
             toast.error(error.message);
         },
-    })
+    });
 
-    const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        forgotPasswordMutation.mutate(email)
-    }, [email])
+    const onSubmit = (data: ForgotPasswordFormData) => {
+        forgotPasswordMutation.mutate(data.email);
+    };
 
-    
     return (
         <div className="bg-white rounded-lg shadow relative dark:bg-gray-700">
             <div className="flex justify-end p-2">
@@ -42,7 +52,7 @@ export default function ForgotPasswordForm() {
             </div>
             <form
                 className="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                     Forgot Password
@@ -55,15 +65,15 @@ export default function ForgotPasswordForm() {
                         Your email
                     </label>
                     <input
-                        type="email"
-                        name="email"
                         id="email"
+                        type="email"
+                        {...register('email')}
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         placeholder="name@company.com"
                         required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+
                     />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                 </div>
                 <button
                     type="submit"
