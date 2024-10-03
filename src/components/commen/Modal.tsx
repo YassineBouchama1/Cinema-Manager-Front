@@ -59,15 +59,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                         animate="visible"
                         exit="exit"
                         onClick={(e) => e.stopPropagation()}
-                        className="self-end  bg-white rounded-t-md shadow-md p-4 w-screen  h-[95%] mx-auto"
+                        className="self-center w-full md:w-2/3 lg:w-1/3  rounded-t-md shadow-md p-4  mx-auto"
                     >
                         {children}
-                        <button
+                        {/* <button
                             onClick={() => onClose()}
                             className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
                         >
                             close
-                        </button>
+                        </button> */}
                     </motion.div>
                 </motion.div>
             )}

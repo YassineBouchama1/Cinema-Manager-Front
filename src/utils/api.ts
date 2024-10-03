@@ -32,7 +32,7 @@ async function api<T = unknown, R = unknown>(config: ApiRequestConfig<T>): Promi
     const { url, method, data, headers = {}, isFormData = false } = config;
     const session = await getSession();
 
-
+    console.log(session)
 
     // deafult header
     const defaultHeaders: Record<string, string> = {
@@ -71,7 +71,7 @@ async function api<T = unknown, R = unknown>(config: ApiRequestConfig<T>): Promi
     }
 
     const response = await fetch(url, fetchOptions);
-
+    console.log(response)
     if (!response.ok) {
         let errorData;
         try {

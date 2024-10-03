@@ -1,3 +1,4 @@
+import AuthWapper from '@/components/auth/AuthWapper';
 import TopNavbar from '@/components/layouts/TopNavbar';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 
@@ -15,6 +16,7 @@ export default function HomeLayout({
             <MarginWidthWrapper>
 
                 {children}
+                <AuthWapper />
             </MarginWidthWrapper>
 
 

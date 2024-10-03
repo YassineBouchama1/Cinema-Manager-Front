@@ -1,10 +1,13 @@
 'use client'
-import { useGlobalTheme } from '@/context/GlobalThemeContext';
-import { Bell, ChevronDown, Film, Menu } from 'lucide-react';
+import { useAuthContext } from '@/context/AuthContext';
+import { Film, User } from 'lucide-react';
 
 const TopNavbar: React.FC = () => {
 
-    const { toggleSidebar } = useGlobalTheme();
+    const { openModelAuth } = useAuthContext();
+
+
+
 
 
     return (
@@ -16,12 +19,16 @@ const TopNavbar: React.FC = () => {
                 <span className="text-xl font-bold">Film Reels</span>
             </div>
 
-            <div className="flex items-center bg-gray-700 rounded-full px-4 py-2 w-1/2">
+            {/* <div className="flex items-center bg-gray-700 rounded-full px-4 py-2 w-1/2">
                 <input type="text" placeholder="Search everything" className="bg-transparent w-full focus:outline-none" />
-            </div>
+            </div> */}
             <div className="flex items-center space-x-4">
-                <Bell size={24} className="text-gray-400" />
-                <div className="w-8 h-8 bg-gray-600 rounded-full"></div>
+                {/* <Bell size={24} className="text-gray-400" /> */}
+                <button
+                    onClick={() => openModelAuth()}
+                    className="w-8 h-8 bg-gray-600 rounded-full justify-center items-center flex cursor-pointer">
+                    <User size={24} className="text-gray-400" />
+                </button>
             </div>
         </header>
     );

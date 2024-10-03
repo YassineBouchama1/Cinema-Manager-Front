@@ -13,6 +13,7 @@ import { Movie } from '@/types/movie';
 import { ShowTime } from '@/types/showTime';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { MovieData } from '@/types';
+import { useAuthContext } from '@/context/AuthContext';
 
 interface BuyData {
     showTimeId: string;
@@ -22,6 +23,7 @@ interface BuyData {
 
 const MovieBooking: React.FC = () => {
     const { isModelOpen, currentMovieId, closeModel } = useGlobalTheme();
+    const { openModelAuth, isModelAuthOpen } = useAuthContext()
 
     // Fetch movie data using React Query
     const { data: movieData, isLoading, error } = useQuery<MovieData>({
@@ -149,6 +151,12 @@ const MovieBooking: React.FC = () => {
 
     // Handle buy action
     const handleBuy = useCallback(() => {
+
+        // TODO: check if user loged
+
+
+        openModelAuth() // display modellogin 
+
         if (selectedShowTime) {
             const buyData: BuyData = {
                 showTimeId: selectedShowTime._id,
@@ -156,7 +164,7 @@ const MovieBooking: React.FC = () => {
                 totalPrice: totalPrice,
             };
             console.log('Buy Data:', buyData);
-            alert(`Purchase Successful!\nShowTime ID: ${buyData.showTimeId}\nSeats: ${buyData.selectedSeats.join(', ')}\nTotal Price: ${buyData.totalPrice.toFixed(2)}`);
+            // alert(`Purchase Successful!\nShowTime ID: ${buyData.showTimeId}\nSeats: ${buyData.selectedSeats.join(', ')}\nTotal Price: ${buyData.totalPrice.toFixed(2)}`);
         } else {
             alert('No showtime selected.');
         }
