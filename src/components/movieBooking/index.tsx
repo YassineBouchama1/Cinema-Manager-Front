@@ -12,6 +12,7 @@ import { format } from 'date-fns';
 import { Movie } from '@/types/movie';
 import { ShowTime } from '@/types/showTime';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
+import { MovieData } from '@/types';
 
 interface BuyData {
     showTimeId: string;
@@ -23,7 +24,7 @@ const MovieBooking: React.FC = () => {
     const { isModelOpen, currentMovieId, closeModel } = useGlobalTheme();
 
     // Fetch movie data using React Query
-    const { data: movieData, isLoading, error } = useQuery({
+    const { data: movieData, isLoading, error } = useQuery<MovieData>({
         queryKey: ['movie-booking', currentMovieId],
         queryFn: () => {
             if (typeof currentMovieId === 'string') {
@@ -31,12 +32,7 @@ const MovieBooking: React.FC = () => {
             }
             return Promise.reject('No valid movie ID provided');
         },
-
     });
-
-
-
-
 
     // State variables for booking details
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -60,8 +56,8 @@ const MovieBooking: React.FC = () => {
 
     // Set initial values when movie data changes
     useEffect(() => {
-        if (movieData?.showTimes && movieData.showTimes.length > 0) {
-            const initialShowTime = movieData.showTimes[0];
+        if (movieData?.showTimes && movieData.showTimes?.length > 0) {
+            const initialShowTime = movieData?.showTimes[0];
             const initialDate = new Date(initialShowTime.startAt);
 
             setSelectedDate(initialDate);
@@ -75,36 +71,21 @@ const MovieBooking: React.FC = () => {
         }
     }, [movieData, resetSelection]);
 
-
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {(error as Error).message}</div>;
-    }
-
-    if (!movieData) {
-        return <div>No movie data available</div>;
-    }
-
-
     // Get unique dates from show times 
     const uniqueDates = useMemo(() => {
         if (!movieData?.showTimes) return [];
         const datesSet = new Set<string>(
-            movieData.showTimes.map(st => format(new Date(st.startAt), 'yyyy-MM-dd'))
+            (movieData.showTimes as ShowTime[]).map(st => format(new Date(st.startAt), 'yyyy-MM-dd'))
         );
         return Array.from(datesSet).sort();
     }, [movieData?.showTimes]);
 
 
-    // Get show times for specific date
+    // get show times for specific date
     const getShowTimesForDate = useCallback(
         (date: string) => {
             if (!movieData?.showTimes) return [];
-            return movieData.showTimes.filter(st =>
+            return (movieData.showTimes as ShowTime[]).filter(st =>
                 format(new Date(st.startAt), 'yyyy-MM-dd') === date
             );
         },
@@ -119,8 +100,6 @@ const MovieBooking: React.FC = () => {
                 : [...prevSeats, seatIndex]
         );
     }, []);
-
-
 
     // handle date selection
     const handleDateSelect = useCallback((date: string) => {
@@ -140,9 +119,6 @@ const MovieBooking: React.FC = () => {
             resetSelection();
         }
     }, [getShowTimesForDate, resetSelection]);
-
-
-
 
     // Handle time selection
     const handleTimeSelect = useCallback((time: string) => {
@@ -186,7 +162,17 @@ const MovieBooking: React.FC = () => {
         }
     }, [selectedShowTime, selectedSeats, totalPrice]);
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
+    if (error) {
+        return <div>Error: {(error as Error).message}</div>;
+    }
+
+    if (!movieData) {
+        return <div>No movie data available</div>;
+    }
 
     return (
         <MarginWidthWrapper>

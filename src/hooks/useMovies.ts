@@ -1,3 +1,4 @@
+import { MovieData } from '@/types';
 import { Movie } from '@/types/movie';
 import api from '@/utils/api';
 import { delay } from '@/utils/delay';
@@ -22,7 +23,7 @@ export const getMovies = async (params?: Record<string, string | string[] | unde
 
 export const getMovie = async (id: string) => {
 
-    return api<unknown, MovieResponse>({
+    return api<unknown, MovieData>({
         url: `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/public/movie/${id}`,
         method: 'GET',
         isFormData: false
