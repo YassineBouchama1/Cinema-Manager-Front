@@ -8,11 +8,13 @@ import { X } from 'lucide-react'
 import { LoginFormData, loginSchema } from '@/validators/auth'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuthContext } from '@/Providers/AuthProvider'
 
 export default function LoginForm() {
 
     const { closeModelAuth, setAuthFormField } = useAuthFormContext()
 
+    const { setSession } = useAuthContext();
 
 
     //setup react hook
@@ -26,11 +28,20 @@ export default function LoginForm() {
 
     const loginMutation = useMutation({
         mutationFn: loginUser,
-        onSuccess: (data) => {
-            toast.success(`Welcome, ${data.data.name}!`)
+        onSuccess: async (loginData) => {
+            toast.success(`Welcome, ${loginData.data.name}!`)
+            // setession to provider
+            await setSession({
+                userId: loginData.data._id,
+                name: loginData.data.name,
+                email: loginData.data.email,
+                role: loginData.data.role,
+                isLoggedIn: true,
+                token: loginData.token,
+            })
             // after login close model
             closeModelAuth()
-            console.log(data)
+            console.log(loginData)
         },
         onError: (error: Error) => {
             toast.error(error.message);

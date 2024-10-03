@@ -14,6 +14,8 @@ import { ShowTime } from '@/types/showTime';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { MovieData } from '@/types';
 import { useAuthFormContext } from '@/context/AuthFormContext';
+import { useAuthStore } from '@/context/useAuthStore';
+import { useAuthContext } from '@/Providers/AuthProvider';
 
 interface BuyData {
     showTimeId: string;
@@ -24,7 +26,7 @@ interface BuyData {
 const MovieBooking: React.FC = () => {
     const { isModelOpen, currentMovieId, closeModel } = useGlobalTheme();
     const { openModelAuth, isModelAuthOpen } = useAuthFormContext()
-
+    const { session } = useAuthContext()
     // Fetch movie data using React Query
     const { data: movieData, isLoading, error } = useQuery<MovieData>({
         queryKey: ['movie-booking', currentMovieId],
@@ -154,7 +156,7 @@ const MovieBooking: React.FC = () => {
 
         // TODO: check if user loged
 
-
+        console.log(session)
         openModelAuth() // display modellogin 
 
         if (selectedShowTime) {

@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function RegisterForm() {
-    const { setAuthFormField } = useAuthFormContext();
+    const { setAuthFormField, closeModelAuth } = useAuthFormContext();
 
 
     //setup react hook
@@ -46,6 +46,7 @@ export default function RegisterForm() {
         <div className="bg-white rounded-lg shadow relative dark:bg-gray-700">
             <div className="flex justify-end p-2">
                 <button
+                    onClick={() => closeModelAuth()}
                     type="button"
                     className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                     data-modal-toggle="authentication-modal"

@@ -18,7 +18,7 @@ export default function ResetPasswordForm() {
     const searchParams = useSearchParams()
 
 
-    const { closeModelAuth } = useAuthFormContext()
+    const { closeModelAuth, setAuthFormField } = useAuthFormContext()
 
     // check if  token invalid
     useEffect(() => {
@@ -49,7 +49,7 @@ export default function ResetPasswordForm() {
         mutationFn: ({ password }: { password: string }) => resetPassword(password, token),
         onSuccess: (data) => {
             toast.success(data.message || 'Password reset successfully!');
-            // router.push('/login')
+            setAuthFormField('login')
         },
         onError: (error: Error) => {
             toast.error(error.message);

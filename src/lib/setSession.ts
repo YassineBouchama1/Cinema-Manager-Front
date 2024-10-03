@@ -3,18 +3,20 @@
 import { getSession } from "./getSessions";
 
 
-export const setSession = async (sessionData: {
+export type SessionDayaStype = {
     userId: string;
     name: string;
     email: string;
     role: string;
     isLoggedIn: boolean;
     token: string;
-}) => {
-    //call setion to fil it with data user
+}
+
+export const setSession = async (sessionData: SessionDayaStype) => {
+    // call session to fill  with user data
     const session = await getSession();
 
-    // Update session
+    // ipdate session
     Object.assign(session, {
         userId: sessionData.userId,
         name: sessionData.name,
@@ -25,5 +27,6 @@ export const setSession = async (sessionData: {
     });
     await session.save();
 
-    console.log(session)
+    console.log(session);
+    return session;
 };

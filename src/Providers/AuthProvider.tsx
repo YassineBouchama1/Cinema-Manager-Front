@@ -23,15 +23,10 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-
-
     const [session, setSession] = useState<Session>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-
-
-
-    // fyncton for get session data
+    // Function to get session data
     const fetchSessions = useCallback(async () => {
         setLoading(true);
         const sessionData = await getSession();
@@ -39,13 +34,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setLoading(false);
     }, []);
 
-
-    // before rander page get session 
+    // Before render, get session
     useEffect(() => {
         fetchSessions();
-    }, [fetchSessions]);
-
-
+    }, [fetchSessions, setSession]);
 
     return (
         <GlobalContext.Provider value={{ session, setSession, loading }}>
@@ -54,8 +46,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     );
 };
 
-
-
 export function useAuthContext() {
     const context = useContext(GlobalContext);
     if (!context) {
@@ -63,5 +53,3 @@ export function useAuthContext() {
     }
     return context;
 }
-
-

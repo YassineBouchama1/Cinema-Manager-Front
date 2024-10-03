@@ -2,6 +2,7 @@ import { SessionData } from "@/lib/optionsSessions";
 import { setSession } from "@/lib/setSession";
 import { delay } from "../delay";
 import { LoginFormData } from "@/validators/auth";
+import { useAuthContext } from "@/Providers/AuthProvider";
 
 interface LoginResponse {
     data: {
@@ -74,7 +75,7 @@ export async function loginUser(formData: LoginFormData): Promise<LoginResponse>
         }
 
         // set session data <coockis>
-        await setSession({
+        const sessionUpdated = await setSession({
             userId: loginData.data._id,
             name: loginData.data.name,
             email: loginData.data.email,
@@ -82,6 +83,8 @@ export async function loginUser(formData: LoginFormData): Promise<LoginResponse>
             isLoggedIn: true,
             token: loginData.token,
         });
+
+
 
         return loginData;
     } catch (error) {

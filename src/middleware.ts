@@ -30,68 +30,67 @@ export default async function middleware(req: any) {
   //get session <data user auth>
   const session = await getSession();
 
-  const redirectUrl = new URL("/login", req.nextUrl.origin);
+  const redirectUrl = new URL("/", req.nextUrl.origin);
 
 
   //  check if try to visit authed routes without token
-  // if (!session?.token && isAuthRoute) {
-  //   return NextResponse.redirect(redirectUrl);
-  // }
+  if (!session?.token && isAuthRoute) {
+    return NextResponse.redirect(redirectUrl); // redirect him to hom page
+  }
 
 
 
   // // token avibal
-  // if (session?.token) {
+  if (session?.token) {
 
-  //   // protect if user dosnt active user
-  //   if (!session?.isActive && isAuthRoute) {
-  //     const redirectUrl = new URL(
-  //       "/request-email-verification",
-  //       req.nextUrl.origin
-  //     );
-  //     return NextResponse.redirect(redirectUrl);
-  //   }
-
-
-  //   // if try visit auth routes for super admin
-  //   if (session.role === 2 && isSuperAdminRoute) {
-  //     return NextResponse.redirect(
-  //       new URL("/dashboard", req.nextUrl.origin)
-  //     );
-  //   }
+    //   // protect if user dosnt active user
+    //   if (!session?.isActive && isAuthRoute) {
+    //     const redirectUrl = new URL(
+    //       "/request-email-verification",
+    //       req.nextUrl.origin
+    //     );
+    //     return NextResponse.redirect(redirectUrl);
+    //   }
 
 
-  //   // if try visit auth routes for association admin
-  //   if (session.role === 1 && isAssociationRoute) {
-  //     return NextResponse.redirect(
-  //       new URL("/dashboard", req.nextUrl.origin)
-  //     );
-  //   }
+    //   // if try visit auth routes for super admin
+    // if (session.role === 2 && isSuperAdminRoute) {
+    //   return NextResponse.redirect(
+    //     new URL("/dashboard", req.nextUrl.origin)
+    //   );
+    // }
+
+
+    //   // if try visit auth routes for association admin
+    //   if (session.role === 1 && isAssociationRoute) {
+    //     return NextResponse.redirect(
+    //       new URL("/dashboard", req.nextUrl.origin)
+    //     );
+    //   }
 
 
 
-  //   if (session?.isActive && isGuestRoute) {
-  //     return NextResponse.redirect(
-  //       new URL("/dashboard", req.nextUrl.origin)
-  //     );
-  //   }
-  // }
+    //   if (session?.isActive && isGuestRoute) {
+    //     return NextResponse.redirect(
+    //       new URL("/dashboard", req.nextUrl.origin)
+    //     );
+    //   }
+  }
 
 
 }
 
 
 
-const authRoutes = ["/dashboard", "/admin"];
+const authRoutes = ["/profile"];
 
 const authRoutesAdmin = [
-  "/admin/illnesses",
-  "/admin/illnesses/*",
+  "/admin/movie",
+  "/admin/room/*",
 ];
 
 const authRoutesUser = [
-  "/dashboard/patients",
-  "/dashboard/patients/create",
+  "/user",
 ];
 
 
@@ -102,6 +101,7 @@ const guestRoutes = [
   "/login",
   "/password-reset",
   "/register",
+  "/",
 ];
 
 
