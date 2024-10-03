@@ -8,6 +8,9 @@ interface TimeSelectorProps {
     onSelect: (time: string) => void;
 }
 
+
+
+
 const TimeSelector: React.FC<TimeSelectorProps> = React.memo(({ times, selectedTime, onSelect }) => (
     <div className="mb-8 bg-gray-800 p-4 rounded-lg">
         <h2 className="text-lg font-semibold">Showtimes</h2>
