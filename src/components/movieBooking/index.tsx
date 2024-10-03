@@ -170,7 +170,7 @@ const MovieBooking: React.FC = () => {
         } else {
             alert('No showtime selected.');
         }
-    }, [selectedShowTime, selectedSeats, totalPrice]);
+    }, [selectedShowTime, selectedSeats, totalPrice, session]);
 
     if (isLoading) {
         return <div>Loading...</div>;
