@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import MarginWidthWrapper from '../Wrappers/MarginWidthWrapper';
 import MovieInfo from './MovieInfo';
@@ -7,58 +8,73 @@ import SeatSelection from './SeatSelection';
 import TicketSummary from './TicketSummary';
 import useMovieBooking from '@/hooks/useMovieBooking';
 import { useQuery } from '@tanstack/react-query';
-import api from '@/utils/api';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { getMovie } from '@/hooks/useMovies';
+import { MovieResponse } from '@/types';
+import { useSearchParams } from 'next/navigation';
+
 
 const MovieBooking: React.FC = () => {
-    const { isModelOpen } = useGlobalTheme();
+    const { isModelOpen, currentMovieId, closeModel } = useGlobalTheme();
 
 
 
-    if (!isModelOpen) return <h2>no movie id</h2>
 
-    // fetch  one movie by id passed in model 
-    const { data: movieData, isLoading } = useQuery({
-        queryKey: ['movie'],
-        queryFn: () => getMovie(isModelOpen),
-        enabled: false
+    const { data: movieData, isLoading, error } = useQuery({
+        queryKey: ['movie-booking', currentMovieId],
+        queryFn: () => {
+            if (typeof currentMovieId === 'string') {
+                return getMovie(currentMovieId);
+            }
+            return Promise.reject('No valid movie ID provided');
+        },
+        enabled: isModelOpen && typeof currentMovieId === 'string',
     });
+
+
+
+
+
+
 
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (true) return <div>No movie data available</div>;
+    if (error) {
+        return <div>Error loading movie data</div>;
+    }
 
-
-
-    const {
-        selectedDate,
-        selectedTime,
-        selectedSeats,
-        selectedShowTime,
-        uniqueDates,
-        totalPrice,
-        showTimesForSelectedDate,
-        handleSeatSelection,
-        handleDateSelect,
-        handleTimeSelect,
-        handleBuy,
-    } = useMovieBooking(movieData);
+    if (!movieData) {
+        return <div>No movie data available</div>;
+    }
+    console.log(movieData)
+    // const bookingHook = useMovieBooking(movieData);
+    // console.log(bookingHook)
+    // const {
+    //     selectedDate,
+    //     selectedTime,
+    //     selectedSeats,
+    //     selectedShowTime,
+    //     uniqueDates,
+    //     totalPrice,
+    //     showTimesForSelectedDate,
+    //     handleSeatSelection,
+    //     handleDateSelect,
+    //     handleTimeSelect,
+    //     handleBuy,
+    // } = bookingHook;
 
     return (
         <MarginWidthWrapper>
-            <MovieInfo movie={movieData} />
+            <MovieInfo movie={movieData.data} />
 
-            {/* Date Selector */}
-            <DateSelector
+            {/*  <DateSelector
                 dates={uniqueDates}
                 selectedDate={selectedDate}
                 onSelect={handleDateSelect}
             />
 
-            {/* Time Selector */}
             {selectedDate && (
                 <TimeSelector
                     times={showTimesForSelectedDate}
@@ -67,7 +83,6 @@ const MovieBooking: React.FC = () => {
                 />
             )}
 
-            {/* Seat Selection */}
             {selectedShowTime && (
                 <SeatSelection
                     selectedSeats={selectedSeats}
@@ -75,13 +90,13 @@ const MovieBooking: React.FC = () => {
                 />
             )}
 
-            {/* Ticket Summary */}
             {selectedShowTime && (
                 <TicketSummary
                     totalPrice={totalPrice}
                     onBuy={handleBuy}
                 />
-            )}
+            )} */}
+            <h2>hhh</h2>
         </MarginWidthWrapper>
     );
 };

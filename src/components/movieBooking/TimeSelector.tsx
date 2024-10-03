@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { ShowTime } from '@/types/showTime';
+import { ShowTime } from '@/types';
 
 interface TimeSelectorProps {
     selectedDate: Date | null;

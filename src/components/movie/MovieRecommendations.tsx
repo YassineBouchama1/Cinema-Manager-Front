@@ -5,15 +5,12 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import FilterMovie from './FilterMovie';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import MovieCard from './MovieCard';
-import { Movie } from '@/types/movie';
 import { getMovies } from '@/hooks/useMovies';
-import Pagnation from './Pagnation';
 import DragCloseDrawer from '../commen/DragCloseDrawer';
 import MovieBooking from '../movieBooking';
-import MovieCardSkeleton from '../skeletons/MovieSkeleton';
+import { Movie } from '@/types/movie';
 
 const MovieRecommendations: React.FC = () => {
-    const { isModelOpen, toggleModel } = useGlobalTheme();
     const searchParams = useSearchParams();
     const router = useRouter();
     const [isFiltering, setIsFiltering] = useState(false);
@@ -33,7 +30,10 @@ const MovieRecommendations: React.FC = () => {
 
 
 
-    console.log('data')
+    console.log(movies)
+
+
+
 
 
     // Function for filtering movies (memoized)
@@ -86,9 +86,7 @@ const MovieRecommendations: React.FC = () => {
 
             </div>
 
-            <DragCloseDrawer isOpen={!!isModelOpen} onClose={toggleModel}>
-                <MovieBooking />
-            </DragCloseDrawer>
+         
         </div>
     );
 };

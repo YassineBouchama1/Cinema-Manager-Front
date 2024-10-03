@@ -3,6 +3,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import MovieRecommendations from '@/components/movie/MovieRecommendations';
 import getQueryClient from '@/utils/queryClient';
 import { getMovies } from '@/hooks/useMovies';
+import WrapperBook from '@/components/movieBooking/WrapperBook';
 
 
 export default async function PageDashboard({
@@ -21,11 +22,15 @@ export default async function PageDashboard({
         queryFn: () => getMovies(searchParams),
     });
 
-    console.count('rander server')
+
 
     return (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-            <MovieRecommendations />
-        </HydrationBoundary>
+        <>
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                <MovieRecommendations />
+            </HydrationBoundary>
+
+            <WrapperBook />
+        </>
     );
 }

@@ -21,7 +21,7 @@ const useMovieBooking = (movieData: MovieData) => {
     const [selectedShowTime, setSelectedShowTime] = useState<ShowTime | null>(null);
 
 
-    
+
     // initialize the selected date and showtime when movieData changes
     useEffect(() => {
         if (movieData.showTimes.length > 0) {

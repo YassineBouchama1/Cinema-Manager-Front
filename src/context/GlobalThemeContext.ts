@@ -1,31 +1,23 @@
-import { create, StateCreator } from 'zustand';
-import { persist, PersistOptions } from 'zustand/middleware';
+import { create } from 'zustand';
 
 interface GlobalThemeState {
     isSidebarOpen: boolean;
     toggleSidebar: () => void;
-    isModelOpen: string | null; // Store movie ID or null
-    toggleModel: (movieId?: string) => void; // Accept movie ID as an argument
+    isModelOpen: boolean;
+    isLoading: boolean;
+    openModel: (movieId: string) => void;
+    closeModel: () => void;
+    // setLoading: (isLoading: boolean) => void;
+    currentMovieId: string | false;
 }
 
-type GlobalThemePersist = (
-    config: StateCreator<GlobalThemeState>,
-    options: PersistOptions<GlobalThemeState>
-) => StateCreator<GlobalThemeState>;
-
-export const useGlobalTheme = create<GlobalThemeState>()(
-    (persist as GlobalThemePersist)(
-        (set) => ({
-            isSidebarOpen: false,
-            toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
-            isModelOpen: null,
-            toggleModel: (movieId?: string) =>
-                set((state) => ({
-                    isModelOpen: state.isModelOpen ? null : movieId || null
-                })),
-        }),
-        {
-            name: 'theme-sidebar-storage',
-        }
-    )
-);
+export const useGlobalTheme = create<GlobalThemeState>((set) => ({
+    isSidebarOpen: false,
+    toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+    isModelOpen: false,
+    isLoading: false,
+    currentMovieId: false,
+    openModel: (movieId: string) => set({ isModelOpen: true, currentMovieId: movieId, isLoading: true }),
+    closeModel: () => set({ isModelOpen: false, currentMovieId: false, isLoading: false }),
+    // setLoading: (isLoading: boolean) => set({ isLoading }),
+}));
