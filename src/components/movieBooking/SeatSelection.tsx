@@ -8,6 +8,9 @@ interface SeatSelectionProps {
 }
 
 const SeatSelection: React.FC<SeatSelectionProps> = React.memo(({ roomCapacity, reservedSeats, selectedSeats, onSeatSelect }) => {
+
+
+    console.log(roomCapacity)
     return (
         <div className="bg-gray-800 p-4 rounded-lg">
             <h2 className="text-lg font-semibold mb-4">Select Seats</h2>
@@ -15,13 +18,12 @@ const SeatSelection: React.FC<SeatSelectionProps> = React.memo(({ roomCapacity, 
                 {Array.from({ length: roomCapacity }, (_, index) => (
                     <button
                         key={index}
-                        className={`w-10 h-10 rounded-lg ${
-                            reservedSeats.includes(index)
-                                ? 'bg-red-500 cursor-not-allowed'
-                                : selectedSeats.includes(index)
+                        className={`w-10 h-10 rounded-lg ${reservedSeats.includes(index)
+                            ? 'bg-red-500 cursor-not-allowed'
+                            : selectedSeats.includes(index)
                                 ? 'bg-green-500'
                                 : 'bg-gray-600 hover:bg-gray-500'
-                        }`}
+                            }`}
                         onClick={() => !reservedSeats.includes(index) && onSeatSelect(index)}
                         disabled={reservedSeats.includes(index)}
                     >

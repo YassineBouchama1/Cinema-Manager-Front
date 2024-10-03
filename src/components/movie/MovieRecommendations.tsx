@@ -3,11 +3,9 @@ import React, { useState, useCallback, useMemo, memo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FilterMovie from './FilterMovie';
-import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import MovieCard from './MovieCard';
 import { getMovies } from '@/hooks/useMovies';
-import DragCloseDrawer from '../commen/DragCloseDrawer';
-import MovieBooking from '../movieBooking';
+
 import { Movie } from '@/types/movie';
 
 const MovieRecommendations: React.FC = () => {
@@ -30,7 +28,7 @@ const MovieRecommendations: React.FC = () => {
 
 
 
-    console.log(movies)
+
 
 
 
@@ -78,7 +76,7 @@ const MovieRecommendations: React.FC = () => {
 
                 {!isFiltering && (
                     <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
-                        {movies?.data?.map((movie: Movie) => (
+                        {movies?.data && movies?.data?.map((movie: Movie) => (
                             <MovieCard key={movie._id} movie={movie} />
                         ))}
                     </div>
@@ -86,7 +84,7 @@ const MovieRecommendations: React.FC = () => {
 
             </div>
 
-         
+
         </div>
     );
 };

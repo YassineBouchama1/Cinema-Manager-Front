@@ -1,78 +1,116 @@
 
+import { MovieData } from '@/types';
 import { Category } from '@/types/category';
 import { Movie } from '@/types/movie';
 
-export const movies: Movie[] = [
-    {
-        _id: "64a1fbc1c5b3c6001e8a1b01",
-        name: "The Great Adventure",
-        duration: 120,
-        cinemaId: "64a1c0d7e7a1f5c7c2a1b001",
-        category: Category.Action,
-        image: "../dumydata/images/DeadpoolWolverine.webp",
-        isDeleted: false,
-        createdAt: "2024-09-25T10:00:00.000Z",
-        updatedAt: "2024-09-25T10:00:00.000Z",
-        __v: 0
+export const movieDataFake: MovieData = {
+    "data": {
+        "_id": "66fd0ba687ea098f50ae9610",
+        "name": "Wicked",
+        "duration": "150",
+        "cinemaId": "66fd038d87ea098f50ae95ed",
+        "category": "horror",
+        "image": "/movies/66fd038d87ea098f50ae95ed-1727859621851-79069328.png",
+        "isDeleted": false,
+        "createdAt": "2024-10-02T09:00:22.019Z",
+        "updatedAt": "2024-10-02T09:00:22.019Z",
+        "__v": 0
     },
-    {
-        _id: "64a1fbc1c5b3c6001e8a1b02",
-        name: "Romantic Getaway",
-        duration: 90,
-        cinemaId: "64a1c0d7e7a1f5c7c2a1b002",
-        category: Category.Romance,
-        image: "../dumydata/images/Joker  Folie à Deux.webp",
-        isDeleted: false,
-        createdAt: "2024-09-26T12:00:00.000Z",
-        updatedAt: "2024-09-26T12:00:00.000Z",
-        __v: 0
-    },
-    {
-        _id: "64a1fbc1c5b3c6001e8a1b03",
-        name: "Mystery of the Night",
-        duration: 105,
-        cinemaId: "64a1c0d7e7a1f5c7c2a1b003",
-        category: Category.Thriller,
-        image: "../dumydata/images/La La Land.webp",
-        isDeleted: false,
-        createdAt: "2024-09-27T14:00:00.000Z",
-        updatedAt: "2024-09-27T14:00:00.000Z",
-        __v: 0
-    },
-    {
-        _id: "64a1fbc1c5b3c6001e8a1b04",
-        name: "Future War",
-        duration: 130,
-        cinemaId: "64a1c0d7e7a1f5c7c2a1b004",
-        category: Category.Action,
-        image: "../dumydata/images/Nickel Boys.webp",
-        isDeleted: false,
-        createdAt: "2024-09-28T16:00:00.000Z",
-        updatedAt: "2024-09-28T16:00:00.000Z",
-        __v: 0
-    },
-    {
-        _id: "64a1fbc1c5b3c6001e8a1b05",
-        name: "Laughter Therapy",
-        duration: 85,
-        cinemaId: "64a1c0d7e7a1f5c7c2a1b005",
-        category: Category.Comedy,
-        image: "../dumydata/images/Smile 2.webp",
-        isDeleted: false,
-        createdAt: "2024-09-29T18:00:00.000Z",
-        updatedAt: "2024-09-29T18:00:00.000Z",
-        __v: 0
-    },
-    {
-        _id: "64a1fbc1c5b3c6001e8a1b06",
-        name: "Ancient Legends",
-        duration: 140,
-        cinemaId: "64a1c0d7e7a1f5c7c2a1b006",
-        category: Category.Animation,
-        image: "../dumydata/images/Wicked.webp",
-        isDeleted: false,
-        createdAt: "2024-09-30T20:00:00.000Z",
-        updatedAt: "2024-09-30T20:00:00.000Z",
-        __v: 0
-    }
-];
+    "showTimes": [
+        {
+            "_id": "66fd0e2387ea098f50ae964c",
+            "price": 180,
+            "movieId": "66fd0ba687ea098f50ae9610",
+            "cinemaId": "66fd038d87ea098f50ae95ed",
+            "roomId": {
+                "_id": "66fd0be387ea098f50ae961e",
+                "name": "A2",
+                "capacity": 40,
+                "seatsPerRow": 10
+            },
+            "startAt": "2024-10-26T01:00:00.000Z",
+            "endAt": "2024-10-26T03:40:00.000Z",
+            "isDeleted": false,
+            "createdAt": "2024-10-02T09:10:59.716Z",
+            "updatedAt": "2024-10-02T09:10:59.716Z",
+            "__v": 0,
+            "reservedSeats": []
+        },
+        {
+            "_id": "66fd0e2787ea098f50ae9651",
+            "price": 180,
+            "movieId": "66fd0ba687ea098f50ae9610",
+            "cinemaId": "66fd038d87ea098f50ae95ed",
+            "roomId": {
+                "_id": "66fd0be387ea098f50ae961e",
+                "name": "A2",
+                "capacity": 80,
+                "seatsPerRow": 10
+            },
+            "startAt": "2024-10-26T08:00:00.000Z",
+            "endAt": "2024-10-26T10:40:00.000Z",
+            "isDeleted": false,
+            "createdAt": "2024-10-02T09:11:03.817Z",
+            "updatedAt": "2024-10-02T09:11:03.817Z",
+            "__v": 0,
+            "reservedSeats": []
+        },
+        {
+            "_id": "66fd0e2b87ea098f50ae9656",
+            "price": 180,
+            "movieId": "66fd0ba687ea098f50ae9610",
+            "cinemaId": "66fd038d87ea098f50ae95ed",
+            "roomId": {
+                "_id": "66fd0be387ea098f50ae961e",
+                "name": "A2",
+                "capacity": 20,
+                "seatsPerRow": 10
+            },
+            "startAt": "2024-10-22T08:00:00.000Z",
+            "endAt": "2024-10-22T10:40:00.000Z",
+            "isDeleted": false,
+            "createdAt": "2024-10-02T09:11:07.401Z",
+            "updatedAt": "2024-10-02T09:11:07.401Z",
+            "__v": 0,
+            "reservedSeats": [4, 5, 10, 3]
+        },
+        {
+            "_id": "66fd0e2e87ea098f50ae965b",
+            "price": 180,
+            "movieId": "66fd0ba687ea098f50ae9610",
+            "cinemaId": "66fd038d87ea098f50ae95ed",
+            "roomId": {
+                "_id": "66fd0be387ea098f50ae961e",
+                "name": "A2",
+                "capacity": 80,
+                "seatsPerRow": 10
+            },
+            "startAt": "2024-10-29T08:00:00.000Z",
+            "endAt": "2024-10-29T10:40:00.000Z",
+            "isDeleted": false,
+            "createdAt": "2024-10-02T09:11:10.676Z",
+            "updatedAt": "2024-10-02T09:11:10.676Z",
+            "__v": 0,
+            "reservedSeats": [9, 8, 80]
+        },
+        {
+            "_id": "66fd0e3287ea098f50ae9660",
+            "price": 180,
+            "movieId": "66fd0ba687ea098f50ae9610",
+            "cinemaId": "66fd038d87ea098f50ae95ed",
+            "roomId": {
+                "_id": "66fd0be387ea098f50ae961e",
+                "name": "A2",
+                "capacity": 80,
+                "seatsPerRow": 10
+            },
+            "startAt": "2024-10-06T08:00:00.000Z",
+            "endAt": "2024-10-06T10:40:00.000Z",
+            "isDeleted": false,
+            "createdAt": "2024-10-02T09:11:14.682Z",
+            "updatedAt": "2024-10-02T09:11:14.682Z",
+            "__v": 0,
+            "reservedSeats": []
+        }
+    ]
+}

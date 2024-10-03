@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { Movie } from '@/types/movie';
 import { ShowTime } from '@/types/showTime';
 
+
 interface MovieData {
     data: Movie;
     showTimes: ShowTime[];
@@ -15,38 +16,53 @@ interface BuyData {
 }
 
 const useMovieBooking = (movieData: MovieData) => {
+
+
+    // state variables for booking details
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
     const [selectedShowTime, setSelectedShowTime] = useState<ShowTime | null>(null);
+    const [roomCapacity, setRoomCapacity] = useState<number>(0);
+    const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+    const [reservedSeats, setReservedSeats] = useState<number[]>([]);
 
-
-
-    // initialize the selected date and showtime when movieData changes
+    // set initial values when movie data changes
+    // will run first
     useEffect(() => {
-        if (movieData.showTimes.length > 0) {
+        if (movieData.showTimes && movieData.showTimes.length > 0) {
             const initialShowTime = movieData.showTimes[0];
             const initialDate = new Date(initialShowTime.startAt);
+
+            console.log(initialShowTime)
             setSelectedDate(initialDate);
             setSelectedTime(format(initialDate, 'HH:mm'));
             setSelectedShowTime(initialShowTime);
+            setRoomCapacity(initialShowTime.roomId?.capacity || 0);
+            setSelectedRoom(initialShowTime.roomId?._id || null);
+            setReservedSeats(initialShowTime.reservedSeats || []);
         } else {
             resetSelection();
         }
-    }, [movieData]);
+    }, [movieData]); // change every time  moviedata chaneg or movie change
 
 
 
-    // rset selection state
-    const resetSelection = () => {
+    // reset all selection states if there is no movie data
+    const resetSelection = useCallback(() => {
         setSelectedDate(null);
         setSelectedTime(null);
         setSelectedShowTime(null);
         setSelectedSeats([]);
-    };
+        setRoomCapacity(0);
+        setSelectedRoom(null)
+        setReservedSeats([]);
+    }, []);
 
-    //this fpr get unique dates from showTime
+
+    //here i refactore showtime date  unique dates 
     const uniqueDates = useMemo(() => {
+        if (!movieData.showTimes) return [];
         const datesSet = new Set<string>(
             movieData.showTimes.map(st => format(new Date(st.startAt), 'yyyy-MM-dd'))
         );
@@ -55,13 +71,14 @@ const useMovieBooking = (movieData: MovieData) => {
 
 
 
-    // het showtimes for specific date
+    // here i show times for specific date
     const getShowTimesForDate = useCallback(
-        (date: string) => movieData.showTimes.filter(st => format(new Date(st.startAt), 'yyyy-MM-dd') === date),
+        (date: string) => {
+            if (!movieData.showTimes) return [];
+            return movieData.showTimes.filter(st => format(new Date(st.startAt), 'yyyy-MM-dd') === date);
+        },
         [movieData.showTimes]
     );
-
-
 
     // handle seat selection
     const handleSeatSelection = useCallback((seatIndex: number) => {
@@ -74,8 +91,7 @@ const useMovieBooking = (movieData: MovieData) => {
 
 
 
-
-    // this forandle date selection
+    // handle date selection
     const handleDateSelect = useCallback((date: string) => {
         const newDate = new Date(date);
         setSelectedDate(newDate);
@@ -85,16 +101,19 @@ const useMovieBooking = (movieData: MovieData) => {
             const formattedTime = format(new Date(firstShowTime.startAt), 'HH:mm');
             setSelectedTime(formattedTime);
             setSelectedShowTime(firstShowTime);
-            setSelectedSeats([]); // reset seat selection
+            setSelectedSeats([]);
+            setRoomCapacity(firstShowTime.roomId?.capacity || 0);
+            setSelectedRoom(firstShowTime.roomId?._id || null);
+            setReservedSeats(firstShowTime.reservedSeats || []);
         } else {
             resetSelection();
         }
-    }, [getShowTimesForDate]);
+    }, [getShowTimesForDate, resetSelection]);
 
 
 
 
-    // handle time selection
+    // Handle time selection
     const handleTimeSelect = useCallback((time: string) => {
         if (selectedDate) {
             const dateStr = format(selectedDate, 'yyyy-MM-dd');
@@ -103,31 +122,25 @@ const useMovieBooking = (movieData: MovieData) => {
             if (newShowTime) {
                 setSelectedTime(time);
                 setSelectedShowTime(newShowTime);
-                setSelectedSeats([]); // reset seat selection
+                setSelectedSeats([]);
+                setRoomCapacity(newShowTime.roomId?.capacity || 0);
+                setSelectedRoom(newShowTime.roomId?._id || null);
+                setReservedSeats(newShowTime.reservedSeats || []);
             }
         }
     }, [selectedDate, getShowTimesForDate]);
 
-
-
-
     // calculate total price
     const totalPrice = useMemo(() => {
-        return selectedShowTime ? selectedShowTime.price * selectedSeats.length : 0;
+        return selectedShowTime ? (selectedShowTime.price || 0) * selectedSeats.length : 0;
     }, [selectedShowTime, selectedSeats.length]);
 
-
-
-
-    // get showtimes for the selected date
+    // get show times for selected date
     const showTimesForSelectedDate = useMemo(() => {
         return selectedDate ? getShowTimesForDate(format(selectedDate, 'yyyy-MM-dd')) : [];
     }, [selectedDate, getShowTimesForDate]);
 
-
-
-
-    // handle Buy button click
+    // handle buy action
     const handleBuy = useCallback(() => {
         if (selectedShowTime) {
             const buyData: BuyData = {
@@ -135,10 +148,8 @@ const useMovieBooking = (movieData: MovieData) => {
                 selectedSeats: selectedSeats,
                 totalPrice: totalPrice,
             };
-
-            // TODO: Send This To APi
             console.log('Buy Data:', buyData);
-            alert(`Purchase Successful!\nShowTime ID: ${buyData.showTimeId}\nSeats: ${buyData.selectedSeats.join(', ')}\nTotal Price: $${buyData.totalPrice.toFixed(2)}`);
+            alert(`Purchase Successful!\nShowTime ID: ${buyData.showTimeId}\nSeats: ${buyData.selectedSeats.join(', ')}\nTotal Price: ${buyData.totalPrice.toFixed(2)}`);
         } else {
             alert('No showtime selected.');
         }
@@ -146,8 +157,9 @@ const useMovieBooking = (movieData: MovieData) => {
 
 
 
-
+    // return all necessary values and functions
     return {
+        selectedRoom,
         selectedDate,
         selectedTime,
         selectedSeats,
@@ -159,7 +171,11 @@ const useMovieBooking = (movieData: MovieData) => {
         handleDateSelect,
         handleTimeSelect,
         handleBuy,
+        roomCapacity,
+        reservedSeats,
     };
 };
+
+
 
 export default useMovieBooking;

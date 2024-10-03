@@ -7,7 +7,7 @@ interface GlobalThemeState {
     isLoading: boolean;
     openModel: (movieId: string) => void;
     closeModel: () => void;
-    // setLoading: (isLoading: boolean) => void;
+
     currentMovieId: string | false;
 }
 
@@ -19,5 +19,5 @@ export const useGlobalTheme = create<GlobalThemeState>((set) => ({
     currentMovieId: false,
     openModel: (movieId: string) => set({ isModelOpen: true, currentMovieId: movieId, isLoading: true }),
     closeModel: () => set({ isModelOpen: false, currentMovieId: false, isLoading: false }),
-    // setLoading: (isLoading: boolean) => set({ isLoading }),
+
 }));

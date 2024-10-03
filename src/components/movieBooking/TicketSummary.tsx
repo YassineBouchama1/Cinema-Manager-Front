@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 interface TicketSummaryProps {
@@ -9,12 +7,16 @@ interface TicketSummaryProps {
   showTimeId: string;
 }
 
-const TicketSummary: React.FC<TicketSummaryProps> = React.memo(({ selectedSeatsCount, totalPrice, onBuy }) => (
+const TicketSummary: React.FC<TicketSummaryProps> = React.memo(({ selectedSeatsCount, totalPrice, onBuy, showTimeId }) => (
   <div className="bg-blue-500 p-6 rounded-lg h-fit">
     <h3 className="font-bold mb-4">Movie Tickets</h3>
     <div className="flex justify-between mb-2">
       <span>Tickets</span>
       <span>{selectedSeatsCount}</span>
+    </div>
+    <div className="flex justify-between mb-2">
+      <span>Show Time ID</span>
+      <span>{showTimeId}</span>
     </div>
     <div className="flex justify-between mb-4">
       <span>Total</span>

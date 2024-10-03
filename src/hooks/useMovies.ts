@@ -4,6 +4,7 @@ import { delay } from '@/utils/delay';
 
 
 interface MovieResponse {
+    showTimes: unknown;
     data: Movie;
 }
 
