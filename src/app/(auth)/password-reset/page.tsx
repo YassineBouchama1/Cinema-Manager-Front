@@ -1,7 +1,7 @@
 
 
 
-import PasswordResetForm from "@/components/auth/PasswordResetForm";
+import PasswordResetForm from "@/components/auth/ResetPasswordForm";
 import HeaderHome from "@/components/layouts/NavBarHome";
 
 

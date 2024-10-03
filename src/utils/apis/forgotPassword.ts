@@ -1,18 +1,6 @@
 import { delay } from "../delay";
 
-interface RegisterResponse {
-    data: {
-        _id: string;
-        name: string;
-        email: string;
-        role: string;
-        isActive: boolean;
-        cinemaId: string | null;
-        isDeleted: boolean;
-        createdAt: string;
-        updatedAt: string;
-        __v: number;
-    };
+interface ForgotPasswordResponse {
     message: string;
 }
 
@@ -35,35 +23,27 @@ interface BackendError {
     message?: string;
 }
 
-export async function registerUser(formData: FormData): Promise<RegisterResponse> {
+export async function forgotPassword(email: string): Promise<ForgotPasswordResponse> {
     try {
 
 
         await delay(2000)
 
 
-        // convert formdata to json objecy
-        const jsonData = Object.fromEntries(formData.entries());
-
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/register`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/forget`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(jsonData),
+            body: JSON.stringify({ email }),
         });
 
-
-
         const data = await response.json();
-
 
         if (!response.ok) {
             const error: BackendError = data;
             if (error.errors) {
-
-
-                // validation errors
+                // Validation errors
                 const errorMessages = error.errors.map(err => `${err.path}: ${err.msg}`).join(', ');
                 throw new Error(errorMessages);
             } else if (error.message) {
@@ -74,11 +54,9 @@ export async function registerUser(formData: FormData): Promise<RegisterResponse
             }
         }
 
-        const registerData: RegisterResponse = data;
-
-        return registerData;
+        return data as ForgotPasswordResponse;
     } catch (error) {
-        console.error('Registration error:', error);
+        console.error('Forgot password error:', error);
         throw error;
     }
 }

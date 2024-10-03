@@ -1,5 +1,7 @@
 import { SessionData } from "@/lib/optionsSessions";
 import { setSession } from "@/lib/setSession";
+import { delay } from "../delay";
+import { LoginFormData } from "@/validators/auth";
 
 interface LoginResponse {
     data: {
@@ -32,16 +34,18 @@ interface BackendError {
     message?: string;
 }
 
-export async function loginUser(formData: FormData): Promise<LoginResponse> {
+export async function loginUser(formData: LoginFormData): Promise<LoginResponse> {
     try {
-        const jsonData = Object.fromEntries(formData.entries());
+
+
+        await delay(2000)
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(jsonData),
+            body: JSON.stringify(formData),
         });
 
         const data = await response.json();

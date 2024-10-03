@@ -13,7 +13,7 @@ import { Movie } from '@/types/movie';
 import { ShowTime } from '@/types/showTime';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { MovieData } from '@/types';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthFormContext } from '@/context/AuthFormContext';
 
 interface BuyData {
     showTimeId: string;
@@ -23,7 +23,7 @@ interface BuyData {
 
 const MovieBooking: React.FC = () => {
     const { isModelOpen, currentMovieId, closeModel } = useGlobalTheme();
-    const { openModelAuth, isModelAuthOpen } = useAuthContext()
+    const { openModelAuth, isModelAuthOpen } = useAuthFormContext()
 
     // Fetch movie data using React Query
     const { data: movieData, isLoading, error } = useQuery<MovieData>({

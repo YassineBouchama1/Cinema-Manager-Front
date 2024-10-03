@@ -1,10 +1,10 @@
 'use client'
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthFormContext } from '@/context/AuthFormContext';
 import { Film, User } from 'lucide-react';
 
 const TopNavbar: React.FC = () => {
 
-    const { openModelAuth } = useAuthContext();
+    const { openModelAuth } = useAuthFormContext();
 
 
 
