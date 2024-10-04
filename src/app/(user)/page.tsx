@@ -1,9 +1,9 @@
 import React from 'react';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import MovieRecommendations from '@/components/movie/MovieRecommendations';
+import MovieRecommendations from '@/features/MovieRecommendations/components/MovieRecommendations';
 import getQueryClient from '@/utils/queryClient';
 import { getMovies } from '@/hooks/useMovies';
-import WrapperBook from '@/components/movieBooking/WrapperBook';
+import WrapperBook from '@/features/MovieBooking/components/WrapperBook';
 
 
 export default async function PageDashboard({

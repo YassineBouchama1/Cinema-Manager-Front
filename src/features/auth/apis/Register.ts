@@ -1,5 +1,6 @@
-import { RegisterFormData } from "@/validators/auth";
-import { delay } from "../delay";
+import { RegisterFormData } from "@/features/auth/validators/auth";
+import { delay } from "../../../utils/delay";
+import { BackendError } from "@/types/errors";
 
 interface RegisterResponse {
     data: {
@@ -17,24 +18,6 @@ interface RegisterResponse {
     message: string;
 }
 
-interface ValidationError {
-    type: string;
-    value: string;
-    msg: string;
-    path: string;
-    location: string;
-}
-
-interface BackendError {
-    errors?: ValidationError[];
-    status?: string;
-    error?: {
-        statusCode: number;
-        status: string;
-        isOperational: boolean;
-    };
-    message?: string;
-}
 
 export async function registerUser(formData: RegisterFormData): Promise<RegisterResponse> {
     try {

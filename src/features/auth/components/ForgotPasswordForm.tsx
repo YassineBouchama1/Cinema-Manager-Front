@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { forgotPassword } from '@/utils/apis/forgotPassword';
-import { ForgotPasswordFormData, forgotPasswordSchema } from '@/validators/auth';
+import { forgotPassword } from '@/features/auth/apis/forgotPassword';
+import { ForgotPasswordFormData, forgotPasswordSchema } from '@/features/auth/validators/auth';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 import { X } from 'lucide-react';
 

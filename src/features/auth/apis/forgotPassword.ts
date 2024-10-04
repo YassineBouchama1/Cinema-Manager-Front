@@ -1,34 +1,25 @@
-interface ResetPasswordResponse {
+import { BackendError } from "@/types/errors";
+import { delay } from "../../../utils/delay";
+
+interface ForgotPasswordResponse {
     message: string;
 }
 
-interface ValidationError {
-    type: string;
-    value: string;
-    msg: string;
-    path: string;
-    location: string;
-}
 
-interface BackendError {
-    errors?: ValidationError[];
-    status?: string;
-    error?: {
-        statusCode: number;
-        status: string;
-        isOperational: boolean;
-    };
-    message?: string;
-}
 
-export async function resetPassword(password: string, token: string): Promise<ResetPasswordResponse> {
+export async function forgotPassword(email: string): Promise<ForgotPasswordResponse> {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/reset?forget=${token}`, {
+
+
+        await delay(2000)
+
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/forget`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ password }),
+            body: JSON.stringify({ email }),
         });
 
         const data = await response.json();
@@ -47,9 +38,9 @@ export async function resetPassword(password: string, token: string): Promise<Re
             }
         }
 
-        return data as ResetPasswordResponse;
+        return data as ForgotPasswordResponse;
     } catch (error) {
-        console.error('Reset password error:', error);
+        console.error('Forgot password error:', error);
         throw error;
     }
 }

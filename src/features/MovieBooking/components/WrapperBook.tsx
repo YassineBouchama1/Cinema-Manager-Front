@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import DragCloseDrawer from '../commen/DragCloseDrawer'
+import DragCloseDrawer from '../../../components/commen/DragCloseDrawer'
 import MovieBooking from '.'
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 

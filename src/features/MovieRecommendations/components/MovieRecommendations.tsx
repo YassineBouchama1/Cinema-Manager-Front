@@ -32,8 +32,6 @@ const MovieRecommendations: React.FC = () => {
 
 
 
-
-
     // Function for filtering movies (memoized)
     const handleFilter = useCallback(async (filters: Record<string, string>) => {
         setIsFiltering(true);

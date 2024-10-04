@@ -1,8 +1,9 @@
 import { SessionData } from "@/lib/optionsSessions";
 import { setSession } from "@/lib/setSession";
-import { delay } from "../delay";
-import { LoginFormData } from "@/validators/auth";
+import { delay } from "../../../utils/delay";
+import { LoginFormData } from "@/features/auth/validators/auth";
 import { useAuthContext } from "@/Providers/AuthProvider";
+import { BackendError } from "@/types/errors";
 
 interface LoginResponse {
     data: {
@@ -16,24 +17,7 @@ interface LoginResponse {
     token: string;
 }
 
-interface ValidationError {
-    type: string;
-    value: string;
-    msg: string;
-    path: string;
-    location: string;
-}
 
-interface BackendError {
-    errors?: ValidationError[];
-    status?: string;
-    error?: {
-        statusCode: number;
-        status: string;
-        isOperational: boolean;
-    };
-    message?: string;
-}
 
 export async function loginUser(formData: LoginFormData): Promise<LoginResponse> {
     try {

@@ -1,12 +1,12 @@
 'use client'
 import React, { useEffect } from 'react';
-import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import ForgotPasswordForm from './ForgotPasswordForm';
-import ResetPasswordForm from './ResetPasswordForm';
 import { useAuthFormContext } from '@/context/AuthFormContext';
-import Modal from '../commen/Modal';
+import Modal from '../../../components/commen/Modal';
 import { useSearchParams } from 'next/navigation';
+import LoginForm from './LoginForm';
+import ResetPasswordForm from './ResetPasswordForm';
 
 type AuthFormField = 'login' | 'register' | 'forgotPassword' | 'resetPassword';
 
@@ -52,7 +52,7 @@ const AuthWrapper = () => {
     return (
         <Modal isOpen={isModelAuthOpen} onClose={closeModelAuth}>
             {renderForm()}
-            
+
         </Modal>
     );
 };
