@@ -5,35 +5,38 @@ import DateSelector from './DateSelector';
 import TimeSelector from './TimeSelector';
 import SeatSelection from './SeatSelection';
 import TicketSummary from './TicketSummary';
-
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 import { useAuthContext } from '@/Providers/AuthProvider';
 import toast from 'react-hot-toast';
-import { usePurchase } from '../hooks/usePurchase';
-import { useMovieData } from '../hooks/useMovieData';
-import { useTimeSelection } from '../hooks/useTimeSelection';
-import { useDateSelection } from '../hooks/useDateSelection';
-import { useSeatSelection } from '../hooks/useSeatSelection';
-import { format } from 'date-fns';
+import { useMovieBooking } from '../hooks/useMovieBooking';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 
 const MovieBooking: React.FC = () => {
     const { isModelOpen, currentMovieId } = useGlobalTheme();
+    const { openModelAuth } = useAuthFormContext();
+    const { session } = useAuthContext();
 
+    if (!currentMovieId) return toast.error('id movie required');
 
-    if (!currentMovieId) return toast.error('id movie required')
-
-    const { data: movieData, isLoading, error } = useMovieData({ currentMovieId });
-    const { selectedDate, selectedShowTime, uniqueDates, handleDateSelect, getShowTimesForDate } = useDateSelection(movieData);
-    const { selectedTime, handleTimeSelect } = useTimeSelection(selectedDate, getShowTimesForDate);
-    const { selectedSeats, handleSeatSelection } = useSeatSelection();
-    const { handleBuy, loadingPurchase, rrrorPurchase } = usePurchase(selectedShowTime, selectedSeats);
-
-    const roomCapacity = selectedShowTime?.roomId?.capacity || 0;
-    const reservedSeats = selectedShowTime?.reservedSeats || [];
-    const totalPrice = selectedShowTime ? (selectedShowTime.price || 0) * selectedSeats.length : 0;
-    const showTimesForSelectedDate = selectedDate ? getShowTimesForDate(format(selectedDate, 'yyyy-MM-dd')) : [];
+    const {
+        movieData,
+        isLoading,
+        error,
+        selectedDate,
+        selectedTime,
+        selectedSeats,
+        selectedShowTime,
+        roomCapacity,
+        reservedSeats,
+        uniqueDates,
+        showTimesForSelectedDate,
+        totalPrice,
+        handleDateSelect,
+        handleTimeSelect,
+        handleSeatSelection,
+        handleBuy,
+    } = useMovieBooking({ currentMovieId });
 
     if (isLoading) {
         return <div>Loading...</div>;
