@@ -5,9 +5,11 @@ interface TicketSummaryProps {
   totalPrice: number;
   onBuy: () => void;
   showTimeId: string;
+  loading: boolean,
+
 }
 
-const TicketSummary: React.FC<TicketSummaryProps> = React.memo(({ selectedSeatsCount, totalPrice, onBuy, showTimeId }) => (
+const TicketSummary: React.FC<TicketSummaryProps> = React.memo(({ selectedSeatsCount, totalPrice, onBuy, showTimeId, loading }) => (
   <div className="bg-blue-500 p-6 rounded-lg h-fit">
     <h3 className="font-bold mb-4">Movie Tickets</h3>
     <div className="flex justify-between mb-2">
@@ -25,9 +27,10 @@ const TicketSummary: React.FC<TicketSummaryProps> = React.memo(({ selectedSeatsC
     <button
       className="w-full bg-gray-800 text-white py-2 rounded mb-4"
       onClick={onBuy}
-      disabled={selectedSeatsCount === 0}
+      disabled={selectedSeatsCount === 0 || loading}
+      style={{ opacity: loading ? 0.4 : 1 }}
     >
-      Buy
+      {loading ? 'buying...' : 'buy'}
     </button>
   </div>
 ));

@@ -1,61 +1,65 @@
-import { useCallback } from 'react';
+import { Dispatch, useCallback } from 'react';
 import { ShowTime } from '@/types/showTime';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 import { useAuthContext } from '@/Providers/AuthProvider';
 import toast from 'react-hot-toast';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { makeReservation, ReservationData } from '../apis/makeReservation';
+import { useRouter } from 'next/navigation';
 
-export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: number[]) => {
 
+type SetSelectedSeatsFunction = React.Dispatch<React.SetStateAction<number[]>>;
+
+
+export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: number[], setSelectedSeats: SetSelectedSeatsFunction) => {
     const { openModelAuth } = useAuthFormContext();
     const { session } = useAuthContext();
+    const router = useRouter();
+    const queryClient = useQueryClient();
 
-
-
-    // useing react query for mutate with backend 
+    // this using react query for mutate with backend
     const reservationMutation = useMutation({
         mutationFn: (reservationData: ReservationData) => makeReservation(reservationData),
         onSuccess: (data) => {
+            console.log(data);
             toast.success(data.message || 'Reservation successful!');
+
+            // refresh the page
+            router.refresh();
+
+            // invalidate and refetch the movie-booking query
+            queryClient.invalidateQueries({ queryKey: ['movie-booking'] });
+            setSelectedSeats([])
+            // router.push('/profile');
         },
         onError: (error: Error) => {
             toast.error(error.message);
         },
     });
 
-
-
-
-
-
-    const handleBuy = useCallback(() => {
-
-
-        // heck f user login or not
+    const handleBuy = useCallback(async () => {
+        // check if user is logged in
         if (!session?.token) {
-            openModelAuth()
-            toast.error('should be login to Purchase ticket')
-            return
+            openModelAuth();
+            toast.error('You should be logged in to purchase a ticket');
+            return;
         }
+
         if (selectedShowTime) {
             const buyData = {
                 showTimeId: selectedShowTime._id,
                 seats: selectedSeats,
             };
-
-            //
-            reservationMutation.mutate(buyData);
+            await reservationMutation.mutate(buyData);
             console.log('Buy Data:', buyData);
         } else {
-            alert('No showtime selected.');
+            toast.error('No showtime selected.');
         }
-    }, [selectedShowTime, selectedSeats, session]);
+    }, [selectedShowTime, selectedSeats, session, openModelAuth, reservationMutation]);
 
     return {
         handleBuy,
         loadingPurchase: reservationMutation.isPending,
-        rrrorPurchase: reservationMutation.error,
-
+        errorPurchase: reservationMutation.error,
     };
 };

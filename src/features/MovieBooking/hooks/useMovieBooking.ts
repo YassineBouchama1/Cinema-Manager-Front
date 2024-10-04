@@ -13,22 +13,23 @@ interface UseMovieBookingProps {
 
 // Define the return type of the hook
 interface UseMovieBookingReturn {
-  movieData: MovieData | undefined; 
-  isLoading: boolean; 
-  error: unknown; 
-  selectedDate: Date | null; 
-  selectedTime: string | null; 
-  selectedSeats: number[]; 
-  selectedShowTime: ShowTime | null; 
-  roomCapacity: number; 
-  reservedSeats: number[]; 
-  uniqueDates: string[]; 
-  showTimesForSelectedDate: ShowTime[]; 
-  totalPrice: number; 
-  handleDateSelect: (date: string) => void; 
+  movieData: MovieData | undefined;
+  isLoading: boolean;
+  error: unknown;
+  selectedDate: Date | null;
+  selectedTime: string | null;
+  selectedSeats: number[];
+  selectedShowTime: ShowTime | null;
+  roomCapacity: number;
+  reservedSeats: number[];
+  uniqueDates: string[];
+  showTimesForSelectedDate: ShowTime[];
+  totalPrice: number;
+  handleDateSelect: (date: string) => void;
   handleTimeSelect: (time: string) => void;
   handleSeatSelection: (seatIndex: number) => void;
-  handleBuy: () => void; 
+  setSelectedSeats: React.Dispatch<React.SetStateAction<number[]>>;
+  // handleBuy: () => void; 
 }
 
 // custom hook to manage movie booking logic 
@@ -66,6 +67,10 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     setRoomCapacity(0);
     setReservedSeats([]);
   }, []);
+
+
+
+
 
   //  here when  when data movie fetched i set initial values when movie data changes
   useEffect(() => {
@@ -117,6 +122,10 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     );
   }, []);
 
+
+
+
+
   // handle date selection
   const handleDateSelect = useCallback((date: string) => {
     const newDate = new Date(date);
@@ -134,6 +143,9 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
       resetSelection();
     }
   }, [getShowTimesForDate, resetSelection]);
+
+
+
 
   // handle time selection
   const handleTimeSelect = useCallback((time: string) => {
@@ -163,27 +175,6 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
 
 
 
-  // Handle the buy action
-  const handleBuy = useCallback(() => {
-    
-    // TODO: check if user is logged in
-    // if (!session?.token) {
-    //   openModelAuth(); // display login modal
-    //   toast.error("You must be logged in to make a reservation");
-    //   return;
-    // }
-
-    if (selectedShowTime) {
-      const buyData = {
-        showTimeId: selectedShowTime._id,
-        seats: selectedSeats,
-      };
-
-      console.log('Buy Data:', buyData);
-    } else {
-      alert('No showtime selected.');
-    }
-  }, [selectedShowTime, selectedSeats]);
 
   return {
     movieData,
@@ -201,6 +192,6 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     handleDateSelect,
     handleTimeSelect,
     handleSeatSelection,
-    handleBuy,
+    setSelectedSeats
   };
 };
