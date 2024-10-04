@@ -14,9 +14,9 @@ export default async function HomeLayout({
     return (
 
 
-        <div className="flex flex-1  flex-col bg-gray-900 text-white   no-scrollbar ">
+        <div className="flex  flex-col bg-gray-900 text-white   no-scrollbar ">
 
-            <TopNavbar isAuth={session.isLoggedIn}/>
+            <TopNavbar isAuth={session.isLoggedIn} />
             <MarginWidthWrapper>
 
                 {children}
