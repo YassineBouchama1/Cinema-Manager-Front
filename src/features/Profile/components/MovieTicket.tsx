@@ -4,6 +4,7 @@ import { Reservation } from '../types';
 import { cancelReservation } from '../apis/cancelReservation';
 import Image from 'next/image';
 import { QRCodeSVG } from 'qrcode.react';
+import { useRouter } from 'next/navigation';
 
 interface MovieTicketProps {
   reservation: Reservation;
@@ -11,11 +12,15 @@ interface MovieTicketProps {
 
 const MovieTicket: React.FC<MovieTicketProps> = ({ reservation }) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
+
 
   // this  for mutation for cancel reservation
   const mutation = useMutation({
     mutationFn: (reservationId: string) => cancelReservation(reservationId),
     onSuccess: () => {
+      // refresh the page
+      router.refresh();
       queryClient.invalidateQueries({ queryKey: ['reservation-profile'] });
     },
     onError: (error: Error) => {
@@ -70,10 +75,11 @@ const MovieTicket: React.FC<MovieTicketProps> = ({ reservation }) => {
       </div>
       <button
         onClick={handleCancel}
-        disabled={mutation.isPending}
+        disabled={mutation.isPending || reservation.status === 'cancel'}
         className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:bg-gray-400 w-full"
       >
-        {mutation.isPending ? 'Canceling...' : 'Cancel Reservation'}
+
+        {reservation.status === 'cancel' ? 'canceled' : (mutation.isPending ? 'Canceling...' : 'Cancel Reservation')}
       </button>
       {mutation.isError && <p className="text-red-500 mt-2">Error: {mutation.error.message}</p>}
 

@@ -26,7 +26,7 @@ const TopNavbar: React.FC<{ isAuth: boolean }> = ({ isAuth }) => {
             </div> */}
             <div className="flex items-center space-x-4">
                 {isAuth ? (
-                    <>
+                    <div className='flex gap-x-4 items-center pr-8'>
 
                         <Link href={'/profile'}
 
@@ -38,7 +38,7 @@ const TopNavbar: React.FC<{ isAuth: boolean }> = ({ isAuth }) => {
                             className="w-8 h-8 bg-gray-600 rounded-full justify-center items-center flex cursor-pointer">
                             <LogOut size={24} className="text-gray-400" />
                         </button>
-                    </>
+                    </div>
 
                 ) : <button
                     onClick={() => openModelAuth()}

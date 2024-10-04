@@ -28,11 +28,14 @@ const ListMovieTickets: React.FC = () => {
     }
 
     return (
-        <div className="movie-tickets-list">
+
+
+        <section className="movie-tickets-list  flex flex-wrap gap-5">
             {data && data?.data?.map((reservation: Reservation) => (
                 <MovieTicket key={reservation.reservationId} reservation={reservation} />
             ))}
-        </div>
+        </section>
+
     );
 };
 
