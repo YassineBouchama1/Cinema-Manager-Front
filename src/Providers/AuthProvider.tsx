@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setLoading(false);
     }, []);
 
-    // Before render, get session
+    // before render, get session
     useEffect(() => {
         fetchSessions();
     }, [fetchSessions]);
