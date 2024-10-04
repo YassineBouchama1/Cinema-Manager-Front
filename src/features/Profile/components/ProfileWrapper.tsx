@@ -1,80 +1,92 @@
 'use client'
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
 import ListMovieTickets from './ListMovieTickets';
-import { ListOrdered, Settings2, User } from 'lucide-react';
 
-// Define the tab components
-const reservations = () => <div>Dashboard Content</div>;
-const Profile = () => <div>Profile Content</div>;
-const Settings = () => <div>Settings Content</div>;
+const tabs = [
+    {
+        name: 'tab1',
+        label: 'My Tickets',
+        render: () => <ListMovieTickets />
+    },
+    {
+        name: 'tab2',
+        label: 'Setting',
+        render: () => (
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita in non earum natus explicabo est aspernatur porro molestias fugiat eaque dignissimos, accusantium qui fugit praesentium ad cumque dolore temporibus excepturi.</p>
+        )
+    },
+    {
+        name: 'tab3',
+        label: 'Tab 3',
+        render: () => (
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis eos sequi ducimus voluptas, accusamus amet? Ducimus, velit doloremque atque est quidem ullam nisi quod. Aut quisquam ipsa exercitationem mollitia ratione?</p>
+        )
+    }
+];
 
-export default function ProfileWrapper() {
-    const [activeTab, setActiveTab] = useState('reservations');
+const tabContentVariants: Variants = {
+    initial: {
+        y: 10,
+        opacity: 0
+    },
+    enter: {
+        y: 0,
+        opacity: 1
+    },
+    exit: {
+        y: -10,
+        opacity: 0
+    }
+}
 
-    const renderTabContent = () => {
-        switch (activeTab) {
-            case 'reservations':
-                return <ListMovieTickets />;
-            case 'profile':
-                return <Profile />;
-            case 'settings':
-                return <Settings />;
-            default:
-                return null;
-        }
-    };
+function ProfileWrapper() {
+    const [activeTab, setActiveTab] = useState(tabs[0]);
+
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: typeof tabs[number]) => {
+        e.preventDefault();
+        setActiveTab(tab);
+    }
+
+
+    const isSelected = (tab: typeof tabs[number]) => activeTab.name === tab.name;
 
     return (
-        <div className="w-full px-3 mx-auto">
-            <div className="relative  md:w-1/3 w-svw ">
-                <ul
-                    className="relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-gray-800"
-                    data-tabs="tabs"
-                    role="list"
-                >
-                    <li className="z-30 flex-auto text-center w-1/3">
-                        <a
-                            className={`z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-md cursor-pointer ${activeTab === 'reservations' ? 'bg-gray-900 text-white' : 'text-slate-600 bg-inherit'
-                                }`}
-                            onClick={() => setActiveTab('reservations')}
-                            role="tab"
-                            aria-selected={activeTab === 'reservations'}
-                        >
-                            <ListOrdered className="w-4 h-4 ml-1.5 text-slate-500" />
-                            <span className="ml-1">My Reservations</span>
+        <div className="w-full px-3 mx-auto bg-gray-900 rounded-lg overflow-hidden flex flex-col p-1.5">
+            <div className="flex gap-2.5 p-2.5">
+                {tabs.map((tab) => (
+                    <div
+                        key={tab.name}
+                        className={`relative ${isSelected(tab) ? 'text-blue-400' : 'text-gray-700'}`}
+                    >
+                        <a href='#' onClick={(e) => handleClick(e, tab)} className="block px-2.5 py-1.5">
+                            {tab.label}
                         </a>
-                    </li>
-                    <li className="z-30 flex-auto text-center w-1/3">
-                        <a
-                            className={`z-30 flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out border-0 rounded-lg cursor-pointer ${activeTab === 'profile' ? 'bg-gray-900 text-white' : 'text-slate-600 bg-inherit'
-                                }`}
-                            onClick={() => setActiveTab('profile')}
-                            role="tab"
-                            aria-selected={activeTab === 'profile'}
-                        >
-                            <User className="w-4 h-4 ml-1.5 text-slate-500" />
 
-                            <span className="ml-1">Profile</span>
-                        </a>
-                    </li>
-                    <li className="z-30 flex-auto text-center w-1/3">
-                        <a
-                            className={`z-30 flex items-center justify-center w-full px-0 py-2 text-sm mb-0 transition-all ease-in-out border-0 rounded-lg cursor-pointer ${activeTab === 'settings' ? 'bg-gray-900 text-white' : 'text-slate-600 bg-inherit'
-                                }`}
-                            onClick={() => setActiveTab('settings')}
-                            role="tab"
-                            aria-selected={activeTab === 'settings'}
-                        >
-                            <Settings2 className="w-4 h-4 ml-1.5 text-slate-500" />
-
-                            <span className="ml-1">Settings</span>
-                        </a>
-                    </li>
-                </ul>
+                        {isSelected(tab) && <motion.div layoutId='indicator' className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-400" />}
+                    </div>
+                ))}
             </div>
-            <div className="mt-4">
-                {renderTabContent()}
+
+            <div className="flex-1 p-2.5 text-white h-full bg-gray-800 overflow-auto">
+                <AnimatePresence mode='wait'>
+                    <motion.div
+                        key={activeTab.name || "empty"}
+                        variants={tabContentVariants}
+                        initial="initial"
+                        animate="enter"
+                        exit="exit"
+                        className='h-screen'
+                        transition={{
+                            duration: 0.3
+                        }}
+                    >
+                        {activeTab.render()}
+                    </motion.div>
+                </AnimatePresence>
             </div>
         </div>
-    );
+    )
 }
+
+export default ProfileWrapper;

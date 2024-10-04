@@ -1,6 +1,6 @@
 import { getReservations } from '@/features/Profile/apis/getReservations';
-import ListMovieTickets from '@/features/Profile/components/ListMovieTickets';
 import ProfileWrapper from '@/features/Profile/components/ProfileWrapper';
+
 import getQueryClient from '@/utils/queryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import React from 'react';
