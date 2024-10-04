@@ -1,7 +1,7 @@
 import React from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { cancelReservation } from '../apis/cancelReservation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';// Adjust the import path as necessary
 import { Reservation } from '../types';
+import { cancelReservation } from '../apis/cancelReservation';
 
 interface MovieTicketProps {
   reservation: Reservation;
@@ -10,12 +10,12 @@ interface MovieTicketProps {
 const MovieTicket: React.FC<MovieTicketProps> = ({ reservation }) => {
   const queryClient = useQueryClient();
 
-  console.log(reservation)
 
-  // mutation for canceling reservation
-  const mutation = useMutation<void, Error, string>(cancelReservation, {
+  //  mutation for cancel reservation
+  const mutation = useMutation({
+    mutationFn: (reservationId: string) => cancelReservation(reservationId),
     onSuccess: () => {
-      // Invalidate and refetch reservations after a successful cancellation
+      // refetch reservations after a successful cancellation
       queryClient.invalidateQueries({ queryKey: ['reservation-profile'] });
     },
     onError: (error: Error) => {
@@ -34,8 +34,8 @@ const MovieTicket: React.FC<MovieTicketProps> = ({ reservation }) => {
       <p>Seats: {reservation.seats.join(', ')}</p>
       <p>Total Price: ${reservation.totalPrice}</p>
       <p>Status: {reservation.status}</p>
-      <button onClick={handleCancel} disabled={mutation.isLoading}>
-        {mutation.isLoading ? 'Canceling...' : 'Cancel Reservation'}
+      <button onClick={handleCancel} disabled={mutation.isPending}>
+        {mutation.isPending ? 'Canceling...' : 'Cancel Reservation'}
       </button>
       {mutation.isError && <p>Error: {mutation.error.message}</p>}
     </div>
