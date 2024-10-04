@@ -71,7 +71,7 @@ async function api<T = unknown, R = unknown>(config: ApiRequestConfig<T>): Promi
     }
 
     const response = await fetch(url, fetchOptions);
-    console.log(response)
+  
     if (!response.ok) {
         let errorData;
         try {

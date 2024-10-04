@@ -1,54 +1,12 @@
 'use client';
-import React, { useState, useCallback, useMemo, memo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { memo } from 'react';
 import FilterMovie from './FilterMovie';
 import MovieCard from './MovieCard';
-import { getMovies } from '@/hooks/useMovies';
-
+import { useMovieRecommendations } from '../hooks/useMovieRecommendations';
 import { Movie } from '@/types/movie';
 
 const MovieRecommendations: React.FC = () => {
-    const searchParams = useSearchParams();
-    const router = useRouter();
-    const [isFiltering, setIsFiltering] = useState(false);
-
-
-
-    // memoizing search parameters to avoid recalculating on every render
-    const searchParamsMemo = useMemo(() => Object.fromEntries(searchParams), [searchParams]);
-
-
-    // fetching list of movies
-    const { data: movies, isLoading, error, refetch } = useQuery({
-        queryKey: ['movies', searchParamsMemo],
-        queryFn: () => getMovies(searchParamsMemo),
-        enabled: isFiltering, // disable automatic refetching when filtering 
-    });
-
-
-
-
-
-
-
-    // Function for filtering movies (memoized)
-    const handleFilter = useCallback(async (filters: Record<string, string>) => {
-        setIsFiltering(true);
-        const newSearchParams = new URLSearchParams(searchParams);
-
-        Object.entries(filters).forEach(([key, value]) => {
-            if (value) {
-                newSearchParams.set(key, value);
-            } else {
-                newSearchParams.delete(key);
-            }
-        });
-
-        router.push(`?${newSearchParams.toString()}`);
-        await refetch(); // manually refetch after updating the URL
-        setIsFiltering(false);
-    }, [searchParams, router, refetch]);
+    const { movies, error, isFiltering, handleFilter } = useMovieRecommendations();
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 
@@ -59,30 +17,26 @@ const MovieRecommendations: React.FC = () => {
             <div className="mt-8">
                 <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Coming Soon</h2>
 
-                {/* loading while fetinging  */}
-                {isFiltering && (<div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
-                    {Array.from({ length: 2 }).map((_, i) => (
-
-                        <button className="md:w-60 w-full text-center animate-pulse">
-                            <div className="rounded-xl w-full h-96 relative overflow-hidden bg-gray-800">
-
-                            </div>
-                            <div className="mt-2 mb-4 h-4 bg-gray-800 rounded w-3/4"></div>
-                        </button>
-                    ))}
-                </div>)}
-
-                {!isFiltering && (
+                {/* Loading while fetching */}
+                {isFiltering && (
                     <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
-                        {movies?.data && movies?.data?.map((movie: Movie) => (
-                            <MovieCard key={movie._id} movie={movie} />
+                        {Array.from({ length: 2 }).map((_, i) => (
+                            <button key={i} className="md:w-60 w-full text-center animate-pulse">
+                                <div className="rounded-xl w-full h-96 relative overflow-hidden bg-gray-800"></div>
+                                <div className="mt-2 mb-4 h-4 bg-gray-800 rounded w-3/4"></div>
+                            </button>
                         ))}
                     </div>
                 )}
 
+                {!isFiltering && (
+                    <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
+                        {movies?.data && movies?.data.map((movie: Movie) => (
+                            <MovieCard key={movie._id} movie={movie} />
+                        ))}
+                    </div>
+                )}
             </div>
-
-
         </div>
     );
 };

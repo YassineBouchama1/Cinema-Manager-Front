@@ -2,39 +2,23 @@ import { getSession } from "@/lib/getSessions";
 import { BackendError } from "@/types/errors";
 import { delay } from "@/utils/delay";
 
-export interface ReservationData {
-    showTimeId: string;
-    seats: number[];
-}
-
-interface ReservationResponse {
+interface MovieResponse {
     message: string;
     data?: any;
 }
 
-export async function makeReservation(
-    reservationData: ReservationData
-): Promise<ReservationResponse> {
+export const getMovies = async (params?: Record<string, string | string[] | undefined>): Promise<MovieResponse> => {
     try {
-
-
-        // chck if user login and f token provided
-        const session = await getSession();
-
-        if (!session?.token) {
-            throw new Error('Unauthorized , token required');
-        }
-
 
         await delay(2000);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/reservation`, {
-            method: 'POST',
+        const queryString = new URLSearchParams(params as Record<string, string>).toString();
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/public/movie?${queryString}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${session?.token}`,
+
             },
-            body: JSON.stringify(reservationData),
         });
 
         const data = await response.json();
@@ -42,15 +26,10 @@ export async function makeReservation(
         if (!response.ok) {
             const error: BackendError = data;
             if (error.errors) {
-
-
-
                 // Validation errors
                 const errorMessages = error.errors.map(err => `${err.path}: ${err.msg}`).join(', ');
                 throw new Error(errorMessages);
             } else if (error.message) {
-
-
                 // General error message
                 throw new Error(error.message);
             } else {
@@ -58,9 +37,9 @@ export async function makeReservation(
             }
         }
 
-        return data as ReservationResponse;
+        return data as MovieResponse;
     } catch (error) {
-        console.error('Reservation error:', error);
+        console.error('Get movies error:', error);
         throw error;
     }
-} 
+};

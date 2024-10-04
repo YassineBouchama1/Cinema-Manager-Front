@@ -6,17 +6,15 @@ import TimeSelector from './TimeSelector';
 import SeatSelection from './SeatSelection';
 import TicketSummary from './TicketSummary';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
-import { useAuthFormContext } from '@/context/AuthFormContext';
-import { useAuthContext } from '@/Providers/AuthProvider';
+
 import toast from 'react-hot-toast';
 import { useMovieBooking } from '../hooks/useMovieBooking';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
 
 const MovieBooking: React.FC = () => {
-    const { isModelOpen, currentMovieId } = useGlobalTheme();
-    const { openModelAuth } = useAuthFormContext();
-    const { session } = useAuthContext();
+    const { currentMovieId } = useGlobalTheme();
+
 
     if (!currentMovieId) return toast.error('id movie required');
 
@@ -41,7 +39,7 @@ const MovieBooking: React.FC = () => {
     } = useMovieBooking({ currentMovieId });
 
 
-    const { handleBuy,loadingPurchase,errorPurchase } = usePurchase(selectedShowTime, selectedSeats,setSelectedSeats);
+    const { handleBuy, loadingPurchase, errorPurchase } = usePurchase(selectedShowTime, selectedSeats, setSelectedSeats);
 
 
 
@@ -92,7 +90,7 @@ const MovieBooking: React.FC = () => {
                     onBuy={handleBuy}
                     showTimeId={selectedShowTime?._id || ''}
                     loading={loadingPurchase}
-                  
+
                 />
             )}
         </MarginWidthWrapper>

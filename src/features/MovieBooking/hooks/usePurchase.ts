@@ -39,7 +39,10 @@ export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: nu
 
     const handleBuy = useCallback(async () => {
         // check if user is logged in
+
+        console.log(session?.token)
         if (!session?.token) {
+
             openModelAuth();
             toast.error('You should be logged in to purchase a ticket');
             return;
