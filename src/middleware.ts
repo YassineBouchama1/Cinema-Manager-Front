@@ -1,6 +1,6 @@
 import { usePathname } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "./lib/getSessions";
+import { getSession } from "./lib/sessions";
 
 
 
@@ -43,38 +43,9 @@ export default async function middleware(req: any) {
   // // token avibal
   if (session?.token) {
 
-    //   // protect if user dosnt active user
-    //   if (!session?.isActive && isAuthRoute) {
-    //     const redirectUrl = new URL(
-    //       "/request-email-verification",
-    //       req.nextUrl.origin
-    //     );
-    //     return NextResponse.redirect(redirectUrl);
-    //   }
-
-
-    //   // if try visit auth routes for super admin
-    // if (session.role === 2 && isSuperAdminRoute) {
-    //   return NextResponse.redirect(
-    //     new URL("/dashboard", req.nextUrl.origin)
-    //   );
-    // }
-
-
-    //   // if try visit auth routes for association admin
-    //   if (session.role === 1 && isAssociationRoute) {
-    //     return NextResponse.redirect(
-    //       new URL("/dashboard", req.nextUrl.origin)
-    //     );
-    //   }
 
 
 
-    //   if (session?.isActive && isGuestRoute) {
-    //     return NextResponse.redirect(
-    //       new URL("/dashboard", req.nextUrl.origin)
-    //     );
-    //   }
   }
 
 

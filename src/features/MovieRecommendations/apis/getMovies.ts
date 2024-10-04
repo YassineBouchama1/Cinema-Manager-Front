@@ -1,4 +1,3 @@
-import { getSession } from "@/lib/getSessions";
 import { BackendError } from "@/types/errors";
 import { delay } from "@/utils/delay";
 

@@ -1,7 +1,7 @@
 import { BackendError } from "@/types/errors";
 import { delay } from "@/utils/delay";
 import { ReservationData } from "../types";
-import { getSession } from "@/lib/getSessions";
+import { getSession } from "@/lib/sessions";
 
 export const getReservations = async (): Promise<ReservationData> => {
     try {

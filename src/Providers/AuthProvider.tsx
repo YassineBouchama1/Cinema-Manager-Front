@@ -6,8 +6,8 @@ import React, {
     useEffect,
     useCallback,
 } from "react";
-import { getSession } from "@/lib/getSessions";
 import { SessionData } from "@/lib/optionsSessions";
+import { getSession } from "@/lib/sessions";
 
 type Session = SessionData | null;
 type GlobalContext = {

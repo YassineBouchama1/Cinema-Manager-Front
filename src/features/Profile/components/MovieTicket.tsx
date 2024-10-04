@@ -1,7 +1,9 @@
-import React from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';// Adjust the import path as necessary
+import React, { useMemo } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Reservation } from '../types';
 import { cancelReservation } from '../apis/cancelReservation';
+import Image from 'next/image';
+import { QRCodeSVG } from 'qrcode.react';
 
 interface MovieTicketProps {
   reservation: Reservation;
@@ -10,12 +12,10 @@ interface MovieTicketProps {
 const MovieTicket: React.FC<MovieTicketProps> = ({ reservation }) => {
   const queryClient = useQueryClient();
 
-
-  //  mutation for cancel reservation
+  // this  for mutation for cancel reservation
   const mutation = useMutation({
     mutationFn: (reservationId: string) => cancelReservation(reservationId),
     onSuccess: () => {
-      // refetch reservations after a successful cancellation
       queryClient.invalidateQueries({ queryKey: ['reservation-profile'] });
     },
     onError: (error: Error) => {
@@ -27,17 +27,56 @@ const MovieTicket: React.FC<MovieTicketProps> = ({ reservation }) => {
     mutation.mutate(reservation.reservationId);
   };
 
+
+  //TODO ths can scan by app or website to check if rservation valid
+  const qrCodeValue = `${process.env.NEXT_PUBLIC_URL_FRONT}/admin/checker/${reservation.reservationId}`;
+
+
+  // thsi for Refactore start date 
+  const dateInfo = useMemo(() => {
+    const date = new Date(reservation.showTime.startAt);
+    return {
+      day: date.getDate(),
+      month: date.toLocaleString('default', { month: 'long' }),
+      time: date.toLocaleTimeString('default', { hour: '2-digit', minute: '2-digit' })
+    };
+  }, [reservation.showTime.startAt]);
+
+
+
   return (
-    <div className="movie-ticket">
-      <h2>{reservation.showTime.movie.name}</h2>
-      <p>Room: {reservation.showTime.room.name}</p>
-      <p>Seats: {reservation.seats.join(', ')}</p>
-      <p>Total Price: ${reservation.totalPrice}</p>
-      <p>Status: {reservation.status}</p>
-      <button onClick={handleCancel} disabled={mutation.isPending}>
+    <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden w-[400px] m-4">
+      <div className="p-4 flex gap-x-4">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${reservation.showTime.movie.image}`}
+          alt={reservation.showTime.movie.name}
+          width={200}
+          height={300}
+          className="w-2/4 h-auto object-cover rounded"
+        />
+        <div className='flex flex-col justify-between'>
+          <h2 className="text-xl font-bold mt-2">{reservation.showTime.movie.name}</h2>
+          <p className="text-gray-200">{`Date: ${dateInfo.day} ${dateInfo.month}`}</p>
+          <p className="text-gray-200">{`Time: ${dateInfo.time}`}</p>
+          <p className="text-gray-200">Room: {reservation.showTime.room.name}</p>
+          <p className="text-gray-200">Seat: {reservation.seats.join(', ')}</p>
+          <p className="text-gray-200">Total: ${reservation.totalPrice}</p>
+          <p className="text-gray-200">Status: {reservation.status}</p>
+          <div className="bg-gray-100 p-4">
+            <QRCodeSVG value={qrCodeValue} size={128} />
+          </div>
+        </div>
+
+      </div>
+      <button
+        onClick={handleCancel}
+        disabled={mutation.isPending}
+        className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:bg-gray-400 w-full"
+      >
         {mutation.isPending ? 'Canceling...' : 'Cancel Reservation'}
       </button>
-      {mutation.isError && <p>Error: {mutation.error.message}</p>}
+      {mutation.isError && <p className="text-red-500 mt-2">Error: {mutation.error.message}</p>}
+
     </div>
   );
 };

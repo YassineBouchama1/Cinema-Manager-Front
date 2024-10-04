@@ -1,8 +1,7 @@
-import { SessionData } from "@/lib/optionsSessions";
-import { setSession } from "@/lib/setSession";
+
 import { delay } from "../../../utils/delay";
 import { LoginFormData } from "@/features/auth/validators/auth";
-import { useAuthContext } from "@/Providers/AuthProvider";
+import { setSession } from "@/lib/sessions";
 import { BackendError } from "@/types/errors";
 
 interface LoginResponse {

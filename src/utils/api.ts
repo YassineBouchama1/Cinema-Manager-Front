@@ -1,4 +1,4 @@
-import { getSession } from '@/lib/getSessions';
+import { getSession } from "@/lib/sessions";
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 

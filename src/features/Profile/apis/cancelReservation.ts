@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/getSessions";
+import { getSession } from "@/lib/sessions";
 import { delay } from "@/utils/delay";
 
 export const cancelReservation = async (reservationId: string): Promise<void> => {
