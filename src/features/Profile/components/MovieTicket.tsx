@@ -5,6 +5,7 @@ import { cancelReservation } from '../apis/cancelReservation';
 import Image from 'next/image';
 import { QRCodeSVG } from 'qrcode.react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 interface MovieTicketProps {
   reservation: Reservation;
@@ -22,6 +23,7 @@ const MovieTicket: React.FC<MovieTicketProps> = ({ reservation }) => {
       // refresh the page
       router.refresh();
       queryClient.invalidateQueries({ queryKey: ['reservation-profile'] });
+      toast.success('Canceled Reservation Successfully')
     },
     onError: (error: Error) => {
       console.error('Error canceling reservation:', error.message);

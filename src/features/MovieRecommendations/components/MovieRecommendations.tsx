@@ -6,7 +6,7 @@ import { useMovieRecommendations } from '../hooks/useMovieRecommendations';
 import { Movie } from '@/types/movie';
 
 const MovieRecommendations: React.FC = () => {
-    const { movies, error, isFiltering, handleFilter } = useMovieRecommendations();
+    const { movies, isLoading, error, isFiltering, handleFilter } = useMovieRecommendations();
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 
@@ -31,6 +31,7 @@ const MovieRecommendations: React.FC = () => {
 
                 {!isFiltering && (
                     <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
+                        {!movies?.data && <p>There are no showtimes</p>}
                         {movies?.data && movies?.data.map((movie: Movie) => (
                             <MovieCard key={movie._id} movie={movie} />
                         ))}

@@ -2,8 +2,8 @@
 import MovieCardSkeleton from "@/components/skeletons/MovieSkeleton";
 import React from "react";
 
-const Laoding = () => {
+const HomeLaoding = () => {
     return <MovieCardSkeleton />;
 };
 
-export default Laoding;
+export default HomeLaoding;

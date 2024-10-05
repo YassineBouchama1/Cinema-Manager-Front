@@ -11,6 +11,8 @@ import toast from 'react-hot-toast';
 import { useMovieBooking } from '../hooks/useMovieBooking';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
+import { delay } from '@/utils/delay';
+import LoadingMovieBooking from './LoadingMovieBooking';
 
 const MovieBooking: React.FC = () => {
     const { currentMovieId } = useGlobalTheme();
@@ -44,8 +46,10 @@ const MovieBooking: React.FC = () => {
 
 
     console.log(loadingPurchase)
+
+
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <LoadingMovieBooking />;
     }
 
     if (error) {
@@ -80,6 +84,7 @@ const MovieBooking: React.FC = () => {
                     reservedSeats={reservedSeats}
                     selectedSeats={selectedSeats}
                     onSeatSelect={handleSeatSelection}
+                    seatsPerRow={10}
                 />
             )}
 

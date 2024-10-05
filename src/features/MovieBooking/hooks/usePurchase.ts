@@ -30,7 +30,7 @@ export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: nu
             // invalidate and refetch the movie-booking query
             queryClient.invalidateQueries({ queryKey: ['movie-booking'] });
             setSelectedSeats([])
-            // router.push('/profile');
+            router.push('/profile');
         },
         onError: (error: Error) => {
             toast.error(error.message);

@@ -29,6 +29,7 @@ interface UseMovieBookingReturn {
   handleTimeSelect: (time: string) => void;
   handleSeatSelection: (seatIndex: number) => void;
   setSelectedSeats: React.Dispatch<React.SetStateAction<number[]>>;
+  seatsPerRow: number
   // handleBuy: () => void; 
 }
 
@@ -56,6 +57,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
   const [selectedShowTime, setSelectedShowTime] = useState<ShowTime | null>(null);
   const [roomCapacity, setRoomCapacity] = useState<number>(0);
+  const [seatsPerRow, setSeatsPerRow] = useState<number>(10);
   const [reservedSeats, setReservedSeats] = useState<number[]>([]);
 
   // this fun for reset all selection states
@@ -65,6 +67,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     setSelectedShowTime(null);
     setSelectedSeats([]);
     setRoomCapacity(0);
+    setSeatsPerRow(10);
     setReservedSeats([]);
   }, []);
 
@@ -82,6 +85,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
       setSelectedTime(format(initialDate, 'HH:mm'));
       setSelectedShowTime(initialShowTime);
       setRoomCapacity(initialShowTime.roomId?.capacity || 0);
+      setSeatsPerRow(initialShowTime.roomId?.seatsPerRow || 10);
       setReservedSeats(initialShowTime.reservedSeats || []);
     } else {
       resetSelection();
@@ -138,6 +142,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
       setSelectedShowTime(firstShowTime);
       setSelectedSeats([]);
       setRoomCapacity(firstShowTime.roomId?.capacity || 0);
+      setSeatsPerRow(firstShowTime.roomId?.seatsPerRow || 10);
       setReservedSeats(firstShowTime.reservedSeats || []);
     } else {
       resetSelection();
@@ -158,6 +163,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
         setSelectedShowTime(newShowTime);
         setSelectedSeats([]);
         setRoomCapacity(newShowTime.roomId?.capacity || 0);
+        setSeatsPerRow(newShowTime.roomId?.seatsPerRow || 10);
         setReservedSeats(newShowTime.reservedSeats || []);
       }
     }
@@ -192,6 +198,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     handleDateSelect,
     handleTimeSelect,
     handleSeatSelection,
-    setSelectedSeats
+    setSelectedSeats,
+    seatsPerRow
   };
 };

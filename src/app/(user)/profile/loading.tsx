@@ -1,9 +1,9 @@
 
-import MovieCardSkeleton from "@/components/skeletons/MovieSkeleton";
+import ProfileSkeleton from "@/components/skeletons/ProfileSkeleton";
 import React from "react";
 
-const Laoding = () => {
-    return <h2>Here i will add loading for profile page</h2>;
+const ProfileLoading = () => {
+    return <ProfileSkeleton />;
 };
 
-export default Laoding;
+export default ProfileLoading;

@@ -1,13 +1,12 @@
 
 import { getSession } from '@/lib/sessions';
+import { delay } from '@/utils/delay';
 
-export default async function HomeLayout({
+export default async function ProfileLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getSession()
-
 
     return (
 

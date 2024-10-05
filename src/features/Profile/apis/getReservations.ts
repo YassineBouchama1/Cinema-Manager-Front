@@ -11,7 +11,7 @@ export const getReservations = async (): Promise<ReservationData> => {
             throw new Error('Unauthorized, token required');
         }
 
-        await delay(2000);
+        await delay(5000);
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/reservation`, {
             method: 'GET',

@@ -18,6 +18,16 @@
 }
 
 
+.screen {
+  background: #fff;
+  height: 70px;
+  width: 70%;
+  margin: 15px 0;
+  transform: rotateX(210deg);
+  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+
+}
+
 @layer utilities{
 
   /* Hide scrollbar for Chrome, Safari and Opera */
