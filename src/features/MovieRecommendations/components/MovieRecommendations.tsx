@@ -2,8 +2,8 @@
 import React, { memo } from 'react';
 import FilterMovie from './FilterMovie';
 import MovieCard from './MovieCard';
-import { useMovieRecommendations } from '../hooks/useMovieRecommendations';
 import { Movie } from '@/types/movie';
+import { useMovieRecommendations } from '../hooks/useMovieRecommendations';
 
 const MovieRecommendations: React.FC = () => {
     const { movies, isLoading, error, isFiltering, handleFilter } = useMovieRecommendations();

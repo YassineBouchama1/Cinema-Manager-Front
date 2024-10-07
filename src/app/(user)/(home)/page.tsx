@@ -2,8 +2,8 @@ import React from 'react';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import MovieRecommendations from '@/features/MovieRecommendations/components/MovieRecommendations';
 import getQueryClient from '@/utils/queryClient';
-import { getMovies } from '@/hooks/useMovies';
 import WrapperBook from '@/features/MovieBooking/components/WrapperBook';
+import { getMovies } from '@/features/MovieRecommendations/apis/getMovies';
 
 
 export default async function PageDashboard({
@@ -13,7 +13,6 @@ export default async function PageDashboard({
 }) {
 
 
-    // const moviesResult = getMovies()
 
     // pre fetch movies in server than passed to client
     const queryClient = getQueryClient();

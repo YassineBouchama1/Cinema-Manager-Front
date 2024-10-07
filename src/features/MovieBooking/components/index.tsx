@@ -8,11 +8,11 @@ import TicketSummary from './TicketSummary';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 
 import toast from 'react-hot-toast';
-import { useMovieBooking } from '../hooks/useMovieBooking';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
 import { delay } from '@/utils/delay';
 import LoadingMovieBooking from './LoadingMovieBooking';
+import { useMovieBooking } from '../hooks/useMovieBooking';
 
 const MovieBooking: React.FC = () => {
     const { currentMovieId } = useGlobalTheme();

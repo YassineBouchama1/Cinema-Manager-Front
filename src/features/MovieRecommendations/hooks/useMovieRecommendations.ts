@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getMovies } from '@/hooks/useMovies';
+import { getMovies } from '../apis/getMovies';
 
 export const useMovieRecommendations = () => {
     const searchParams = useSearchParams();
@@ -38,7 +38,7 @@ export const useMovieRecommendations = () => {
         setIsFiltering(false);
     }, [searchParams, router, refetch]);
 
-    
+
     return {
         movies,
         isLoading,

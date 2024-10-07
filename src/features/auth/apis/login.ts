@@ -1,8 +1,6 @@
-
-import { delay } from "../../../utils/delay";
 import { LoginFormData } from "@/features/auth/validators/auth";
 import { setSession } from "@/lib/sessions";
-import { BackendError } from "@/types/errors";
+import customFetch from "@/utils/customFetch";
 
 interface LoginResponse {
     data: {
@@ -16,49 +14,22 @@ interface LoginResponse {
     token: string;
 }
 
-
-
 export async function loginUser(formData: LoginFormData): Promise<LoginResponse> {
     try {
-
-
-        await delay(2000)
-
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            const error: BackendError = data;
-            if (error.errors) {
-                // validation errors
-
-                const errorMessages = error.errors.map(err => `${err.path}: ${err.msg}`).join(', ');
-                throw new Error(errorMessages);
-            } else if (error.message) {
-
-
-                // general error message
-                throw new Error(error.message);
-            } else {
-                throw new Error('An unexpected error occurred');
+        const loginData = await customFetch<LoginFormData, LoginResponse>(
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`,
+            {
+                method: 'POST',
+                data: formData,
             }
-        }
-
-        const loginData: LoginResponse = data;
+        );
 
         if (!loginData.data.isActive) {
             throw new Error('Your account is not active');
         }
 
-        // set session data <coockis>
-        const sessionUpdated = await setSession({
+        // set session data
+        await setSession({
             userId: loginData.data._id,
             name: loginData.data.name,
             email: loginData.data.email,
@@ -66,8 +37,6 @@ export async function loginUser(formData: LoginFormData): Promise<LoginResponse>
             isLoggedIn: true,
             token: loginData.token,
         });
-
-
 
         return loginData;
     } catch (error) {

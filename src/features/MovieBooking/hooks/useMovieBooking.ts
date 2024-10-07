@@ -1,10 +1,10 @@
-// useMovieBooking.ts
+'use client'
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { getMovie } from '@/hooks/useMovies';
 import { ShowTime } from '@/types/showTime';
 import { MovieData } from '@/types';
+import { getMovie } from '@/features/MovieRecommendations/apis/getMovie';
 
 // Define the properties expected by the hook
 interface UseMovieBookingProps {
