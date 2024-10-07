@@ -14,6 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 export default function ResetPasswordForm() {
     const [token, setToken] = useState('');
     const { closeModelAuth, setAuthFormField } = useAuthFormContext();
+    const router = useRouter();
 
     // Get token from URL or other source
     const searchParams = useSearchParams();
@@ -52,11 +53,21 @@ export default function ResetPasswordForm() {
         resetPasswordMutation.mutate(data);
     };
 
+
+    const handleCloseModal = () => {
+        closeModelAuth();
+        // remove tokenPass from the URL 
+        const params = new URLSearchParams(searchParams);
+        params.delete('tokenPass');
+        router.replace(`?${params.toString()}`, undefined);
+    };
+
+
     return (
         <div className="bg-gray-800 rounded-lg shadow relative">
             <div className="flex justify-end p-2">
                 <button
-                    onClick={() => closeModelAuth()}
+                    onClick={handleCloseModal}
                     type="button"
                     className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                     data-modal-toggle="authentication-modal"
