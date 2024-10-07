@@ -1,11 +1,11 @@
-# Use the official Node.js image as a base
-FROM node:18
+# Use the official Node.js 18 image as a base
+FROM node:18-alpine
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if available)
-COPY package*.json ./
+COPY package.json package-lock.json* ./
 
 # Install dependencies
 RUN npm install

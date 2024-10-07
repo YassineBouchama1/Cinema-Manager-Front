@@ -22,28 +22,28 @@ const SeatSelection: React.FC<SeatSelectionProps> = React.memo(({ roomCapacity, 
 
                     <div className="flex space-x-4">
                         <div className="flex items-center">
-                            <div className="w-4 h-4 bg-gray-500 mr-2"></div>
+                            <div className="w-6 h-6 md:w-10 md:h-10 rounded-t-2xl bg-gray-500 mr-2"></div>
                             <span className="text-white">N/A</span>
                         </div>
                         <div className="flex items-center">
-                            <div className="w-4 h-4 bg-blue-500 mr-2"></div>
+                            <div className="w-6 h-6 md:w-10 md:h-10 rounded-t-2xl bg-blue-500 mr-2"></div>
                             <span className="text-white">Selected</span>
                         </div>
                         <div className="flex items-center">
-                            <div className="w-4 h-4 bg-red-500 mr-2"></div>
+                            <div className="w-6 h-6 md:w-10 md:h-10 rounded-t-2xl bg-red-500 mr-2"></div>
                             <span className="text-white">Occupied</span>
                         </div>
                     </div>
                 </div>
 
                 <div className='perspective-800 w-full flex justify-center mb-10'>
-                    <div className=" bg-white h-28 w-[80%] my-4 transform -rotate-x-45 shadow-lg shadow-white flex justify-center items-center "><p className='text-gray-900'>Screen</p></div>
+                    <div className=" bg-white h-28 w-[80%] my-4 transform -rotate-x-45  shadow-lg shadow-white flex justify-center items-center "><p className='text-gray-900'>Screen</p></div>
                 </div>
 
             </div>
 
 
-            <div className={`grid grid-cols-${seatsPerRow} gap-2 w-full mx-auto justify-center `}>
+            <div className={`grid grid-cols-${seatsPerRow} gap-4 w-full mx-auto justify-center `}>
                 {Array.from({ length: roomCapacity }, (_, index) => (
                     <button
                         key={index + 1}

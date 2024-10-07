@@ -7,6 +7,7 @@ export interface ValidationError {
 }
 
 export interface BackendError {
+    statusCode: number;
     errors?: ValidationError[];
     status?: string;
     error?: {

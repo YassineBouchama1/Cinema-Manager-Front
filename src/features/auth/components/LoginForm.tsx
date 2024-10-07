@@ -55,12 +55,12 @@ export default function LoginForm() {
 
 
     return (
-        <div className="bg-white rounded-lg shadow relative dark:bg-gray-700">
+        <div className="bg-gray-800 text-white rounded-lg shadow relative ">
             <div className="flex justify-end p-2">
                 <button
                     onClick={() => closeModelAuth()}
                     type="button"
-                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                    className="text-white bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     data-modal-toggle="authentication-modal"
                 >
                     <X size={20} />
@@ -70,13 +70,13 @@ export default function LoginForm() {
                 className="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                <h3 className="text-xl font-medium text-white">
                     Sign in to our platform
                 </h3>
                 <div>
                     <label
                         htmlFor="email"
-                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                        className="text-sm font-medium  block mb-2 text-gray-300"
                     >
                         Your email
                     </label>
@@ -84,7 +84,7 @@ export default function LoginForm() {
                         id="email"
                         type="email"
                         {...register('email')}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        className="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                         placeholder="name@company.com"
                         required
 
@@ -94,7 +94,7 @@ export default function LoginForm() {
                 <div>
                     <label
                         htmlFor="password"
-                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                        className="text-sm font-medium text-gray-300"
                     >
                         Your password
                     </label>
@@ -103,7 +103,7 @@ export default function LoginForm() {
                         type="password"
                         {...register('password')}
                         placeholder="••••••••"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-white dark:text-white"
                         required
                     />
                     {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
@@ -111,14 +111,14 @@ export default function LoginForm() {
                 <div className="flex justify-between">
                     <button
                         onClick={() => setAuthFormField('forgotPassword')}
-                        className="text-sm text-blue-700 hover:underline dark:text-blue-500"
+                        className="text-sm text-[#3b82f6] hover:underline "
                     >
                         Lost Password?
                     </button>
                 </div>
                 <button
                     type="submit"
-                    className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="w-full text-white bg-[#3b82f6] hover:bg-[#1557c0] duration-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                     disabled={loginMutation.isPending}
                 >
                     {loginMutation.isPending ? 'Logging in...' : 'Login to your account'}
@@ -127,7 +127,7 @@ export default function LoginForm() {
                     Not registered?{" "}
                     <button
                         onClick={() => setAuthFormField('register')}
-                        className="text-blue-700 hover:underline dark:text-blue-500"
+                        className="text-[#3b82f6] hover:underline "
                     >
                         Create account
                     </button>

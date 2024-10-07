@@ -15,7 +15,8 @@ const AuthWrapper = () => {
         isModelAuthOpen,
         closeModelAuth,
         authFormField,
-        setAuthFormField
+        setAuthFormField,
+        openModelAuth
     } = useAuthFormContext();
 
     const searchParams = useSearchParams();
@@ -23,11 +24,14 @@ const AuthWrapper = () => {
 
     // if there is forget query in url wll open forget pasowd form
     useEffect(() => {
-        const forgetToken = searchParams.get('forget');
-        if (forgetToken) {
+        const tokenPass = searchParams.get('tokenPass');
+
+        console.log(tokenPass)
+        if (tokenPass) {
             setAuthFormField('resetPassword');
+            openModelAuth()
         }
-    }, [searchParams, setAuthFormField]);
+    }, []);
 
     if (!isModelAuthOpen) return null;
 

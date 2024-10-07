@@ -12,7 +12,7 @@ const MovieRecommendations: React.FC = () => {
 
     return (
         <div className="text-white pt-6 h-full">
-            <FilterMovie onFilter={handleFilter} />
+            <FilterMovie onFilter={handleFilter}  isFiltering={isFiltering}/>
 
             <div className="mt-8">
                 <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Coming Soon</h2>

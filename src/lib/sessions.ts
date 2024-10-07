@@ -39,3 +39,18 @@ export const setSession = async (sessionData: SessionData) => {
     return session;
 };
 
+
+
+export const clearSession = async () => {
+    // call session to fill  with user data
+    const session = await getSession();
+
+    // Update session
+    Object.assign(session, {
+        isLoggedIn: false,
+        token: ""
+    });
+    await session.save();
+
+    return session
+};
