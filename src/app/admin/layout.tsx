@@ -14,7 +14,7 @@ export default async function DashboardLayout({
 
   const session = await getSession()
   return (
-    <div className=" md:flex  h-full w-full bg-gray-100  ">
+    <div className=" flex flex-1  h-screen w-full bg-gray-100  ">
       <Sidebar />
       <main className="flex-1">
         <TopNavbarAdmin />
