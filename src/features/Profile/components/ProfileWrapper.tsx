@@ -43,6 +43,8 @@ const tabContentVariants: Variants = {
 function ProfileWrapper() {
     const [activeTab, setActiveTab] = useState(tabs[0]);
 
+
+
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: typeof tabs[number]) => {
         e.preventDefault();
         setActiveTab(tab);
