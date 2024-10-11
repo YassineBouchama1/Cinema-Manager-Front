@@ -6,17 +6,17 @@ const movies = [
     {
         image: "/images/hero.jpg",
         title: "Joker",
-        genres: ["Action", "Adventure", "Sci-Fi"],
+        genres: ["Action", "Action", "Sci-Fi"],
     },
     {
         image: "/images/hero2.jpg",
-        title: "Inception",
-        genres: ["Thriller", "Mystery", "Sci-Fi"],
+        title: "Spider Man",
+        genres: ["Thriller", "Mystery", "Acton"],
     },
     {
         image: "/images/hero3.jpg",
-        title: "Interstellar",
-        genres: ["Adventure", "Drama", "Sci-Fi"],
+        title: "One Piece",
+        genres: ["Adventure", "Drama", "Anime"],
     },
 ];
 

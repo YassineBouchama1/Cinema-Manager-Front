@@ -5,6 +5,7 @@ import WrapperBook from '@/features/MovieBooking/components/WrapperBook';
 import { getMovies } from '@/features/MovieRecommendations/apis/getMovies';
 import Hero from '@/components/layouts/Hero';
 import HomeDisplayWrapper from '@/components/Wrappers/HomeDisplayWrapper';
+import { getShowTimes } from '@/features/ShowTimesRecommendations/apis/getShowTimes';
 
 
 export default async function PageDashboard({
@@ -18,8 +19,8 @@ export default async function PageDashboard({
     // pre fetch movies in server than passed to client
     const queryClient = getQueryClient();
     await queryClient.prefetchQuery({
-        queryKey: ['movies', searchParams],
-        queryFn: () => getMovies(searchParams),
+        queryKey: ['showTimes-user', searchParams],
+        queryFn: () => getShowTimes(searchParams),
     });
 
 

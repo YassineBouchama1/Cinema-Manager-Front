@@ -1,12 +1,13 @@
 'use client';
 import React, { memo } from 'react';
-import FilterMovie from './FilterMovie';
-import MovieCard from './MovieCard';
+import FilterMovie from './FilterShowTime';
 import { Movie } from '@/types/movie';
 import { useShowTimesRecommendations } from '../hooks/useShowTimesRecommendations';
+import ShowTimeCard from './showTimeCard';
+import { MovieHasShowTimes } from '@/types/showTime';
 
 const ShowTimesRecommendations: React.FC = () => {
-    const { movies, isLoading, error, isFiltering, handleFilter } = useShowTimesRecommendations();
+    const { showTimes, isLoading, error, isFiltering, handleFilter } = useShowTimesRecommendations();
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 
@@ -32,9 +33,9 @@ const ShowTimesRecommendations: React.FC = () => {
 
                 {!isFiltering && (
                     <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
-                        {!movies?.data && <p>There are no showtimes</p>}
-                        {movies?.data && movies?.data.map((movie: Movie) => (
-                            <MovieCard key={movie._id} movie={movie} />
+                        {!showTimes?.data && <p>There are no showtimes</p>}
+                        {showTimes?.data && showTimes?.data.map((showTime: MovieHasShowTimes) => (
+                            <ShowTimeCard key={showTime._id} showTime={showTime} />
                         ))}
                     </div>
                 )}

@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getMovies } from '../apis/getMovies';
+import { getShowTimes } from '../apis/getShowTimes';
 
 export const useShowTimesRecommendations = () => {
     const searchParams = useSearchParams();
@@ -11,16 +11,16 @@ export const useShowTimesRecommendations = () => {
     // memoizing search parameters to avoid recalculation every rander
     const searchParamsMemo = useMemo(() => Object.fromEntries(searchParams), [searchParams]);
 
-    // fetching list of movies
-    const { data: movies, isLoading, error, refetch } = useQuery({
-        queryKey: ['movies', searchParamsMemo],
-        queryFn: () => getMovies(searchParamsMemo),
+    // fetching list of showTimes
+    const { data: showTimes, isLoading, error, refetch } = useQuery({
+        queryKey: ['showTimes-user', searchParamsMemo],
+        queryFn: () => getShowTimes(searchParamsMemo),
         enabled: isFiltering, // disable automatic refetching until filter
     });
 
 
 
-    // Fthis funnction for filtering movies 
+    // Fthis funnction for filtering showTimes 
     const handleFilter = useCallback(async (filters: Record<string, string>) => {
         setIsFiltering(true);
         const newSearchParams = new URLSearchParams(searchParams);
@@ -40,7 +40,7 @@ export const useShowTimesRecommendations = () => {
 
 
     return {
-        movies,
+        showTimes,
         isLoading,
         error,
         isFiltering,

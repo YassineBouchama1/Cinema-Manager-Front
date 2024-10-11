@@ -1,12 +1,12 @@
 import { Loader } from 'lucide-react';
 import React, { useState } from 'react';
 
-interface FilterMovieProps {
+interface FilterShowTimeProps {
     onFilter: (filters: Record<string, string>) => void;
     isFiltering: boolean
 }
 
-const FilterMovie: React.FC<FilterMovieProps> = ({ onFilter, isFiltering }) => {
+const FilterShowTime: React.FC<FilterShowTimeProps> = ({ onFilter, isFiltering }) => {
     const [genre, setGenre] = useState('');
     const [date, setDate] = useState('');
     const [search, setSearch] = useState('');
@@ -78,4 +78,4 @@ const FilterMovie: React.FC<FilterMovieProps> = ({ onFilter, isFiltering }) => {
     );
 }
 
-export default FilterMovie;
+export default FilterShowTime;

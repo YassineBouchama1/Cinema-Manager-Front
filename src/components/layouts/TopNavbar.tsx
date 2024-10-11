@@ -26,8 +26,8 @@ const TopNavbar: React.FC<{ isAuth: boolean }> = ({ isAuth }) => {
             <Link
                 href={'/'}
                 className="flex items-center space-x-2">
-                <Film className="w-8 h-8" />
-                <span className="text-xl font-bold">Film Reels</span>
+                <Film className="w-8 h-8 " />
+                <span className="text-xl  font-bold">Film Reels</span>
             </Link>
 
 

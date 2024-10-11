@@ -6,14 +6,14 @@ import { Movie } from '@/types/movie';
 import { useMovieRecommendations } from '../hooks/useMovieRecommendations';
 
 const MovieRecommendations: React.FC = () => {
-    // const { movies, isLoading, error, isFiltering, handleFilter } = useMovieRecommendations();
+    const { movies, isLoading, error, isFiltering, handleFilter } = useMovieRecommendations();
 
-    // if (error) return <div>Error: {(error as Error).message}</div>;
+    if (error) return <div>Error: {(error as Error).message}</div>;
 
     return (
         <div className="text-white pt-6 h-full min-h-[800px]">
 
-            {/* <FilterMovie onFilter={handleFilter} isFiltering={isFiltering} /> */}
+            <FilterMovie onFilter={handleFilter} isFiltering={isFiltering} />
             {/* 
             <div className="mt-8">
                 <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Latest Movies</h2>

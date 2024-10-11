@@ -22,7 +22,7 @@ const HomeDisplayWrapper: React.FC = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 mt-4">
             <div className="flex justify-center mb-4">
                 {tabs.map((tab) => (
                     <Chip
