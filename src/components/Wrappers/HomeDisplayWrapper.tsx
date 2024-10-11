@@ -1,7 +1,7 @@
 'use client';
 import { useHomeDisplayContext } from "@/context/HomeDisplayContext";
-import MovieRecommendations from "@/features/MovieRecommendations/components/MovieRecommendations";
-import ShowTimesRecommendations from "@/features/ShowTimesRecommendations/components/ShowTimesRecommendations";
+import ShowTimeBooking from "@/features/ShowTimeBooking/components";
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from "react";
 
@@ -36,7 +36,7 @@ const HomeDisplayWrapper: React.FC = () => {
                     />
                 ))}
             </div>
-            <div>
+            <div className="min-h-[500px]">
                 <AnimatePresence mode="wait">
                     {homeDisplayField === 'showtimes' ? (
                         <motion.div
@@ -47,7 +47,7 @@ const HomeDisplayWrapper: React.FC = () => {
                             variants={contentVariants}
                             transition={{ duration: 0.3 }}
                         >
-                            <ShowTimesRecommendations />
+                            <ShowTimeBooking />
                         </motion.div>
                     ) : (
                         <motion.div
@@ -58,7 +58,7 @@ const HomeDisplayWrapper: React.FC = () => {
                             variants={contentVariants}
                             transition={{ duration: 0.3 }}
                         >
-                            <MovieRecommendations />
+                            <h3>movies</h3>
                         </motion.div>
                     )}
                 </AnimatePresence>

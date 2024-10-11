@@ -3,17 +3,17 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { ShowTime } from '@/types/showTime';
-import { MovieData } from '@/types';
-import { getMovie } from '@/features/MovieRecommendations/apis/getMovie';
+
+import { showTimesBelongMovie } from '../apis/showTimesBelongMovie';
 
 // Define the properties expected by the hook
-interface UseMovieBookingProps {
+interface UseShowTimeBookingProps {
   currentMovieId: string | null; // The ID of the current movie, or null if not set
 }
 
 // Define the return type of the hook
-interface UseMovieBookingReturn {
-  movieData: MovieData | undefined;
+interface UseShowTimeBookingReturn {
+  showTimes: ShowTime[] | undefined;
   isLoading: boolean;
   error: unknown;
   selectedDate: Date | null;
@@ -30,26 +30,28 @@ interface UseMovieBookingReturn {
   handleSeatSelection: (seatIndex: number) => void;
   setSelectedSeats: React.Dispatch<React.SetStateAction<number[]>>;
   seatsPerRow: number
-  // handleBuy: () => void; 
+
 }
 
 // custom hook to manage movie booking logic 
-export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMovieBookingReturn => {
+export const useShowTimeBooking = ({ currentMovieId }: UseShowTimeBookingProps): UseShowTimeBookingReturn => {
 
 
 
   // getch movie data using React Query
-  const { data: movieData, isLoading, error } = useQuery<MovieData>({
-    queryKey: ['movie-booking', currentMovieId],
+  const { data: showTimes, isLoading, error } = useQuery<ShowTime[] | any>({
+    queryKey: ['showtimes-booking', currentMovieId],
     queryFn: () => {
 
       //  here iam rnsure the movie ID is valid before fetching
       if (typeof currentMovieId === 'string' && currentMovieId) {
-        return getMovie(currentMovieId);
+        return showTimesBelongMovie(currentMovieId);
       }
       return Promise.reject('No valid movie ID provided'); // if there is no id return error
     },
   });
+
+  console.log(showTimes)
 
   // here iam declar state variables for managing booking details
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -77,8 +79,8 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
 
   //  here when  when data movie fetched i set initial values when movie data changes
   useEffect(() => {
-    if (movieData?.showTimes && movieData.showTimes.length > 0) {
-      const initialShowTime = movieData.showTimes[0];
+    if (showTimes && showTimes.length > 0) {
+      const initialShowTime = showTimes[0];
       const initialDate = new Date(initialShowTime.startAt);
 
       setSelectedDate(initialDate);
@@ -90,18 +92,18 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     } else {
       resetSelection();
     }
-  }, [movieData, resetSelection]);
+  }, [showTimes, resetSelection]);
 
 
 
   // get unique dates from showtimes
   const uniqueDates = useMemo(() => {
-    if (!movieData?.showTimes) return [];
+    if (!showTimes) return [];
     const datesSet = new Set<string>(
-      movieData.showTimes.map(st => format(new Date(st.startAt), 'yyyy-MM-dd'))
+      showTimes?.map((st: { startAt: string | number | Date; }) => format(new Date(st.startAt), 'yyyy-MM-dd'))
     );
     return Array.from(datesSet).sort();
-  }, [movieData?.showTimes]);
+  }, [showTimes]);
 
 
 
@@ -109,19 +111,19 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
   // fet showtimes for a specific date
   const getShowTimesForDate = useCallback(
     (date: string) => {
-      if (!movieData?.showTimes) return [];
-      return movieData.showTimes.filter(st =>
+      if (!showTimes) return [];
+      return showTimes?.filter((st: { startAt: string | number | Date; }) =>
         format(new Date(st.startAt), 'yyyy-MM-dd') === date
       );
     },
-    [movieData?.showTimes]
+    [showTimes]
   );
 
   // handle seat selection
   const handleSeatSelection = useCallback((seatIndex: number) => {
     setSelectedSeats(prevSeats =>
       prevSeats.includes(seatIndex)
-        ? prevSeats.filter(seat => seat !== seatIndex)
+        ? prevSeats?.filter(seat => seat !== seatIndex)
         : [...prevSeats, seatIndex]
     );
   }, []);
@@ -135,7 +137,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     const newDate = new Date(date);
     setSelectedDate(newDate);
     const showTimes = getShowTimesForDate(date);
-    if (showTimes.length > 0) {
+    if (showTimes?.length > 0) {
       const firstShowTime = showTimes[0];
       const formattedTime = format(new Date(firstShowTime.startAt), 'HH:mm');
       setSelectedTime(formattedTime);
@@ -157,7 +159,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
     if (selectedDate) {
       const dateStr = format(selectedDate, 'yyyy-MM-dd');
       const showTimes = getShowTimesForDate(dateStr);
-      const newShowTime = showTimes.find(st => format(new Date(st.startAt), 'HH:mm') === time);
+      const newShowTime = showTimes?.find((st: { startAt: string | number | Date; }) => format(new Date(st.startAt), 'HH:mm') === time);
       if (newShowTime) {
         setSelectedTime(time);
         setSelectedShowTime(newShowTime);
@@ -183,7 +185,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
 
 
   return {
-    movieData,
+    showTimes,
     isLoading,
     error,
     selectedDate,

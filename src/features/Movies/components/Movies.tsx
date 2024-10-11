@@ -1,25 +1,24 @@
 'use client';
 import React, { memo } from 'react';
-import FilterMovie from './FilterShowTime';
+import FilterMovie from './FilterMovie';
+import MovieCard from './MovieCard';
 import { Movie } from '@/types/movie';
-import { useShowTimesRecommendations } from '../hooks/useShowTimesRecommendations';
-import ShowTimeCard from './showTimeCard';
-import { MovieHasShowTimes } from '@/types/showTime';
+import { useMovies } from '../hooks/useMovies';
 
-const ShowTimesRecommendations: React.FC = () => {
-    const { showTimes, isLoading, error, isFiltering, handleFilter } = useShowTimesRecommendations();
+const Movies: React.FC = () => {
+    const { movies, isLoading, error, isFiltering, handleFilter } = useMovies();
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 
     return (
-        <div className="text-white pt-6 h-full">
+        <div className="text-white pt-6 h-full min-h-[800px]">
 
             <FilterMovie onFilter={handleFilter} isFiltering={isFiltering} />
 
             <div className="mt-8">
-                <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Coming Soon</h2>
+                <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Latest Movies</h2>
 
-                {/* Loading while fetching */}
+                {/* Loading while fetching    */}
                 {isFiltering && (
                     <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
                         {Array.from({ length: 2 }).map((_, i) => (
@@ -33,15 +32,18 @@ const ShowTimesRecommendations: React.FC = () => {
 
                 {!isFiltering && (
                     <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
-                        {!showTimes?.data && <p>There are no showtimes</p>}
-                        {showTimes?.data && showTimes?.data.map((showTime: MovieHasShowTimes) => (
-                            <ShowTimeCard key={showTime._id} showTime={showTime} />
+                        {!movies?.data && <p>There are no showtimes</p>}
+                        {movies?.data && movies?.data.map((movie: Movie) => (
+                            <MovieCard key={movie._id} movie={movie} />
                         ))}
                     </div>
                 )}
             </div>
-        </div>
+
+
+
+        </div >
     );
 };
 
-export default memo(ShowTimesRecommendations);
+export default memo(Movies);

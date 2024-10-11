@@ -1,6 +1,5 @@
 'use client'
 import React from 'react';
-import MovieInfo from './MovieInfo';
 import DateSelector from './DateSelector';
 import TimeSelector from './TimeSelector';
 import SeatSelection from './SeatSelection';
@@ -10,18 +9,17 @@ import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import toast from 'react-hot-toast';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
-import { delay } from '@/utils/delay';
 import LoadingMovieBooking from './LoadingMovieBooking';
-import { useMovieBooking } from '../hooks/useMovieBooking';
+import { useShowTimeBooking } from '../hooks/useShowTimeBooking';
 
-const MovieBooking: React.FC = () => {
+const ShowTimeBooking: React.FC = () => {
     const { currentMovieId } = useGlobalTheme();
 
 
     if (!currentMovieId) return toast.error('id movie required');
 
     const {
-        movieData,
+        showTimes,
         isLoading,
         error,
         selectedDate,
@@ -38,14 +36,14 @@ const MovieBooking: React.FC = () => {
         handleSeatSelection,
         setSelectedSeats
 
-    } = useMovieBooking({ currentMovieId });
+    } = useShowTimeBooking({ currentMovieId });
 
 
     const { handleBuy, loadingPurchase, errorPurchase } = usePurchase(selectedShowTime, selectedSeats, setSelectedSeats);
 
 
 
-    console.log(loadingPurchase)
+
 
 
     if (isLoading) {
@@ -56,14 +54,12 @@ const MovieBooking: React.FC = () => {
         return <div>Error: {(error as Error).message}</div>;
     }
 
-    if (!movieData) {
+    if (!showTimes) {
         return <div>No movie data available</div>;
     }
 
     return (
         <MarginWidthWrapper>
-            <MovieInfo movie={movieData.data} />
-
             <DateSelector
                 uniqueDates={uniqueDates}
                 selectedDate={selectedDate}
@@ -102,4 +98,4 @@ const MovieBooking: React.FC = () => {
     );
 };
 
-export default MovieBooking;
+export default ShowTimeBooking;

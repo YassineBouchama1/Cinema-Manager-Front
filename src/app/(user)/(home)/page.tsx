@@ -1,11 +1,10 @@
 import React from 'react';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import getQueryClient from '@/utils/queryClient';
-import WrapperBook from '@/features/MovieBooking/components/WrapperBook';
-import { getMovies } from '@/features/MovieRecommendations/apis/getMovies';
 import Hero from '@/components/layouts/Hero';
-import HomeDisplayWrapper from '@/components/Wrappers/HomeDisplayWrapper';
-import { getShowTimes } from '@/features/ShowTimesRecommendations/apis/getShowTimes';
+import Movies from '@/features/Movies/components/Movies';
+import { getMovies } from '@/features/Movies/apis/getMovies';
+import WrapperBook from '@/features/MovieDetails/components/WrapperBook';
 
 
 export default async function PageDashboard({
@@ -19,8 +18,8 @@ export default async function PageDashboard({
     // pre fetch movies in server than passed to client
     const queryClient = getQueryClient();
     await queryClient.prefetchQuery({
-        queryKey: ['showTimes-user', searchParams],
-        queryFn: () => getShowTimes(searchParams),
+        queryKey: ['movies-user', searchParams],
+        queryFn: () => getMovies(searchParams),
     });
 
 
@@ -28,9 +27,8 @@ export default async function PageDashboard({
     return (
         <>
             <Hero />
-
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <HomeDisplayWrapper />
+                <Movies />
             </HydrationBoundary>
 
             <WrapperBook />
