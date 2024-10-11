@@ -1,6 +1,5 @@
 'use client'
 import { useQuery } from '@tanstack/react-query';
-import { MovieData } from '@/types';
 import { getOneMovie } from '../apis/getOneMovie';
 import { Movie } from '@/types/movie';
 
@@ -23,7 +22,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
 
 
   // getch movie data using React Query
-  const { data: movieData, isLoading, error } = useQuery({
+  const { data: movieData, isLoading, error } = useQuery<Movie | any>({
     queryKey: ['movie-booking', currentMovieId],
     queryFn: () => {
 

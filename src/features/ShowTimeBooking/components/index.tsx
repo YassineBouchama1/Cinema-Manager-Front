@@ -9,8 +9,8 @@ import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import toast from 'react-hot-toast';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
-import LoadingMovieBooking from './LoadingMovieBooking';
 import { useShowTimeBooking } from '../hooks/useShowTimeBooking';
+import ShowTimesSkeleton from '@/components/skeletons/showTimesSkeleton';
 
 const ShowTimeBooking: React.FC = () => {
     const { currentMovieId } = useGlobalTheme();
@@ -47,7 +47,7 @@ const ShowTimeBooking: React.FC = () => {
 
 
     if (isLoading) {
-        return <LoadingMovieBooking />;
+        return <ShowTimesSkeleton />;
     }
 
     if (error) {

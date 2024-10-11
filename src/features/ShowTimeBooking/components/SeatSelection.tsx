@@ -39,7 +39,7 @@ const SeatSelection: React.FC<SeatSelectionProps> = React.memo(({ roomCapacity, 
                 </div>
             </div>
 
-            <div className={`grid grid-cols-${seatsPerRow} gap-2`}>
+            <div className="grid gap-2 w-full" style={{ gridTemplateColumns: `repeat(${seatsPerRow}, minmax(0, 1fr))` }}>
                 {Array.from({ length: roomCapacity }, (_, index) => (
                     <button
                         key={index + 1}
