@@ -7,7 +7,6 @@ interface GlobalThemeState {
     isLoading: boolean;
     openModel: (movieId: string) => void;
     closeModel: () => void;
-
     currentMovieId: string | false;
 }
 

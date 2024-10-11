@@ -6,6 +6,7 @@ import MotionWrapper from "@/components/Wrappers/MotionWrapper";
 import { GlobalThemeProvider } from "@/Providers/GlobalThemeProvider";
 import ReactQueryProvider from "@/Providers/ReactQueryProvider";
 import { AuthProvider } from "@/Providers/AuthProvider";
+import Head from "next/head";
 
 
 
@@ -23,7 +24,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Cinema Manager",
-  description: "We can Help You to organize Your Cinema ",
+  description: "Online & Offline Cinema ",
 };
 
 
@@ -37,6 +38,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased  `}
       >
+        <Head>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <ReactQueryProvider>
           <GlobalThemeProvider>
             <AuthProvider>

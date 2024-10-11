@@ -13,7 +13,7 @@ type SetSelectedSeatsFunction = React.Dispatch<React.SetStateAction<number[]>>;
 
 export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: number[], setSelectedSeats: SetSelectedSeatsFunction) => {
     const { openModelAuth } = useAuthFormContext();
-    const { session } = useAuthContext();
+    const { session } = useAuthContext(); // bring session contain user info
     const router = useRouter();
     const queryClient = useQueryClient();
 
@@ -40,7 +40,7 @@ export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: nu
     const handleBuy = useCallback(async () => {
         // check if user is logged in
 
-        console.log(session?.token)
+   
         if (!session?.token) {
 
             openModelAuth();

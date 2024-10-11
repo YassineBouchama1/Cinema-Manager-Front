@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { getSession } from '@/lib/getSessions';
 import { SessionData } from '@/lib/optionsSessions';
+import { getSession } from '@/lib/sessions';
 
 type Session = SessionData | null;
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import MovieRecommendations from '@/features/MovieRecommendations/components/MovieRecommendations';
 import getQueryClient from '@/utils/queryClient';
 import WrapperBook from '@/features/MovieBooking/components/WrapperBook';
 import { getMovies } from '@/features/MovieRecommendations/apis/getMovies';
+import Hero from '@/components/layouts/Hero';
+import HomeDisplayWrapper from '@/components/Wrappers/HomeDisplayWrapper';
 
 
 export default async function PageDashboard({
@@ -25,8 +26,10 @@ export default async function PageDashboard({
 
     return (
         <>
+            <Hero />
+
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <MovieRecommendations />
+                <HomeDisplayWrapper />
             </HydrationBoundary>
 
             <WrapperBook />

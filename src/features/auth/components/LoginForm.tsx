@@ -84,8 +84,8 @@ export default function LoginForm() {
                         id="email"
                         type="email"
                         {...register('email')}
-                        className="bg-gray-50 border border-gray-300 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="name@company.com"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        placeholder="bouchamajob@gmail.com"
                         required
 
                     />
@@ -111,14 +111,14 @@ export default function LoginForm() {
                 <div className="flex justify-between">
                     <button
                         onClick={() => setAuthFormField('forgotPassword')}
-                        className="text-sm text-[#3b82f6] hover:underline "
+                        className="text-sm text-white hover:underline "
                     >
                         Lost Password?
                     </button>
                 </div>
                 <button
                     type="submit"
-                    className="w-full text-white bg-[#3b82f6] hover:bg-[#1557c0] duration-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                    className="w-full text-white bg-red-600 hover:bg-red-700 duration-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                     disabled={loginMutation.isPending}
                 >
                     {loginMutation.isPending ? 'Logging in...' : 'Login to your account'}
@@ -127,7 +127,7 @@ export default function LoginForm() {
                     Not registered?{" "}
                     <button
                         onClick={() => setAuthFormField('register')}
-                        className="text-[#3b82f6] hover:underline "
+                        className="text-white hover:underline "
                     >
                         Create account
                     </button>
