@@ -9,7 +9,7 @@ interface ShowTimeData {
 export const showTimesBelongMovie = async (id: string): Promise<ShowTimeData> => {
     try {
         return await customFetch<void, ShowTimeData>(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/public/showtime/${id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/showtime/public/${id}`,
             {
                 method: 'GET',
             }

@@ -9,7 +9,7 @@ export const getMovies = async (params?: Record<string, string | string[] | unde
   try {
     const queryString = new URLSearchParams(params as Record<string, string>).toString();
     return await customFetch<void, MovieResponse>(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/public/movie?${queryString}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie/public?${queryString}`,
       {
         method: 'GET',
       }

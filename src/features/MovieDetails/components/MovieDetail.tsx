@@ -41,7 +41,7 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
                     </div>
                     <div className="flex space-x-4 mb-4">
                         <div className="bg-gray-800 rounded-full px-3 py-1">
-                            <span className="font-bold">{rate.toFixed(1)}</span>
+                            <span className="font-bold">{rate?.toFixed(1)}</span>
                             <StarIcon className="inline-block ml-1 text-yellow-400" size={16} />
                         </div>
                         <div className="bg-gray-800 rounded-full px-3 py-1">
