@@ -65,11 +65,12 @@ const MovieDetail: React.FC<Movie> = ({
 
     const handleStreamingClick = () => {
 
-        // if (!session?.token) {
-        //     openModelAuth();
-        //     toast.error('You should be logged in to Watch Movie Stream');
-        //     return;
-        // }
+        if (!session?.token) {
+            openModelAuth();
+            toast.error('You should be logged in to Watch Movie Stream');
+            return;
+        }
+        // check if subscribed
         openModal('streaming');
     };
     return (

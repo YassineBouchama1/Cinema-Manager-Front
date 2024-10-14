@@ -1,6 +1,5 @@
 export interface Movie {
   length: number;
-  map(arg0: (movie: Movie) => import("react").JSX.Element): import("react").ReactNode;
   _id: string;
   name: string;
   duration: string;
@@ -15,5 +14,5 @@ export interface Movie {
   genres: string;
   description?: string;
   trailerUrl?: string;
-  hasStream?:boolean
+  hasStream?: boolean
 }

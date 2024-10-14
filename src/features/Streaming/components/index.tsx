@@ -8,7 +8,7 @@ import { getMovieStream } from '../apis/getMovieStream';
 import { useUserModalContext } from '@/context/user/UserModalContext';
 import { useAuthContext } from '@/Providers/AuthProvider';
 import { useAuthFormContext } from '@/context/AuthFormContext';
-
+import ReactPlayer from 'react-player';
 export default function MovieStreaming() {
     const pathname = usePathname();
     const id = pathname.split('/').pop();
@@ -40,6 +40,8 @@ export default function MovieStreaming() {
 
 
 
+
+
     // display loader while data is loading
     if (isLoading) {
         return <h2>Loading streaming...</h2>;
@@ -54,8 +56,30 @@ export default function MovieStreaming() {
         return <div>No streaming data available</div>;
     }
 
-    console.log(streaming);
+
+
+
+
+    const videoUrl = streaming.video;
     return (
-        <div>Streaming</div>
+        <section className='flex flex-col items-center'>
+            <h2 className="text-xl font-bold">{streaming.name}</h2>
+            <div className='flex flex-col items-center mt-5'>
+
+                {videoUrl ? (
+                    <ReactPlayer
+                        url={`${process.env.NEXT_PUBLIC_IMAGE_URL}${videoUrl}`}
+                        controls={true}
+                        width="90%"
+                        height="auto"
+                        playing={true}
+
+
+                    />
+                ) : (
+                    <div>No video URL available for this movie.</div>
+                )}
+            </div>
+        </section>
     );
 }
