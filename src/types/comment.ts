@@ -5,6 +5,7 @@ export interface Comment {
     date: string;
     datetime: string;
     text: string;
+    userId?: string
 }
 
 export interface CommentsResponse {

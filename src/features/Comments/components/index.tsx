@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Comment, CommentsResponse } from '@/types/comment';
 import { getComments } from '../apis/getComments';
 import { usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
-import CommentForm from './CommentForm'; 
+import CommentForm from './CommentForm';
 import CommentCard from './CommentCard';
 
 export default function ListComments(): JSX.Element {
@@ -21,12 +21,15 @@ export default function ListComments(): JSX.Element {
     // fetch comments using React Query
     const { data: commentsData, isLoading, error, refetch } = useQuery<CommentsResponse>({
         queryKey: ['comments-movie', id],
-        queryFn: () => (id ? getComments(id as string) : Promise.resolve({ data: [] })), 
+        queryFn: () => (id ? getComments(id as string) : Promise.resolve({ data: [] })),
         enabled: !!id // fetch only if id provided
     });
 
     // i memorized the comments data to avoid unnecessary recalculations
     const comments = useMemo(() => commentsData?.data || [], [commentsData]);
+
+
+
 
 
     return (
@@ -35,7 +38,7 @@ export default function ListComments(): JSX.Element {
                 <h2 className="text-lg lg:text-2xl font-bold text-white">
                     Discussion ({comments.length})
                 </h2>
-                <CommentForm  />
+                <CommentForm />
 
                 {/* Loading State */}
                 {isLoading && <h3 className="text-white">Loading comments...</h3>}

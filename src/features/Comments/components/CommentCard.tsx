@@ -1,15 +1,32 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { Comment } from '@/types/comment';
+import { useAuthContext } from '@/Providers/AuthProvider'; // Import the Auth context
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { removeComment } from '../apis/removeComment';
 
 interface CommentCardProps {
     comments?: Comment[];
 }
 
 const CommentCard: React.FC<CommentCardProps> = ({ comments }) => {
+    const { session } = useAuthContext();
+    const queryClient = useQueryClient();
 
+    // mutation for removing a comment
+    const mutation = useMutation({
+        mutationFn: (commentId: string) => removeComment(commentId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['comments-movie'] });
+            toast.success('Comment removed successfully!');
+        },
+        onError: (error: any) => {
+            toast.error(`Error removing comment: ${error.message}`);
+        },
+    });
 
-    // use memo for memoize the rendered comments to avoid unnecessary recalculations
+    // memorize rendered comments to avoid unnecessary recalculations
     const renderedComments = useMemo(() => {
         return comments?.map((comment: Comment) => (
             <article key={comment.id} className="p-6 text-base rounded-lg bg-gray-900 border-t border-gray-700">
@@ -31,11 +48,24 @@ const CommentCard: React.FC<CommentCardProps> = ({ comments }) => {
                             </time>
                         </p>
                     </div>
+
+
+                    {/* render the Remove button if the comment belongs to the current user */}
+                    {session?.userId === comment.userId && (
+                        <button
+                            disabled={mutation.isPending}
+                            style={{ opacity: mutation.isPending ? 0.4 : 1 }}
+                            onClick={() => mutation.mutate(comment.id)}
+                            className="text-red-500 hover:text-red-700"
+                        >
+                            {mutation.isPending ? 'Removing' : 'Remove'}
+                        </button>
+                    )}
                 </footer>
                 <p className="text-gray-400">{comment.text}</p>
             </article>
         ));
-    }, [comments]);
+    }, [comments, session, mutation]);
 
     return <>{renderedComments}</>;
 };
