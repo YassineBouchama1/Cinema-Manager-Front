@@ -1,6 +1,6 @@
 import TitlePage from "@/components/commen/TitlePage";
-import TopNavbarAdmin from "@/components/layouts/HeaderAdmin";
-import HeaderAdmin from "@/components/layouts/HeaderAdmin";
+import TopNavbarAdmin from "@/components/layouts/TopNavbarAdmin";
+import HeaderAdmin from "@/components/layouts/TopNavbarAdmin";
 import Sidebar from "@/components/layouts/sidebar";
 import MotionWrapper from "@/components/Wrappers/MotionWrapper";
 import PageWrapper from "@/components/Wrappers/PageWapper";
@@ -14,14 +14,17 @@ export default async function DashboardLayout({
 
   const session = await getSession()
   return (
-    <div className=" flex flex-1  h-screen w-full bg-gray-100  ">
+    <div className=" flex   max-h-screen w-full bg-white  ">
       <Sidebar />
-      <main className="flex-1">
+      <div className="w-full ">
         <TopNavbarAdmin />
-        <TitlePage />
-        {children}
+        <main className="overflow-x-auto p-4 bg-gray-100">
 
-      </main>
+          {/* <TitlePage /> */}
+          {children}
+        </main>
+
+      </div>
     </div>
   );
 }

@@ -10,14 +10,17 @@ import toast from 'react-hot-toast';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
 import { useShowTimeBooking } from '../hooks/useShowTimeBooking';
-import ShowTimesSkeleton from '@/components/skeletons/showTimesSkeleton';
+import ShowTimesSkeleton from '@/components/skeletons/ShowTimesSkeleton';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const ShowTimeBooking: React.FC = () => {
     const { currentMovieId } = useGlobalTheme();
 
+    const pathname = usePathname();
+    const id = pathname.split('/').pop();
 
-    if (!currentMovieId) return toast.error('id movie required');
-
+    if (!id) return toast.error('id movie required');
+    console.log(id)
     const {
         showTimes,
         isLoading,
@@ -35,16 +38,9 @@ const ShowTimeBooking: React.FC = () => {
         handleTimeSelect,
         handleSeatSelection,
         setSelectedSeats
-
-    } = useShowTimeBooking({ currentMovieId });
-
+    } = useShowTimeBooking({ id });
 
     const { handleBuy, loadingPurchase, errorPurchase } = usePurchase(selectedShowTime, selectedSeats, setSelectedSeats);
-
-
-
-
-
 
     if (isLoading) {
         return <ShowTimesSkeleton />;
@@ -54,8 +50,8 @@ const ShowTimeBooking: React.FC = () => {
         return <div>Error: {(error as Error).message}</div>;
     }
 
-    if (!showTimes) {
-        return <div>No movie data available</div>;
+    if (!showTimes || showTimes.length === 0) {
+        return <div>No showtimes available</div>;
     }
 
     return (
@@ -91,7 +87,6 @@ const ShowTimeBooking: React.FC = () => {
                     onBuy={handleBuy}
                     showTimeId={selectedShowTime?._id || ''}
                     loading={loadingPurchase}
-
                 />
             )}
         </MarginWidthWrapper>

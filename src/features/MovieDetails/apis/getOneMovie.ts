@@ -9,7 +9,7 @@ interface MovieData {
 export const getOneMovie = async (id: string): Promise<MovieData> => {
     try {
         return await customFetch<void, MovieData>(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie/public/${id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie/${id}`,
             {
                 method: 'GET',
             }

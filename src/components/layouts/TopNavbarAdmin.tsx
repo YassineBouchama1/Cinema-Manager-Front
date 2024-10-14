@@ -8,7 +8,7 @@ const TopNavbarAdmin: React.FC = () => {
 
 
     return (
-        <header className="bg-white dark:bg-gray-900 shadow-sm">
+        <header className="bg-white dark:bg-gray-900 shadow-sm  w-full">
 
             <div className=" max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 ">
 

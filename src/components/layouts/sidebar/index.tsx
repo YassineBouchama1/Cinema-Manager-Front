@@ -22,7 +22,7 @@ const Sidebar: React.FC = () => {
 
 
             {/* Sidebar */}
-            <div className={`bg-white dark:bg-gray-900 text-gray-800 dark:text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-200 ease-in-out z-40`}>
+            <div className={`bg-white h-dvh   text-gray-800  w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-200 ease-in-out z-40`}>
                 <Link href="/" className="flex items-center space-x-2 px-4">
                     <span className="text-2xl font-extrabold">MMovie.</span>
                 </Link>

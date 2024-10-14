@@ -8,7 +8,7 @@ import { showTimesBelongMovie } from '../apis/showTimesBelongMovie';
 
 // Define the properties expected by the hook
 interface UseShowTimeBookingProps {
-  currentMovieId: string | null; // The ID of the current movie, or null if not set
+  currentMovieId: string; // The ID of the current movie, or null if not set
 }
 
 // Define the return type of the hook
@@ -50,8 +50,9 @@ export const useShowTimeBooking = ({ currentMovieId }: UseShowTimeBookingProps):
       return Promise.reject('No valid movie ID provided'); // if there is no id return error
     },
   });
-
   console.log(showTimes)
+
+
 
   // here iam declar state variables for managing booking details
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);

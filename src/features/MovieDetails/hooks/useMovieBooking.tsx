@@ -35,7 +35,7 @@ export const useMovieBooking = ({ currentMovieId }: UseMovieBookingProps): UseMo
   });
 
 
-
+  console.log(movieData)
 
 
   return {

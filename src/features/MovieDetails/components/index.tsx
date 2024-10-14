@@ -1,32 +1,25 @@
-'use client'
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import toast from 'react-hot-toast';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import LoadingMovieBooking from '../../../components/skeletons/MovieDetailsSkeleton';
-import { useMovieBooking } from '../hooks/useMovieBooking';
 import MovieDetail from './MovieDetail';
 import HomeDisplayWrapper from '@/components/Wrappers/HomeDisplayWrapper';
 import MovieDetailsSkeleton from '../../../components/skeletons/MovieDetailsSkeleton';
+import { useQuery } from '@tanstack/react-query';
+import { Movie } from '@/types/movie';
+import { getOneMovie } from '../apis/getOneMovie';
 
-const MovieBooking: React.FC = () => {
-    const { currentMovieId } = useGlobalTheme();
+const MovieBooking: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) => {
+    // Fetch movie data using React Query
+    const { data: movieData, isLoading, error } = useQuery<Movie | any>({
+        queryKey: ['movie-user', currentMovieId], // if id changes, refetch data
+        queryFn: () => getOneMovie(currentMovieId),
+        enabled: true // Ensure the query runs automatically
+    });
 
-
-    if (!currentMovieId) return toast.error('id movie required');
-
-    const {
-        movieData,
-        isLoading,
-        error,
-    } = useMovieBooking({ currentMovieId });
-
-
-
-
-
-
-    // display loader whle data laoded
+    // Display loader while data is loading
     if (isLoading) {
         return <MovieDetailsSkeleton />;
     }
@@ -40,14 +33,10 @@ const MovieBooking: React.FC = () => {
     }
 
     return (
-
         <MarginWidthWrapper>
-            <MovieDetail  {...movieData} />
-
+            <MovieDetail {...movieData} /> {/* Ensure movieData.data matches MovieDetail props */}
             <HomeDisplayWrapper />
         </MarginWidthWrapper>
-
-
     );
 };
 
