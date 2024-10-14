@@ -1,4 +1,4 @@
-import AuthWapper from '@/features/auth/components/AuthWapper';
+import AuthWapper from '@/components/Wrappers/AuthFormWapper';
 import TopNavbar from '@/components/layouts/TopNavbar';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { getSession } from '@/lib/sessions';

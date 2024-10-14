@@ -9,7 +9,7 @@ export interface Movie {
   createdAt: string;
   updatedAt: string;
   __v: number;
-  rate: number;
+  rating: number;
   year?: number;
   genres: string;
   description?: string;

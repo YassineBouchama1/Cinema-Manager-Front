@@ -1,16 +1,16 @@
 'use client'
 import React, { useEffect } from 'react';
-import RegisterForm from './RegisterForm';
-import ForgotPasswordForm from './ForgotPasswordForm';
-import { useAuthFormContext } from '@/context/AuthFormContext';
-import Modal from '../../../components/commen/Modal';
+import RegisterForm from '../../features/auth/components/RegisterForm';
+import ForgotPasswordForm from '../../features/auth/components/ForgotPasswordForm';
+import Modal from '../commen/Modal';
 import { useSearchParams } from 'next/navigation';
-import LoginForm from './LoginForm';
-import ResetPasswordForm from './ResetPasswordForm';
+import LoginForm from '../../features/auth/components/LoginForm';
+import ResetPasswordForm from '../../features/auth/components/ResetPasswordForm';
+import { useAuthFormContext } from '@/context/AuthFormContext';
 
-type AuthFormField = 'login' | 'register' | 'forgotPassword' | 'resetPassword';
+type FormField = 'login' | 'register' | '' | 'resetPassword';
 
-const AuthWrapper = () => {
+const AuthFormWapper = () => {
     const {
         isModelAuthOpen,
         closeModelAuth,
@@ -48,6 +48,7 @@ const AuthWrapper = () => {
                 return <ForgotPasswordForm />;
             case 'resetPassword':
                 return <ResetPasswordForm />;
+
             default:
                 return <LoginForm />;
         }
@@ -61,4 +62,4 @@ const AuthWrapper = () => {
     );
 };
 
-export default AuthWrapper;
+export default AuthFormWapper;

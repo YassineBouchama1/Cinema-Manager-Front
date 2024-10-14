@@ -1,7 +1,8 @@
-import AuthWapper from '@/features/auth/components/AuthWapper';
 import TopNavbar from '@/components/layouts/TopNavbar';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { getSession } from '@/lib/sessions';
+import SubscriptionWapper from '@/components/Wrappers/SubscriptionWapper';
+import AuthFormWapper from '@/components/Wrappers/AuthFormWapper';
 
 export default async function HomeLayout({
     children,
@@ -20,7 +21,8 @@ export default async function HomeLayout({
             <MarginWidthWrapper>
 
                 {children}
-                <AuthWapper />
+                <AuthFormWapper />
+                <SubscriptionWapper />
             </MarginWidthWrapper>
 
 

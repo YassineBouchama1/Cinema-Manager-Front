@@ -9,7 +9,7 @@ interface LoginResponse {
         email: string;
         role: string;
         isActive: boolean;
-        cinemaId: string;
+        isSubscribe: boolean;
     };
     token: string;
 }
@@ -35,6 +35,7 @@ export async function loginUser(formData: LoginFormData): Promise<LoginResponse>
             email: loginData.data.email,
             role: loginData.data.role,
             isLoggedIn: true,
+            isSubscribe: loginData.data.isSubscribe,
             token: loginData.token,
         });
 

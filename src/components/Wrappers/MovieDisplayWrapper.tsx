@@ -1,17 +1,16 @@
 'use client';
-import { useMovieDisplayContext } from "@/context/MovieDisplayContext";
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from "react";
 
 // type tabs home display
-type Tab = 'Showtimes' | 'streaming';
+type Tab = 'Showtimes' | 'comments';
 
-const tabs: Tab[] = ["Showtimes", "streaming"];
+const tabs: Tab[] = ["Showtimes", "comments"];
 
 const MovieDisplayWrapper: React.FC = () => {
-    const { movieDisplayField, setMovieDisplayField } = useMovieDisplayContext();
-    const [selected, setSelected] = useState<Tab>(movieDisplayField === 'showtimes' ? 'Showtimes' : 'streaming');
+
+    const [selected, setSelected] = useState<Tab>('comments');
 
     // here i define conet ver
     const contentVariants = {
@@ -29,7 +28,7 @@ const MovieDisplayWrapper: React.FC = () => {
                         selected={selected === tab}
                         setSelected={(tab) => {
                             setSelected(tab);
-                            setMovieDisplayField(tab.toLowerCase() as 'showtimes' | 'streaming');
+
                         }}
                         key={tab}
                     />
@@ -37,7 +36,7 @@ const MovieDisplayWrapper: React.FC = () => {
             </div>
             <div className="min-h-[500px]">
                 <AnimatePresence mode="wait">
-                    {movieDisplayField === 'showtimes' ? (
+                    {selected === 'comments' ? (
                         <motion.div
                             key="showtimes"
                             initial="hidden"

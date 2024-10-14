@@ -31,6 +31,7 @@ export const setSession = async (sessionData: SessionData) => {
         email: sessionData.email,
         role: sessionData.role,
         isLoggedIn: true,
+        isSubscribe: sessionData.isSubscribe,
         token: sessionData.token,
     });
     await session.save();
@@ -48,6 +49,7 @@ export const clearSession = async () => {
     // Update session
     Object.assign(session, {
         isLoggedIn: false,
+        isSubscribe:false,
         token: ""
     });
     await session.save();

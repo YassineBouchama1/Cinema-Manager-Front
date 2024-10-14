@@ -20,7 +20,7 @@ export default async function PageDashboard({ params }: PageDashboardProps) {
 
     const queryClient = getQueryClient();
     await queryClient.prefetchQuery({
-        queryKey: ['movie-user', id], // if id changes, refetch data
+        queryKey: ['movie-details', id], // if id changes, refetch data
         queryFn: () => getOneMovie(id),
     });
 

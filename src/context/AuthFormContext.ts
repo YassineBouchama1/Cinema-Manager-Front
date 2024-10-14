@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 // this responsible for decided wich modal wll open
 
-type AuthFormField = 'login' | 'register' | 'forgotPassword' | 'resetPassword';
+type AuthFormField = 'login' | 'register' | 'forgotPassword' | 'resetPassword' | 'paymentform';
 
 interface AuthFormContextState {
     isModelAuthOpen: boolean;

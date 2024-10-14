@@ -5,16 +5,16 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { getMovieStream } from '../apis/getMovieStream';
-import { useUserModalContext } from '@/context/user/UserModalContext';
 import { useAuthContext } from '@/Providers/AuthProvider';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 import ReactPlayer from 'react-player';
+import { useUserModalSwapperContext } from '@/context/user/UserModalSwapperContext';
 export default function MovieStreaming() {
     const pathname = usePathname();
     const id = pathname.split('/').pop();
 
     const { openModelAuth } = useAuthFormContext();
-    const { currentModal } = useUserModalContext();
+    const { currentModalSwapper } = useUserModalSwapperContext();
     const { session } = useAuthContext(); // Bring session containing user info
 
     // check if id exists
@@ -27,7 +27,7 @@ export default function MovieStreaming() {
     const { data: streaming, isLoading, error } = useQuery<Movie | any>({
         queryKey: ['movie-stream', id],
         queryFn: () => getMovieStream(id),
-        enabled: !!session?.token && currentModal === 'streaming', // fetch only if there is  token and the streaming modal is open
+        enabled: !!session?.token && currentModalSwapper === 'streaming', // fetch only if there is  token and the streaming modal is open
     });
 
     // check if user is authenticated and subscribed

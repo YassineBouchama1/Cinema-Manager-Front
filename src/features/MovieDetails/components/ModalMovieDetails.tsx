@@ -1,17 +1,17 @@
 'use client'
 import DragCloseDrawer from '@/components/commen/DragCloseDrawer';
-import { useUserModalContext } from '@/context/user/UserModalContext';
+import { useUserModalSwapperContext } from '@/context/user/UserModalSwapperContext';
 import ShowTimeBooking from '@/features/ShowTimeBooking/components';
 import MovieStreaming from '@/features/Streaming/components';
 import React from 'react';
 
 const MovieModal = () => {
-    const { isModalOpen, closeModal, currentModal } = useUserModalContext();
+    const { isModalSwapperOpen, closeModalSwapper, currentModalSwapper } = useUserModalSwapperContext();
 
-    if (!isModalOpen) return null;
+    if (!isModalSwapperOpen) return null;
 
     const renderContent = () => {
-        switch (currentModal) {
+        switch (currentModalSwapper) {
             case 'showtimes':
                 return <ShowTimeBooking />;
             case 'streaming':
@@ -23,7 +23,7 @@ const MovieModal = () => {
     };
 
     return (
-        <DragCloseDrawer isOpen={!!isModalOpen} onClose={closeModal}>
+        <DragCloseDrawer isOpen={!!isModalSwapperOpen} onClose={closeModalSwapper}>
             {renderContent()}
         </DragCloseDrawer>
     );

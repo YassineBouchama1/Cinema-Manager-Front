@@ -8,13 +8,15 @@ export interface SessionData {
     email?: string;
     role?: string | number;
     isActive?: boolean;
+    isSubscribe?: boolean;
     isLoggedIn: boolean;
     token: string;
 }
 
 export const defaultSession: SessionData = {
     isLoggedIn: false,
-    token: ""
+    token: "",
+    isSubscribe: false
 };
 
 export const sessionOptions: SessionOptions = {

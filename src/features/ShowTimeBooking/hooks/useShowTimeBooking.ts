@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { ShowTime } from '@/types/showTime';
 
 import { showTimesBelongMovie } from '../apis/showTimesBelongMovie';
-import { useUserModalContext } from '@/context/user/UserModalContext';
+import { useUserModalSwapperContext } from '@/context/user/UserModalSwapperContext';
 
 // define the properties expected by the hook
 interface UseShowTimeBookingProps {
@@ -37,7 +37,7 @@ interface UseShowTimeBookingReturn {
 // custom hook to manage movie booking logic 
 export const useShowTimeBooking = ({ currentMovieId }: UseShowTimeBookingProps): UseShowTimeBookingReturn => {
 
-  const { currentModal } = useUserModalContext();
+  const { currentModalSwapper } = useUserModalSwapperContext();
 
 
   // getch movie data using React Query
@@ -51,7 +51,7 @@ export const useShowTimeBooking = ({ currentMovieId }: UseShowTimeBookingProps):
       }
       return Promise.reject('No valid movie ID provided'); // if there is no id return error
     },
-    enabled: currentModal === 'showtimes', //  fetch ony if we open showtime field
+    enabled: currentModalSwapper === 'showtimes', //  fetch ony if we open showtime field
   });
 
 

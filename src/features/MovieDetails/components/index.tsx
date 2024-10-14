@@ -1,21 +1,21 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
-import MovieDetail from './MovieDetail';
 import MovieDisplayWrapper from '@/components/Wrappers/MovieDisplayWrapper';
 import MovieDetailsSkeleton from '../../../components/skeletons/MovieDetailsSkeleton';
 import { useQuery } from '@tanstack/react-query';
 import { Movie } from '@/types/movie';
 import { getOneMovie } from '../apis/getOneMovie';
+import MovieInfo from './MovieInfo';
 
 
 
-const MovieBooking: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) => {
+const MovieDetail: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) => {
 
 
     // Fetch movie data using React Query
     const { data: movieData, isLoading, error } = useQuery<Movie | any>({
-        queryKey: ['movie-user', currentMovieId], // if id changes, refetch data
+        queryKey: ['movie-details', currentMovieId], // if id changes, refetch data
         queryFn: () => getOneMovie(currentMovieId),
         enabled: true // Ensure the query runs automatically
     });
@@ -35,7 +35,7 @@ const MovieBooking: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) 
 
     return (
         <MarginWidthWrapper>
-            <MovieDetail {...movieData} />
+            <MovieInfo {...movieData} />
             <div className='w-full h-1 shadow-sm shadow-gray-500 bg-gray-800 my-10'></div>
             <MovieDisplayWrapper />
         </MarginWidthWrapper>
@@ -43,4 +43,4 @@ const MovieBooking: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) 
 };
 
 
-export default MovieBooking;
+export default MovieDetail;
