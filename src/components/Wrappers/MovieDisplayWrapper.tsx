@@ -1,5 +1,6 @@
 'use client';
 
+import CommentsMovie from '@/features/Comments/components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from "react";
 
@@ -45,7 +46,7 @@ const MovieDisplayWrapper: React.FC = () => {
                             variants={contentVariants}
                             transition={{ duration: 0.3 }}
                         >
-                            <h2>Comments</h2>
+                            <CommentsMovie />
                         </motion.div>
                     ) : (
                         <motion.div
