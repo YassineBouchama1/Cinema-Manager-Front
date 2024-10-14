@@ -20,7 +20,7 @@ export default function ListComments(): JSX.Element {
 
     // fetch comments using React Query
     const { data: commentsData, isLoading, error, refetch } = useQuery<CommentsResponse>({
-        queryKey: ['comments', id],
+        queryKey: ['comments-movie', id],
         queryFn: () => (id ? getComments(id as string) : Promise.resolve({ data: [] })), 
         enabled: !!id // fetch only if id provided
     });
@@ -28,13 +28,6 @@ export default function ListComments(): JSX.Element {
     // i memorized the comments data to avoid unnecessary recalculations
     const comments = useMemo(() => commentsData?.data || [], [commentsData]);
 
-    // i  memoize the comment submission handler
-    const handleCommentSubmit = useCallback(async (newComment: string) => {
-        // Handle comment submission logic here
-        console.log('Comment submitted:', newComment);
-        // After submitting, refetch comments to update the list
-        refetch();
-    }, [refetch]);
 
     return (
         <section className="bg-gray-900 py-8 lg:py-16 antialiased">
@@ -42,7 +35,7 @@ export default function ListComments(): JSX.Element {
                 <h2 className="text-lg lg:text-2xl font-bold text-white">
                     Discussion ({comments.length})
                 </h2>
-                <CommentForm onSubmit={handleCommentSubmit} />
+                <CommentForm  />
 
                 {/* Loading State */}
                 {isLoading && <h3 className="text-white">Loading comments...</h3>}

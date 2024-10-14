@@ -1,23 +1,69 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState, useCallback } from 'react';
+import toast from 'react-hot-toast';
+import { submitComment } from '../apis/submitComment';
+import { usePathname } from 'next/navigation';
+import { useAuthContext } from '@/Providers/AuthProvider';
+import { useAuthFormContext } from '@/context/AuthFormContext';
 
 interface CommentFormProps {
-    onSubmit: (comment: string) => void;
+
 }
 
-const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
+const CommentForm: React.FC<CommentFormProps> = () => {
     const [comment, setComment] = useState<string>('');
 
+    const { session } = useAuthContext();
+    const { openModelAuth, setAuthFormField } = useAuthFormContext();
+
+
+    const pathname = usePathname();
+    const movieId = pathname.split('/').pop();
+
+    // Check if id exists
+    if (!movieId) {
+        toast.error('Movie ID is required');
+    }
 
 
 
+    const queryClient = useQueryClient();
+
+    // mutation for submitting the rating
+    const mutation = useMutation({
+        mutationFn: () => {
+            if (!movieId) { // check if movie id exist
+                toast.error('Movie ID is required');
+                throw new Error('Movie ID is required');
+            }
+            return submitComment({ movieId, text: comment });
+        },
+        onSuccess: () => {
+            toast.success('Comment Posted successfully!');
+            queryClient.invalidateQueries({ queryKey: ['comments-movie'] }); // refrech comments
+        },
+        onError: (error: any) => {
+            toast.error(`Error submitting rating: ${error.message}`);
+        },
+    });
 
 
-    //  memoize the handleSubmit function
-    const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>): void => {
+
+    const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit(comment);
+        if (!session?.token) {
+            setAuthFormField('login');
+            openModelAuth();
+            toast.error('You should be logged in to Comment a movie');
+            return;
+        }
+
+        await mutation.mutate();
+
         setComment(''); //reset commet stats ater comment submited
-    }, [comment, onSubmit]);
+    }, [session, openModelAuth, setAuthFormField, mutation, comment]);
+
+
 
     return (
         <form className="mb-6" onSubmit={handleSubmit}>
@@ -35,9 +81,11 @@ const CommentForm: React.FC<CommentFormProps> = ({ onSubmit }) => {
             </div>
             <button
                 type="submit"
+                disabled={mutation.isPending}
+                style={{ opacity: mutation.isPending ? 0.4 : 1 }}
                 className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-500 rounded-lg focus:ring-4 focus:ring-primary-900 hover:bg-red-700"
             >
-                Post comment
+                {mutation.isPending ? 'Commenting' : 'comment'}
             </button>
         </form>
     );
