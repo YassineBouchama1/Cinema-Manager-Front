@@ -10,11 +10,10 @@ export interface Movie {
   createdAt: string;
   updatedAt: string;
   __v: number;
-
   rate: number;
   year?: number;
-
   genres: string;
   description?: string;
   trailerUrl?: string;
+  hasStream?:boolean
 }

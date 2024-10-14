@@ -3,21 +3,26 @@ import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { useUserModalContext } from '@/context/user/UserModalContext';
+import { Movie } from '@/types/movie';
+import { useAuthContext } from '@/Providers/AuthProvider';
+import { useAuthFormContext } from '@/context/AuthFormContext';
+import toast from 'react-hot-toast';
 
-interface MovieDetailProps {
-    id: string
-    name: string;
-    image: string;
-    rate: number | null; // rate can be a number or null
-    year?: number;
-    duration: string;
-    genres: string;
-    description?: string;
-    trailerUrl?: string;
-}
+// interface MovieDetailProps {
+//     id: string
+//     name: string;
+//     image: string;
+//     rate: number | null; // rate can be a number or null
+//     year?: number;
+//     duration: string;
+//     genres: string;
+//     description?: string;
+//     trailerUrl?: string;
+//     hasStream?:
+// }
 
-const MovieDetail: React.FC<MovieDetailProps> = ({
-    id,
+const MovieDetail: React.FC<Movie> = ({
+    _id,
     name,
     image,
     rate = 0,
@@ -26,14 +31,19 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
     genres,
     description = "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.",
     trailerUrl = "https://www.youtube.com/watch?v=Ga6RYejo6Hk",
+    hasStream
 }) => {
 
 
     const { openModal } = useUserModalContext();
+    const { session } = useAuthContext(); // bring session contain user info
+    const { openModelAuth } = useAuthFormContext();
 
     // initialize userRating with rate prop or 0 if rate is null
     const [userRating, setUserRating] = useState<number>(rate || 0);
     const [hoverRating, setHoverRating] = useState<number>(0);
+
+
 
     // update userRating if rate prop changes
     useEffect(() => {
@@ -54,6 +64,12 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
 
 
     const handleStreamingClick = () => {
+
+        // if (!session?.token) {
+        //     openModelAuth();
+        //     toast.error('You should be logged in to Watch Movie Stream');
+        //     return;
+        // }
         openModal('streaming');
     };
     return (
@@ -69,19 +85,21 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
                 <div className="p-6 md:w-3/5 relative flex flex-col md:items-start items-center">
                     <h2 className="text-3xl font-bold mb-4">{name}</h2>
                     <div className="flex items-center mb-4">
-                        <Link href={trailerUrl} target='_blank' className="bg-white text-black font-bold py-2 px-4 rounded mr-2">
-                            Trailer
-                        </Link>
+                        {/* <Link href={trailerUrl} target='_blank' className="bg-white text-black font-bold py-2 px-4 rounded mr-2">
+                            Watch
+                        </Link> */}
+                        {hasStream && (<button
+                            onClick={() => handleStreamingClick()}
+                            className="bg-white text-black font-bold py-2 px-4 rounded mr-2">
+                            Watch
+                        </button>)}
+
                         <button
                             onClick={() => handleShowTimesClick()}
                             className="bg-gray-700 text-white font-bold py-2 px-4 rounded">
                             ShowTimes
                         </button>
-                        <button
-                            onClick={() => handleStreamingClick()}
-                            className="bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                            Streaming
-                        </button>
+
                     </div>
                     <div className="flex space-x-4 mb-4">
                         <div className="bg-gray-800 rounded-full px-3 py-1">

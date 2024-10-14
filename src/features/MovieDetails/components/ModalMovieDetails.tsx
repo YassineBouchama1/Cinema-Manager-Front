@@ -2,6 +2,7 @@
 import DragCloseDrawer from '@/components/commen/DragCloseDrawer';
 import { useUserModalContext } from '@/context/user/UserModalContext';
 import ShowTimeBooking from '@/features/ShowTimeBooking/components';
+import MovieStreaming from '@/features/Streaming/components';
 import React from 'react';
 
 const MovieModal = () => {
@@ -14,7 +15,7 @@ const MovieModal = () => {
             case 'showtimes':
                 return <ShowTimeBooking />;
             case 'streaming':
-                return <div>here will display movie.</div>;
+                return <MovieStreaming />;
 
             default:
                 return null;

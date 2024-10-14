@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import { ShowTime } from '@/types/showTime';
 
 import { showTimesBelongMovie } from '../apis/showTimesBelongMovie';
-import { useMovieDisplayContext } from '@/context/MovieDisplayContext';
 import { useUserModalContext } from '@/context/user/UserModalContext';
 
 // define the properties expected by the hook

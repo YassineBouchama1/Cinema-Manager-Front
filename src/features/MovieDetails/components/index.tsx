@@ -36,7 +36,7 @@ const MovieBooking: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) 
     return (
         <MarginWidthWrapper>
             <MovieDetail {...movieData} />
-            <div className='w-full h-1 shadow-sm shadow-gray-500 bg-gray-800'></div>
+            <div className='w-full h-1 shadow-sm shadow-gray-500 bg-gray-800 my-10'></div>
             <MovieDisplayWrapper />
         </MarginWidthWrapper>
     );

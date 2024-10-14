@@ -1,0 +1,61 @@
+'use client';
+import { Movie } from '@/types/movie';
+import { useQuery } from '@tanstack/react-query';
+import { usePathname } from 'next/navigation';
+import React, { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { getMovieStream } from '../apis/getMovieStream';
+import { useUserModalContext } from '@/context/user/UserModalContext';
+import { useAuthContext } from '@/Providers/AuthProvider';
+import { useAuthFormContext } from '@/context/AuthFormContext';
+
+export default function MovieStreaming() {
+    const pathname = usePathname();
+    const id = pathname.split('/').pop();
+
+    const { openModelAuth } = useAuthFormContext();
+    const { currentModal } = useUserModalContext();
+    const { session } = useAuthContext(); // Bring session containing user info
+
+    // check if id exists
+    if (!id) {
+        toast.error('Movie ID is required');
+        return null; // i  make it null to avoid renderin the component
+    }
+
+    // Fetch movie data using React Query
+    const { data: streaming, isLoading, error } = useQuery<Movie | any>({
+        queryKey: ['movie-stream', id],
+        queryFn: () => getMovieStream(id),
+        enabled: !!session?.token && currentModal === 'streaming', // fetch only if there is  token and the streaming modal is open
+    });
+
+    // check if user is authenticated and subscribed
+    useEffect(() => {
+        if (!session?.token) {
+            openModelAuth(); // open the authentication modal
+            toast.error('You should be logged in to watch the movie');
+        }
+    }, [session, openModelAuth]); // excute only if includes session and openModelAuth
+
+
+
+    // display loader while data is loading
+    if (isLoading) {
+        return <h2>Loading streaming...</h2>;
+    }
+
+    if (error) {
+        console.log(error);
+        return <div>Error: {(error as Error).message}</div>;
+    }
+
+    if (!streaming) {
+        return <div>No streaming data available</div>;
+    }
+
+    console.log(streaming);
+    return (
+        <div>Streaming</div>
+    );
+}
