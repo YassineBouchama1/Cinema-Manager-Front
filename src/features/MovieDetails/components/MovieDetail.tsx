@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StarIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useGlobalTheme } from '@/context/GlobalThemeContext';
+import { useUserModalContext } from '@/context/user/UserModalContext';
 
 interface MovieDetailProps {
+    id: string
     name: string;
     image: string;
     rate: number | null; // rate can be a number or null
@@ -14,6 +17,7 @@ interface MovieDetailProps {
 }
 
 const MovieDetail: React.FC<MovieDetailProps> = ({
+    id,
     name,
     image,
     rate = 0,
@@ -25,6 +29,7 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
 }) => {
 
 
+    const { openModal } = useUserModalContext();
 
     // initialize userRating with rate prop or 0 if rate is null
     const [userRating, setUserRating] = useState<number>(rate || 0);
@@ -41,6 +46,16 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
         //TODO : Here i wll update movie
     };
 
+
+
+    const handleShowTimesClick = () => {
+        openModal('showtimes');
+    };
+
+
+    const handleStreamingClick = () => {
+        openModal('streaming');
+    };
     return (
         <div className="bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto py-4">
             <div className="flex flex-col md:flex-row">
@@ -55,10 +70,17 @@ const MovieDetail: React.FC<MovieDetailProps> = ({
                     <h2 className="text-3xl font-bold mb-4">{name}</h2>
                     <div className="flex items-center mb-4">
                         <Link href={trailerUrl} target='_blank' className="bg-white text-black font-bold py-2 px-4 rounded mr-2">
-                            Watch
+                            Trailer
                         </Link>
-                        <button className="bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                            Download
+                        <button
+                            onClick={() => handleShowTimesClick()}
+                            className="bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            ShowTimes
+                        </button>
+                        <button
+                            onClick={() => handleStreamingClick()}
+                            className="bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            Streaming
                         </button>
                     </div>
                     <div className="flex space-x-4 mb-4">

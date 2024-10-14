@@ -1,5 +1,6 @@
 import { getOneMovie } from "@/features/MovieDetails/apis/getOneMovie";
 import MovieBooking from "@/features/MovieDetails/components";
+import MovieModal from "@/features/MovieDetails/components/ModalMovieDetails";
 import getQueryClient from "@/utils/queryClient";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
@@ -24,8 +25,11 @@ export default async function PageDashboard({ params }: PageDashboardProps) {
     });
 
     return (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-            <MovieBooking currentMovieId={id} />
-        </HydrationBoundary>
+        <>
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                <MovieBooking currentMovieId={id} />
+            </HydrationBoundary>
+            <MovieModal />
+        </>
     );
 }

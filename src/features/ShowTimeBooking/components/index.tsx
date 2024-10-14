@@ -1,26 +1,28 @@
-'use client'
+'use client';
 import React from 'react';
 import DateSelector from './DateSelector';
 import TimeSelector from './TimeSelector';
 import SeatSelection from './SeatSelection';
 import TicketSummary from './TicketSummary';
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
-
 import toast from 'react-hot-toast';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
 import { useShowTimeBooking } from '../hooks/useShowTimeBooking';
 import ShowTimesSkeleton from '@/components/skeletons/ShowTimesSkeleton';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const ShowTimeBooking: React.FC = () => {
-    const { currentMovieId } = useGlobalTheme();
-
+ 
     const pathname = usePathname();
     const id = pathname.split('/').pop();
 
-    if (!id) return toast.error('id movie required');
-    console.log(id)
+    // chekc if id exist
+    if (!id) {
+        toast.error('Movie ID is required');
+        return null; // make it  null to avoid rendering the component
+    }
+
     const {
         showTimes,
         isLoading,
@@ -38,7 +40,7 @@ const ShowTimeBooking: React.FC = () => {
         handleTimeSelect,
         handleSeatSelection,
         setSelectedSeats
-    } = useShowTimeBooking({ id });
+    } = useShowTimeBooking({ currentMovieId: id });
 
     const { handleBuy, loadingPurchase, errorPurchase } = usePurchase(selectedShowTime, selectedSeats, setSelectedSeats);
 

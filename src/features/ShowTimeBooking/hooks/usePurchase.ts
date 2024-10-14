@@ -40,12 +40,17 @@ export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: nu
     const handleBuy = useCallback(async () => {
         // check if user is logged in
 
-   
+
         if (!session?.token) {
 
             openModelAuth();
             toast.error('You should be logged in to purchase a ticket');
             return;
+        }
+
+        if (session.role !== 'user') {
+            toast.error('You are not allowed to reserve , you are not normal user');
+            return
         }
 
         if (selectedShowTime) {

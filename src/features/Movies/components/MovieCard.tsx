@@ -35,7 +35,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
                 />
                 {isHovered && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50">
-                        <div className="text-white text-lg mb-2 ">{movie.rate}</div>
 
                         <CirclePlay className=' opacity-70' size={60} />
 

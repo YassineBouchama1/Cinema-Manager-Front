@@ -1,18 +1,17 @@
 'use client';
-import { useHomeDisplayContext } from "@/context/HomeDisplayContext";
-import ShowTimeBooking from "@/features/ShowTimeBooking/components";
+import { useMovieDisplayContext } from "@/context/MovieDisplayContext";
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from "react";
 
 // type tabs home display
-type Tab = 'Showtimes' | 'Movies';
+type Tab = 'Showtimes' | 'streaming';
 
-const tabs: Tab[] = ["Showtimes", "Movies"];
+const tabs: Tab[] = ["Showtimes", "streaming"];
 
-const HomeDisplayWrapper: React.FC = () => {
-    const { homeDisplayField, setHomeDisplayField } = useHomeDisplayContext();
-    const [selected, setSelected] = useState<Tab>(homeDisplayField === 'showtimes' ? 'Showtimes' : 'Movies');
+const MovieDisplayWrapper: React.FC = () => {
+    const { movieDisplayField, setMovieDisplayField } = useMovieDisplayContext();
+    const [selected, setSelected] = useState<Tab>(movieDisplayField === 'showtimes' ? 'Showtimes' : 'streaming');
 
     // here i define conet ver
     const contentVariants = {
@@ -30,7 +29,7 @@ const HomeDisplayWrapper: React.FC = () => {
                         selected={selected === tab}
                         setSelected={(tab) => {
                             setSelected(tab);
-                            setHomeDisplayField(tab.toLowerCase() as 'showtimes' | 'movies');
+                            setMovieDisplayField(tab.toLowerCase() as 'showtimes' | 'streaming');
                         }}
                         key={tab}
                     />
@@ -38,7 +37,7 @@ const HomeDisplayWrapper: React.FC = () => {
             </div>
             <div className="min-h-[500px]">
                 <AnimatePresence mode="wait">
-                    {homeDisplayField === 'showtimes' ? (
+                    {movieDisplayField === 'showtimes' ? (
                         <motion.div
                             key="showtimes"
                             initial="hidden"
@@ -47,7 +46,7 @@ const HomeDisplayWrapper: React.FC = () => {
                             variants={contentVariants}
                             transition={{ duration: 0.3 }}
                         >
-                            <ShowTimeBooking />
+                            <h2>Comments</h2>
                         </motion.div>
                     ) : (
                         <motion.div
@@ -58,7 +57,7 @@ const HomeDisplayWrapper: React.FC = () => {
                             variants={contentVariants}
                             transition={{ duration: 0.3 }}
                         >
-                            <h3>movies</h3>
+                            <h3>Rating</h3>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -94,4 +93,4 @@ const Chip: React.FC<ChipProps> = ({ text, selected, setSelected }) => {
     );
 };
 
-export default HomeDisplayWrapper;
+export default MovieDisplayWrapper;

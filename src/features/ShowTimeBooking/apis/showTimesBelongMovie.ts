@@ -3,7 +3,7 @@ import customFetch from "@/utils/customFetch";
 
 interface ShowTimeData {
     message: string;
-    data?: any;
+    showtimes?: any[];
 }
 
 export const showTimesBelongMovie = async (id: string): Promise<ShowTimeData> => {

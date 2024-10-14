@@ -1,17 +1,18 @@
 'use client';
 import React, { useEffect } from 'react';
-import { useGlobalTheme } from '@/context/GlobalThemeContext';
-import toast from 'react-hot-toast';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
-import LoadingMovieBooking from '../../../components/skeletons/MovieDetailsSkeleton';
 import MovieDetail from './MovieDetail';
-import HomeDisplayWrapper from '@/components/Wrappers/HomeDisplayWrapper';
+import MovieDisplayWrapper from '@/components/Wrappers/MovieDisplayWrapper';
 import MovieDetailsSkeleton from '../../../components/skeletons/MovieDetailsSkeleton';
 import { useQuery } from '@tanstack/react-query';
 import { Movie } from '@/types/movie';
 import { getOneMovie } from '../apis/getOneMovie';
 
+
+
 const MovieBooking: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) => {
+
+
     // Fetch movie data using React Query
     const { data: movieData, isLoading, error } = useQuery<Movie | any>({
         queryKey: ['movie-user', currentMovieId], // if id changes, refetch data
@@ -34,10 +35,12 @@ const MovieBooking: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) 
 
     return (
         <MarginWidthWrapper>
-            <MovieDetail {...movieData} /> {/* Ensure movieData.data matches MovieDetail props */}
-            <HomeDisplayWrapper />
+            <MovieDetail {...movieData} />
+            <div className='w-full h-1 shadow-sm shadow-gray-500 bg-gray-800'></div>
+            <MovieDisplayWrapper />
         </MarginWidthWrapper>
     );
 };
+
 
 export default MovieBooking;
