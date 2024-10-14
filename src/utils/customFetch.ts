@@ -34,7 +34,7 @@ async function customFetch<T = unknown, R = unknown>(
     data,
     headers = {},
     useDelay = true,
-    delayMs = 2000,
+    delayMs = 1000,
     isFormData = false,
   } = options;
 
@@ -50,10 +50,11 @@ async function customFetch<T = unknown, R = unknown>(
       'Authorization': `Bearer ${session?.token || ''}`,
     };
 
-    if (!isFormData) {
+    console.log(isFormData)
+    if (!isFormData) { // if isformdata passed that mean data type is formdata
       defaultHeaders['Content-Type'] = 'application/json';
     }
-
+    console.log(data)
     const requestHeaders = { ...defaultHeaders, ...headers };
 
     const fetchOptions: RequestInit = {
@@ -65,6 +66,7 @@ async function customFetch<T = unknown, R = unknown>(
       if (isFormData) {
         if (data instanceof FormData) {
           fetchOptions.body = data;
+          console.log('formdata ')
         } else {
           throw new Error('Data must be an instance of FormData when isFormData is true');
         }

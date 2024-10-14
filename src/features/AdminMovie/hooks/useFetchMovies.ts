@@ -2,9 +2,9 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getMovies } from '../apis/getMovies';
+import { getMoviesAdmin } from '../apis/getMoviesAdmin';
 
-export const useMovies = () => {
+export const useFetchMovies = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [isFiltering, setIsFiltering] = useState(false);
@@ -14,9 +14,8 @@ export const useMovies = () => {
 
     // fetching list of movies
     const { data: movies, isLoading, error, refetch } = useQuery({
-        queryKey: ['movies-user', searchParamsMemo],
-        queryFn: () => getMovies(searchParamsMemo),
-        enabled: isFiltering, // disable automatic refetching until filter
+        queryKey: ['movies-admin', searchParamsMemo],
+        queryFn: () => getMoviesAdmin(searchParamsMemo),
     });
 
 

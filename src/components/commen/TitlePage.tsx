@@ -20,8 +20,8 @@ const TitlePage: FC<TitlePageProps> = ({ title }) => {
         );
     }
     return (
-        <h2 className="uppercase font-medium text-xl py-2">
-            dashboard {sugment}
+        <h2 className="uppercase font-medium text-xl p-4">
+            {sugment}
         </h2>
     );
 }

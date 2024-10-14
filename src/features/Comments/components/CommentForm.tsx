@@ -41,6 +41,8 @@ const CommentForm: React.FC<CommentFormProps> = () => {
         onSuccess: () => {
             toast.success('Comment Posted successfully!');
             queryClient.invalidateQueries({ queryKey: ['comments-movie'] }); // refrech comments
+            setComment(''); //reset commet stats ater comment submited
+
         },
         onError: (error: any) => {
             toast.error(`Error submitting rating: ${error.message}`);
@@ -58,9 +60,8 @@ const CommentForm: React.FC<CommentFormProps> = () => {
             return;
         }
 
-        await mutation.mutate();
+        mutation.mutate();
 
-        setComment(''); //reset commet stats ater comment submited
     }, [session, openModelAuth, setAuthFormField, mutation, comment]);
 
 

@@ -25,9 +25,11 @@ const CommentCard: React.FC<CommentCardProps> = ({ comments }) => {
             toast.error(`Error removing comment: ${error.message}`);
         },
     });
-
+    console.log(comments)
+    console.log(session)
     // memorize rendered comments to avoid unnecessary recalculations
     const renderedComments = useMemo(() => {
+
         return comments?.map((comment: Comment) => (
             <article key={comment.id} className="p-6 text-base rounded-lg bg-gray-900 border-t border-gray-700">
                 <footer className="flex justify-between items-center mb-2">

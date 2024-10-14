@@ -1,30 +1,39 @@
 import TitlePage from "@/components/commen/TitlePage";
-import TopNavbarAdmin from "@/components/layouts/TopNavbarAdmin";
-import HeaderAdmin from "@/components/layouts/TopNavbarAdmin";
+import DashboardHeader from "@/components/layouts/DashboardHeader";
 import Sidebar from "@/components/layouts/sidebar";
-import MotionWrapper from "@/components/Wrappers/MotionWrapper";
-import PageWrapper from "@/components/Wrappers/PageWapper";
 import { getSession } from "@/lib/sessions";
+
+
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const session = await getSession()
+
+
+
+  if (!session) {
+    return <p>Access Denied</p>;
+  }
+
+
   return (
-    <div className=" flex   max-h-screen w-full bg-white  ">
+    <div className=" flex h-screen bg-gray-100 text-black">
       <Sidebar />
-      <div className="w-full ">
-        <TopNavbarAdmin />
-        <main className="overflow-x-auto p-4 bg-gray-100">
+      <main className="flex-1 overflow-auto ">
+        {/* <DashboardHeader /> */}
+        <TitlePage />
+        <div className=" p-6">
 
-          {/* <TitlePage /> */}
           {children}
-        </main>
 
-      </div>
+        </div>
+
+      </main>
     </div>
   );
 }
+
+
