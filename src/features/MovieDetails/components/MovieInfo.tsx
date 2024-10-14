@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StarIcon } from 'lucide-react';
 import { Movie } from '@/types/movie';
-import { useAuthContext } from '@/Providers/AuthProvider';
-import { useAuthFormContext } from '@/context/AuthFormContext';
-import toast from 'react-hot-toast';
 import { useUserModalSwapperContext } from '@/context/user/UserModalSwapperContext';
 import { useSubscriptionContext } from '@/context/user/SubscriptionContext';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { submitRating } from '../apis/submitRating';
+import MovieRating from './MovieRating';
+import { useAuthContext } from '@/Providers/AuthProvider';
+import toast from 'react-hot-toast';
+import { useAuthFormContext } from '@/context/AuthFormContext';
 
-const MovieInfo: React.FC<Movie> = ({
+const MovieInfo: React.FC<Movie> = React.memo(({
     _id,
     name,
     image,
@@ -17,55 +16,23 @@ const MovieInfo: React.FC<Movie> = ({
     year = 2017,
     duration,
     genres,
+    userRating,
     description = "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.",
     trailerUrl = "https://www.youtube.com/watch?v=Ga6RYejo6Hk",
     hasStream
 }) => {
     const { openModalSwapper } = useUserModalSwapperContext();
-    const { session } = useAuthContext(); // bring session contain user info
-    const { openModelAuth, setAuthFormField } = useAuthFormContext();
     const { openModalSubscription } = useSubscriptionContext();
-
-    const [userRating, setUserRating] = useState<number>(rating || 0);
-    const [hoverRating, setHoverRating] = useState<number>(0);
-
-
-    const queryClient = useQueryClient();
-
-    // mutation for submitting the rating
-    const mutation = useMutation({
-        mutationFn: (value: number) => submitRating({ movieId: _id, value }), // sending movie id and rat value
-        onSuccess: () => {
-            toast.success('Rating submitted successfully!');
-            queryClient.invalidateQueries({ queryKey: ['movie-details'] }); // update movie details after rating
-
-        },
-        onError: (error: any) => {
-            toast.error(`Error submitting rating: ${error.message}`);
-        },
-    });
-
-    useEffect(() => {
-        setUserRating(rating || 0);
-    }, [rating]);
-
-    const handleRating = (index: number) => {
-        // check if user submited
-        if (!session?.token) {
-            setAuthFormField('login');
-            openModelAuth();
-            toast.error('You should be logged in to rating a movie');
-            return;
-        }
-
-        setUserRating(index);
-        mutation.mutate(index); // submit the rating
-    };
+    const { openModelAuth, setAuthFormField } = useAuthFormContext();
+    const { session } = useAuthContext();
 
     const handleShowTimesClick = () => {
         openModalSwapper('showtimes');
     };
 
+
+
+    // when user try 
     const handleStreamingClick = () => {
         if (!session?.token) {
             setAuthFormField('login');
@@ -73,7 +40,6 @@ const MovieInfo: React.FC<Movie> = ({
             toast.error('You should be logged in to Watch Movie Stream');
             return;
         }
-        // check if subscribed
         if (!session?.isSubscribe) {
             openModalSubscription('paymentForm');
             toast.error('You should be Subscribed to Watch Movie Stream');
@@ -121,35 +87,13 @@ const MovieInfo: React.FC<Movie> = ({
                         </div>
                     </div>
 
-                    <div className="mb-4 flex items-center">
-                        {Array.from({ length: 5 }, (_, index) => {
-                            index += 1;
-                            return (
-                                <StarIcon
-                                    key={index}
-                                    size={24}
-                                    className={`cursor-pointer transition-colors duration-200 ${(hoverRating || userRating) >= index
-                                        ? 'text-yellow-400'
-                                        : 'text-gray-400'
-                                        }`}
-                                    onClick={() => handleRating(index)}
-                                    onMouseEnter={() => setHoverRating(index)}
-                                    onMouseLeave={() => setHoverRating(0)}
+                    <MovieRating movieId={_id} initialRating={rating} userRating={userRating} />
 
-                                />
-                            );
-                        })}
-                        <span className="ml-2">
-                            {userRating > 0
-                                ? `You rated this movie ${userRating} out of 5`
-                                : 'Rate this movie'}
-                        </span>
-                    </div>
                     <p className="text-gray-300 mb-4">{description}</p>
                 </div>
             </div>
         </div>
     );
-};
+});
 
 export default MovieInfo;

@@ -15,4 +15,5 @@ export interface Movie {
   description?: string;
   trailerUrl?: string;
   hasStream?: boolean
+  userRating?: null | number
 }
