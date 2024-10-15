@@ -1,6 +1,6 @@
 
-import FormShowTime from '@/features/AdminRoom/components/FormShowTime'
-import ListShowTimes from '@/features/AdminRoom/components/ListShowTimes'
+import FormShowTime from '@/features/AdminShowTime/components/FormShowTime'
+import ListShowTimes from '@/features/AdminShowTime/components/ListShowTimes'
 import React from 'react'
 
 export default function page() {

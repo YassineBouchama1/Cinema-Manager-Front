@@ -3,7 +3,7 @@ import customFetch from "@/utils/customFetch";
 
 interface ShowTimeResponse {
     message: string;
-    data: ShowTimeAdmin[]; // Ensure this matches your expected response
+    data: ShowTimeAdmin[];
 }
 
 export const getShowTimesAdmin = async (params?: Record<string, string | string[] | undefined>): Promise<ShowTimeResponse> => {
@@ -18,3 +18,5 @@ export const getShowTimesAdmin = async (params?: Record<string, string | string[
         throw error;
     }
 };
+
+

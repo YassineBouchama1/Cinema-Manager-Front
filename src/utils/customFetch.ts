@@ -34,7 +34,7 @@ async function customFetch<T = unknown, R = unknown>(
     data,
     headers = {},
     useDelay = false,
-    delayMs = 1000,
+    delayMs = 2000,
     isFormData = false,
   } = options;
 

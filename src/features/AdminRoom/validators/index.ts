@@ -1,26 +1,14 @@
 import { z } from 'zod';
 
-export const CreateMovieSchema = z.object({
-  name: z.string().min(1, 'name is required'),
-  description: z.string().min(1, 'Description is required'),
-  duration: z.number().min(1, 'Running time must be at least 1 minute'),
-  genre: z.string().min(1, 'Genre is required'),
+export const RoomSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  capacity: z.number().min(1, 'Capacity must be greater than 0'),
+  seatsPerRow: z.number().min(1, 'Seats per row must be greater than 0'),
+  type: z.string().min(1, 'Type is required'),
 });
-
-export type CreateMovieFormInputs = z.infer<typeof CreateMovieSchema>;
-
+export type RoomFormInputs = z.infer<typeof RoomSchema>;
 
 
 
-
-
-export const UpdateMovieSchema = z.object({
-  name: z.string().min(1, 'name is required').optional(),
-  description: z.string().min(1, 'Description is required').optional(),
-  duration: z.number().min(1, 'Running time must be at least 1 minute').optional(),
-  genre: z.string().min(1, 'Genre is required').optional(),
-});
-
-export type UpdateMovieFormInputs = z.infer<typeof UpdateMovieSchema>;
 
 

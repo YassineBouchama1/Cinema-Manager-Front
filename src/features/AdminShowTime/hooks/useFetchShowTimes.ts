@@ -4,7 +4,7 @@ import { getShowTimesAdmin } from '../apis/getShowTimes';
 export const useFetchShowTimes = () => {
     const { data: showTimes, isLoading, error } = useQuery({
         queryKey: ['showtimes-admin'],
-        queryFn: ()=>getShowTimesAdmin,
+        queryFn: () => getShowTimesAdmin(),
     });
 
     return { showTimes, isLoading, error };

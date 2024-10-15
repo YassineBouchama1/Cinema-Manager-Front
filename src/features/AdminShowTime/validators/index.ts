@@ -1,26 +1,25 @@
 import { z } from 'zod';
 
-export const CreateMovieSchema = z.object({
-  name: z.string().min(1, 'name is required'),
-  description: z.string().min(1, 'Description is required'),
-  duration: z.number().min(1, 'Running time must be at least 1 minute'),
-  genre: z.string().min(1, 'Genre is required'),
+export const showTimesSchema = z.object({
+  price: z.number().min(1, 'Price is required'),
+  movieId: z.string().min(1, 'Movie ID is required'),
+  roomId: z.string().min(1, 'Room ID is required'),
+  startAt: z.string().min(1, 'startAt is required'),
 });
 
-export type CreateMovieFormInputs = z.infer<typeof CreateMovieSchema>;
+export type showTimesSchemaData = z.infer<typeof showTimesSchema>;
 
 
 
 
+export const validateShowTimeData = (data: showTimesSchemaData) => {
+  try {
+    showTimesSchema.parse(data);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
 
-
-export const UpdateMovieSchema = z.object({
-  name: z.string().min(1, 'name is required').optional(),
-  description: z.string().min(1, 'Description is required').optional(),
-  duration: z.number().min(1, 'Running time must be at least 1 minute').optional(),
-  genre: z.string().min(1, 'Genre is required').optional(),
-});
-
-export type UpdateMovieFormInputs = z.infer<typeof UpdateMovieSchema>;
-
-
+      throw new Error(error.errors.map(e => e.message).join(', '));
+    }
+    throw error;
+  }
+};

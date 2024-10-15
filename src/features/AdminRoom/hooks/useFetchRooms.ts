@@ -2,7 +2,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getRoomsAdmin } from '../apis/getMoviesAdmin';
+import { getRoomsAdmin } from '../apis/getRoomsAdmin';
 
 export const useFetchRooms = () => {
     const searchParams = useSearchParams();

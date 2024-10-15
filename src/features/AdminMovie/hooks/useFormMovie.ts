@@ -10,7 +10,7 @@ import { updateMovie } from '../apis/updateMovie';
 import { createMovie } from '../apis/createMovie';
 
 const useFormMovie = () => {
-    const { currentMovie, isUpdateMode } = useMovieFormStore();
+    const { currentMovie, isUpdateMode, resetForm } = useMovieFormStore();
 
     const schema = isUpdateMode ? UpdateMovieSchema : CreateMovieSchema;
 
@@ -44,6 +44,8 @@ const useFormMovie = () => {
             setCoverImage(null); // reset cover image
             setVideo(null); // reset video
             setVideoLink(''); // reset video link
+
+            resetForm()//reset to create mode
 
         },
         onError: (error: Error) => {

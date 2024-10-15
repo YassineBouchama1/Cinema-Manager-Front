@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Room } from '@/types/room'; // Adjust the import path as necessary
+import { Room } from '@/types/room';
 
 interface RoomFormStore {
     currentRoom: Room | null;

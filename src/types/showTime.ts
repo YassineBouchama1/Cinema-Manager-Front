@@ -5,14 +5,12 @@ export interface ShowTime {
   _id: string;
   price: number;
   movieId: string;
-
   roomId: Room;
   startAt: string;
   endAt: string;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
-  __v: number;
   reservedSeats: number[];
 }
 
@@ -22,7 +20,6 @@ export interface ShowTime {
 
 export interface MovieHasShowTimes {
   length: number;
-  map(arg0: (movie: Movie) => import("react").JSX.Element): import("react").ReactNode;
   _id: string;
   name: string;
   duration: string;
@@ -34,16 +31,28 @@ export interface MovieHasShowTimes {
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
-  __v: number;
+
 }
 
 
 export interface ShowTimeAdmin {
   _id: string;
   price: number;
-  movieId: string;
-  roomId: string;
+  movieId: string | {
+    _id: string
+    name: string;
+    image: string;
+    duration: string;
+  };
+  roomId: string | {
+    _id: string
+    name: string;
+    capacity: string;
+  };
   startAt: Date;
   endAt: Date;
   isDeleted: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+
 }

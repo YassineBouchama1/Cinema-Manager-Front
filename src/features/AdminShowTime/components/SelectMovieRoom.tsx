@@ -1,22 +1,24 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 
-import { Movie } from '@/types/movie'; // Adjust the import path as necessary
-import { Room } from '@/types/room'; // Adjust the import path as necessary
+import { Movie } from '@/types/movie';
+import { Room } from '@/types/room';
 import { getMoviesAdmin } from '@/features/AdminMovie/apis/getMoviesAdmin';
-import { getRoomsAdmin } from '@/features/AdminShowTime/apis/getMoviesAdmin';
+import { getRoomsAdmin } from '@/features/AdminRoom/apis/getRoomsAdmin';
+import { useShowTimeFormStore } from '../store/showTimeFormStore';
 
 interface SelectMovieRoomProps {
-    onMovieSelect: (movieId: string) => void;
-    onRoomSelect: (roomId: string) => void;
+
 }
 
-const SelectMovieRoom: React.FC<SelectMovieRoomProps> = ({ onMovieSelect, onRoomSelect }) => {
+const SelectMovieRoom: React.FC<SelectMovieRoomProps> = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [rooms, setRooms] = useState<Room[]>([]);
-    const [selectedMovieId, setSelectedMovieId] = useState<string>('');
-    const [selectedRoomId, setSelectedRoomId] = useState<string>('');
+    const { setMovieId, setRoomId, roomId, movieId  } = useShowTimeFormStore()
 
+
+
+    // fetch movies and rrom 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -40,23 +42,16 @@ const SelectMovieRoom: React.FC<SelectMovieRoomProps> = ({ onMovieSelect, onRoom
         fetchRooms();
     }, []);
 
-    const handleMovieChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const movieId = event.target.value;
-        setSelectedMovieId(movieId);
-        onMovieSelect(movieId);
-    };
 
-    const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const roomId = event.target.value;
-        setSelectedRoomId(roomId);
-        onRoomSelect(roomId);
-    };
+
+
+
 
     return (
         <div className="space-y-4">
             <div>
                 <label htmlFor="movieSelect" className="block text-white">Select Movie:</label>
-                <select id="movieSelect" value={selectedMovieId} onChange={handleMovieChange} className="w-full p-2 bg-gray-800 border border-gray-300 rounded">
+                <select id="movieSelect" value={movieId} onChange={(e) => setMovieId(e.target.value)} className="w-full p-2 bg-gray-800 border border-gray-300 rounded">
                     <option value="">-- Select a Movie --</option>
                     {movies.map(movie => (
                         <option key={movie._id} value={movie._id}>{movie.name}</option>
@@ -65,7 +60,7 @@ const SelectMovieRoom: React.FC<SelectMovieRoomProps> = ({ onMovieSelect, onRoom
             </div>
             <div>
                 <label htmlFor="roomSelect" className="block text-white">Select Room:</label>
-                <select id="roomSelect" value={selectedRoomId} onChange={handleRoomChange} className="w-full p-2 bg-gray-800 border border-gray-300 rounded">
+                <select id="roomSelect" value={roomId} onChange={(e) => setRoomId(e.target.value)} className="w-full p-2 bg-gray-800 border border-gray-300 rounded">
                     <option value="">-- Select a Room --</option>
                     {rooms.map(room => (
                         <option key={room._id} value={room._id}>{room.name}</option>
