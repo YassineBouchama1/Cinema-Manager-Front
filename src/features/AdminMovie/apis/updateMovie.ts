@@ -5,12 +5,12 @@ interface UpdateMovieResponse {
     data?: any;
 }
 
-export async function updateMovie(formData: FormData): Promise<UpdateMovieResponse> {
+export async function updateMovie(formData: FormData, id: string): Promise<UpdateMovieResponse> {
     try {
         return await customFetch<FormData, UpdateMovieResponse>(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie`, // Adjust the URL as needed
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie/${id}`,
             {
-                method: 'PUT', // Use PUT for updating
+                method: 'PUT',
                 data: formData,
                 isFormData: true
             }

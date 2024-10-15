@@ -11,7 +11,7 @@ export interface Movie {
   __v: number;
   rating: number;
   year?: number;
-  genres: string;
+  genre: string;
   description?: string;
   trailerUrl?: string;
   hasStream?: boolean
