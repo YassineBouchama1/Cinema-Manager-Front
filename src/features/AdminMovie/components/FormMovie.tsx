@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import useFormMovie from '../hooks/useFormMovie';
 import { useMovieFormStore } from '../store/movieFormStore';
+import MovieSearch from './MovieSearch';
+import { Movie } from '@/types/movie';
+import { MovieTypeTMPD } from '../apis/tmdbApi';
 
 const FormMovie: React.FC = () => {
     const {
@@ -26,12 +29,23 @@ const FormMovie: React.FC = () => {
             // set form input with data movie wants update it
             reset({
                 name: currentMovie.name,
-                description: currentMovie.description,
+                description: currentMovie.description || "Fake description",
                 duration: Number(currentMovie.duration),
                 genre: currentMovie.genre,
             });
         }
     }, [currentMovie, isUpdateMode, reset]);
+
+
+    // this fun to handle movie selection from the search component
+    const handleMovieSelect = (movie: MovieTypeTMPD) => {
+        reset({
+            name: movie.title,
+            description: movie.overview,
+            duration: 251,
+            genre: 'action',
+        });
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-[90%] mx-auto sm:p-6 text-white">
@@ -105,6 +119,8 @@ const FormMovie: React.FC = () => {
 
                     {isUpdateMode && (<button className='flex justify-center w-full text-sm hover:text-blue-500 duration-300' onClick={() => resetForm()}>switch to mode Create</button>)}
                 </div>
+                {/* Movie Search Component */}
+                <MovieSearch onSelectMovie={handleMovieSelect} />
             </div>
         </form>
     );
