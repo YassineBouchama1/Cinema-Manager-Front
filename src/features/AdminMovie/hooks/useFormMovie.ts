@@ -24,19 +24,22 @@ const useFormMovie = () => {
 
     const queryClient = useQueryClient();
 
+
     const mutation = useMutation({
         mutationFn: async (formData: FormData) => {
             if (isUpdateMode && currentMovie) {
                 // call updateMovie  with id
                 return await updateMovie(formData, currentMovie._id);
             } else {
-                // Call createMovie than send formdata to it
+                // call createMovie than send formdata to it
                 return await createMovie(formData);
             }
         },
         onSuccess: (data) => {
             toast.success(data.message || (isUpdateMode ? 'Movie updated successfully!' : 'Movie created successfully!'));
             queryClient.invalidateQueries({ queryKey: ['movies-admin'] }); // refresh movies
+
+
             reset(); // reset the form fields
             setCoverImage(null); // reset cover image
             setVideo(null); // reset video
@@ -51,7 +54,7 @@ const useFormMovie = () => {
     const onSubmit: SubmitHandler<CreateMovieFormInputs> = (data) => {
         const formData = new FormData();
 
-        // Append form fields
+        // append form fields
         formData.append('name', data.name);
         formData.append('description', data.description);
         formData.append('duration', String(data.duration));
@@ -90,6 +93,7 @@ const useFormMovie = () => {
         setVideo,
         setVideoLink,
         isLoading: mutation.isPending,
+        reset
     };
 };
 

@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import useFormMovie from '../hooks/useFormMovie';
@@ -14,24 +14,24 @@ const FormMovie: React.FC = () => {
         coverImage,
         setVideo,
         setVideoLink,
-        isLoading
+        isLoading,
+        reset
     } = useFormMovie();
 
-    const { currentMovie, isUpdateMode, resetForm, setUpdateMode } = useMovieFormStore();
+    const { currentMovie, isUpdateMode, resetForm } = useMovieFormStore();
 
     useEffect(() => {
         if (isUpdateMode && currentMovie) {
-
-            // set the values in the form
-            register('name').onChange({ target: { value: currentMovie.name } });
-            register('description').onChange({ target: { value: currentMovie.description } });
-            register('duration').onChange({ target: { value: currentMovie.duration } });
-            register('genre').onChange({ target: { value: currentMovie.genre } });
+            console.log(currentMovie);
+            // set form input with data movie wants update it
+            reset({
+                name: currentMovie.name,
+                description: currentMovie.description,
+                duration: Number(currentMovie.duration),
+                genre: currentMovie.genre,
+            });
         }
-    }, [currentMovie, isUpdateMode, register]);
-
-
-
+    }, [currentMovie, isUpdateMode, reset]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-[90%] mx-auto sm:p-6 text-white">
@@ -41,9 +41,14 @@ const FormMovie: React.FC = () => {
                         className="h-[350px] w-[220px] mx-auto bg-gray-800 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer overflow-hidden"
                         onClick={() => document.getElementById('coverImageInput')?.click()}
                     >
-                        {coverImage ? (
+                        {coverImage || (isUpdateMode && currentMovie?.image) ? (
                             <div className="relative w-full h-full">
-                                <Image src={URL.createObjectURL(coverImage)} alt="Cover" layout="fill" objectFit="cover" />
+                                <Image
+                                    src={coverImage ? URL.createObjectURL(coverImage) : `${process.env.NEXT_PUBLIC_IMAGE_URL}${currentMovie?.image}`}
+                                    alt="Cover"
+                                    layout="fill"
+                                    objectFit="cover"
+                                />
                             </div>
                         ) : (
                             <div className="text-center p-4">
@@ -75,7 +80,7 @@ const FormMovie: React.FC = () => {
                         </div>
 
                         <div className='w-full'>
-                            <input {...register('duration', { valueAsNumber: true })} type='number' placeholder="Choose duration Movie" className="w-full p-2 border bg-gray-800 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <input {...register('duration', { valueAsNumber: true })} type='text' placeholder="Choose duration Movie" className="w-full p-2 border bg-gray-800 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             {errors.duration && <p className="text-red-500">{errors.duration.message}</p>}
                         </div>
                     </div>
