@@ -47,7 +47,7 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
         <>
             <Link
                 href={path}
-                className={`flex items-center text-black p-3 rounded-lg hover:text-white cursor-pointer hover:bg-[#4880FF] duration-300 justify-between
+                className={`flex items-center text-white p-3 rounded-lg hover:text-white cursor-pointer hover:bg-[#4880FF] duration-300 justify-between
      ${isActive && "bg-[#4880FF] text-white"}
     `}
 

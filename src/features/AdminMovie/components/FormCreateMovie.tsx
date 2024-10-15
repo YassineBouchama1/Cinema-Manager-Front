@@ -1,4 +1,3 @@
-// components/FormCreateMovie.tsx
 'use client';
 import React from 'react';
 import Image from 'next/image';
@@ -19,11 +18,11 @@ const FormCreateMovie: React.FC = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)} className="max-w-[90%] mx-auto sm:p-6 text-gray-800">
-                <div className="flex justify-start gap-6 items-start">
-                    <div className="col-span-1 flex h-auto bg-white shadow-lg rounded-lg p-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="max-w-[90%] mx-auto sm:p-6 text-white">
+                <div className="flex justify-start gap-6 items-start md:flex-row flex-col w-full">
+                    <div className="col-span-1 flex h-auto bg-gray-900 shadow-lg rounded-lg p-4 justify-center w-full">
                         <div
-                            className="h-[270px] w-[190px] mx-auto bg-gray-100 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer overflow-hidden"
+                            className="h-[350px] w-[220px] mx-auto bg-gray-800 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer overflow-hidden"
                             onClick={() => document.getElementById('coverImageInput')?.click()}
                         >
                             {coverImage ? (
@@ -45,21 +44,21 @@ const FormCreateMovie: React.FC = () => {
                             />
                         </div>
                     </div>
-                    <div className="col-span-2 md:col-span-2 w-full space-y-4 bg-white shadow-lg rounded-lg p-4">
-                        <input {...register('title')} placeholder="Title" className="w-full p-2 bg-gray-100 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <div className="col-span-2 md:col-span-2 w-full space-y-4 bg-gray-900 shadow-lg rounded-lg p-4">
+                        <input {...register('title')} placeholder="Title" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         {errors.title && <p className="text-red-500">{errors.title.message}</p>}
 
-                        <textarea {...register('description')} placeholder="Description" className="w-full p-2 bg-gray-100 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" rows={4}></textarea>
+                        <textarea {...register('description')} placeholder="Description" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" rows={4}></textarea>
                         {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
                         <div className='flex justify-start gap-x-3 w-full'>
-                            <div>
-                                <input {...register('genre')} placeholder="Choose genre / genres" className="w-full p-2 border bg-gray-100 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <div className='w-full'>
+                                <input {...register('genre')} placeholder="Choose genre / genres" className="w-full p-2 border bg-gray-800 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                 {errors.genre && <p className="text-red-500">{errors.genre.message}</p>}
                             </div>
 
-                            <div>
-                                <input {...register('duration', { valueAsNumber: true })} type='number' placeholder="Choose duration Movie" className="w-full p-2 border bg-gray-100 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <div className='w-full'>
+                                <input {...register('duration', { valueAsNumber: true })} type='number' placeholder="Choose duration Movie" className="w-full p-2 border bg-gray-800 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                 {errors.duration && <p className="text-red-500">{errors.duration.message}</p>}
                             </div>
                         </div>
@@ -67,18 +66,22 @@ const FormCreateMovie: React.FC = () => {
                         <div className="flex flex-col sm:flex-row gap-4">
                             <div className="flex-1">
                                 <input type="file" onChange={(e) => setVideo(e.target.files?.[0] || null)} className="hidden" id="videoUpload" />
-                                <label htmlFor="videoUpload" className="block w-full cursor-pointer bg-gray-100 text-gray-800 p-2 rounded text-center hover:bg-gray-200 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">Upload video</label>
+                                <label htmlFor="videoUpload" className="block w-full cursor-pointer bg-gray-800 text-white p-2 rounded text-center hover:bg-gray-200 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">Upload video</label>
                             </div>
                             <div className="flex-1">
-                                <input type="url" onChange={(e) => setVideoLink(e.target.value)} placeholder="or add a link" className="w-full p-2 bg-gray-100 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <input type="url" onChange={(e) => setVideoLink(e.target.value)} placeholder="or add a link" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             </div>
                         </div>
+
+
+
                         <button
                             disabled={isLoading}
                             type="submit"
                             style={{ opacity: isLoading ? 0.4 : 1 }}
                             className="mt-6 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            {isLoading ? "Creating" : "Create"}</button>
+                            {isLoading ? "Creating" : "Create"}
+                        </button>
                     </div>
                 </div>
             </form>

@@ -33,7 +33,7 @@ async function customFetch<T = unknown, R = unknown>(
     method,
     data,
     headers = {},
-    useDelay = true,
+    useDelay = false,
     delayMs = 1000,
     isFormData = false,
   } = options;
@@ -50,11 +50,10 @@ async function customFetch<T = unknown, R = unknown>(
       'Authorization': `Bearer ${session?.token || ''}`,
     };
 
-    console.log(isFormData)
+
     if (!isFormData) { // if isformdata passed that mean data type is formdata
       defaultHeaders['Content-Type'] = 'application/json';
     }
-    console.log(data)
     const requestHeaders = { ...defaultHeaders, ...headers };
 
     const fetchOptions: RequestInit = {

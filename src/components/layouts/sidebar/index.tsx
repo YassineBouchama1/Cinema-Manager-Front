@@ -46,21 +46,15 @@ const Sidebar: React.FC = () => {
 
 
             {/* Sidebar */}
-            <div className={`w-64 bg-white shadow-lg  p-4 py-7 px-2 absolute inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-200 ease-in-out z-40`}>
+            <div className={`w-64 bg-gray-900 shadow-lg  p-4 py-7 px-2 absolute inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-200 ease-in-out z-40`}>
                 <div className="   flex flex-col space-y-10 w-full  h-full">
                     <div className="flex gap-1">
 
                         <Link
                             className="cursor-pointer text-center w-full"
                             href={'/admin'}>
-                            {/* <Image
-                                className=" h-10 w-fit "
-                                src="/logo.png"
-                                alt="Logo"
-                                width="100"
-                                height="100"
-                            /> */}
-                            <h2 className='text-3xl font-extrabold'>LOGO</h2>
+
+                            <h2 className='text-3xl font-extrabold text-white'>LOGO</h2>
                         </Link>
                     </div>
 

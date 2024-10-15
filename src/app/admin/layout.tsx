@@ -20,10 +20,10 @@ export default async function DashboardLayout({
 
 
   return (
-    <div className=" flex h-screen bg-gray-100 text-black">
+    <div className=" flex h-screen bg-gray-800 text-white">
       <Sidebar />
       <main className="flex-1 overflow-auto ">
-        {/* <DashboardHeader /> */}
+        <DashboardHeader />
         <TitlePage />
         <div className=" p-6">
 

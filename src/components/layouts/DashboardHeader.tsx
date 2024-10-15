@@ -16,14 +16,14 @@ const DashboardHeader: React.FC = () => {
     }
 
     return (
-        <header className="bg-white shadow-sm border-gray-200 px-4 min-h-16 lg:px-6 py-2.5  ">
+        <header className="bg-gray-900 md:hidden shadow-sm border-gray-200 px-4 min-h-16 lg:px-6 py-2.5  ">
             <nav className="flex  items-center justify-between ">
                 <div className="flex items-center justify-start gap-4">
                     {/* Hamburger Icon visible only on mobile */}
-                    <div className="md:hidden ">
+                    <div className=" ">
                         <button onClick={toggleSidebar}>
 
-                            <Menu size={32} className=" text-black" />
+                            <Menu size={32} className=" text-white" />
                         </button>
                     </div>
 
