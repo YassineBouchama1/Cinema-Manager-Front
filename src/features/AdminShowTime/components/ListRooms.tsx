@@ -9,7 +9,7 @@ const ListRooms: React.FC = () => {
     if (error) return <div>Error: {(error as Error).message}</div>;
 
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
+        <div className="md:w-[60%] w-full relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
             <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Room List</h2>
             {isLoading && <div>Loading...</div>}
             {!isLoading && (

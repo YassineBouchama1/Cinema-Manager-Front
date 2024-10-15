@@ -15,7 +15,7 @@ const FormRoom: React.FC = () => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="max-w-[90%] mx-auto sm:p-6 text-white">
+        <form onSubmit={handleSubmit(onSubmit)} className="md:w-[40%] w-full mx-auto sm:p-6 text-white">
             <div className="space-y-4">
                 <input {...register('name')} placeholder="Room Name" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 {errors.name && <p className="text-red-500">{errors.name.message}</p>}

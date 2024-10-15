@@ -5,7 +5,7 @@ import type { FC } from 'react';
 
 interface TitlePageProps { title?: string }
 
-const TitlePage: FC<TitlePageProps> = ({ title }) => {
+const TitlePage: FC<TitlePageProps> = () => {
 
 
     const sugment = useSelectedLayoutSegment()

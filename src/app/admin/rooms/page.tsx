@@ -1,15 +1,15 @@
 import FormMovie from '@/features/AdminMovie/components/FormMovie'
 import ListMovies from '@/features/AdminMovie/components/ListMovies'
-import FormRoom from '@/features/AdminRoom/components/FormRoom'
-import ListRooms from '@/features/AdminRoom/components/ListRooms'
+import ListRooms from '@/features/AdminRoom/components/ListShowTimes'
+import FormRoom from '@/features/AdminShowTime/components/FormRoom'
 import React from 'react'
 
 export default function page() {
     return (
-        <div>
+        <main className='flex justify-start gap-6 md:flex-row flex-col'>
 
             <FormRoom />
             <ListRooms />
-        </div>
+        </main>
     )
 }

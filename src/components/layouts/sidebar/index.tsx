@@ -42,6 +42,12 @@ const Sidebar: React.FC = () => {
                 icon: DoorOpen,
 
             },
+            {
+                name: 'showtimes',
+                path: "/admin/showtimes",
+                icon: DoorOpen,
+
+            },
 
         ],
         []

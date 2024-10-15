@@ -36,3 +36,14 @@ export interface MovieHasShowTimes {
   updatedAt: string;
   __v: number;
 }
+
+
+export interface ShowTimeAdmin {
+  _id: string;
+  price: number;
+  movieId: string;
+  roomId: string;
+  startAt: Date;
+  endAt: Date;
+  isDeleted: boolean;
+}
