@@ -21,7 +21,7 @@ const TitlePage: FC<TitlePageProps> = ({ title }) => {
     }
     return (
         <h2 className="uppercase font-medium text-xl p-4">
-            {sugment}
+            Managment {sugment}
         </h2>
     );
 }

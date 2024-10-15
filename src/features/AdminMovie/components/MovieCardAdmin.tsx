@@ -5,13 +5,13 @@ import { Loader, OctagonX } from 'lucide-react';
 import { Movie } from '@/types/movie';
 import { useMovieFormStore } from '../store/movieFormStore';
 
-interface MovieCardAdminProps {
+interface RoomitemAdminProps {
     movie: Movie;
     onDelete: (movieId: string) => void;
     isLoading: boolean;
 }
 
-const MovieCardAdmin: React.FC<MovieCardAdminProps> = React.memo(({ movie, onDelete, isLoading }) => {
+const RoomitemAdmin: React.FC<RoomitemAdminProps> = React.memo(({ movie, onDelete, isLoading }) => {
     const { setUpdateMode, setCurrentMovie } = useMovieFormStore();
 
     const handleEditClick = () => {
@@ -52,4 +52,4 @@ const MovieCardAdmin: React.FC<MovieCardAdminProps> = React.memo(({ movie, onDel
     );
 });
 
-export default MovieCardAdmin;
+export default RoomitemAdmin;

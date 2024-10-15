@@ -1,6 +1,6 @@
 'use client'
 
-import { Building2, Film, Home, Image, LayoutDashboard, LucideIcon, Send } from 'lucide-react';
+import { Building2, Clapperboard, DoorOpen, Film, Home, Image, LayoutDashboard, LucideIcon, Send } from 'lucide-react';
 import Link from 'next/link';
 
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
@@ -33,7 +33,13 @@ const Sidebar: React.FC = () => {
             {
                 name: 'movies',
                 path: "/admin/movies",
-                icon: Send,
+                icon: Clapperboard,
+
+            },
+            {
+                name: 'rooms',
+                path: "/admin/rooms",
+                icon: DoorOpen,
 
             },
 
