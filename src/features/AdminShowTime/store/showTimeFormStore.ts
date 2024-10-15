@@ -8,6 +8,7 @@ interface ShowTimeFormStore {
     startAt: string;
     iDShowTime: string;
     isUpdateMode: boolean;
+    errors: Record<string, string>;
     resetForm: () => void;
     setUpdateMode: (updateMode: boolean) => void;
     setMovieId: (movieId: string) => void;
@@ -15,6 +16,8 @@ interface ShowTimeFormStore {
     setIdShowTime: (iDShowTime: string) => void;
     setPrice: (price: number) => void;
     setStartAt: (startAt: string) => void;
+    setErrors: (errors: Record<string, string>) => void;
+
 }
 
 export const useShowTimeFormStore = create<ShowTimeFormStore>((set) => ({
@@ -25,7 +28,9 @@ export const useShowTimeFormStore = create<ShowTimeFormStore>((set) => ({
     price: 0,
     startAt: '',
     isUpdateMode: false,
-    resetForm: () => set({ isUpdateMode: false, movieId: '', roomId: '', price: 0, startAt: '', iDShowTime: '' }),
+    errors: {},
+    setErrors: (errors) => set({ errors }),
+    resetForm: () => set({ isUpdateMode: false, movieId: '', roomId: '', price: 0, startAt: '', iDShowTime: '', errors: {} }),
     setMovieId: (movieId: string) => set({ movieId }),
     setRoomId: (roomId: string) => set({ roomId }),
     setIdShowTime: (iDShowTime: string) => set({ iDShowTime }),

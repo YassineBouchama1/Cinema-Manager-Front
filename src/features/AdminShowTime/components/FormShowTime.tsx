@@ -6,7 +6,7 @@ import SelectMovieRoom from './SelectMovieRoom';
 
 const FormShowTime: React.FC = () => {
     const { onSubmit } = useFormShowTime();
-    const { isUpdateMode, price, setPrice, startAt, setStartAt } = useShowTimeFormStore();
+    const { isUpdateMode, price, setPrice, startAt, setStartAt, errors } = useShowTimeFormStore();
 
 
 
@@ -20,13 +20,14 @@ const FormShowTime: React.FC = () => {
                     onChange={(e) => setPrice(Number(e.target.value))}
                     type="number"
                     placeholder="Price" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                {errors.price && <span className="error text-red-500">{errors.price}</span>}
 
 
                 <SelectMovieRoom />
 
                 <input value={startAt}
                     onChange={(e) => setStartAt(e.target.value)} type="datetime-local" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                {/* {errors.startAt && <p className="text-red-500">{errors.startAt.message}</p>} */}
+                {errors.startAt && <span className="error text-red-500">{errors.startAt}</span>}
 
                 <button
                     onClick={() => onSubmit()}

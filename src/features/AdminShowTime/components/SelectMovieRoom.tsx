@@ -14,7 +14,7 @@ interface SelectMovieRoomProps {
 const SelectMovieRoom: React.FC<SelectMovieRoomProps> = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [rooms, setRooms] = useState<Room[]>([]);
-    const { setMovieId, setRoomId, roomId, movieId  } = useShowTimeFormStore()
+    const { setMovieId, setRoomId, roomId, movieId, errors } = useShowTimeFormStore()
 
 
 
@@ -57,6 +57,8 @@ const SelectMovieRoom: React.FC<SelectMovieRoomProps> = () => {
                         <option key={movie._id} value={movie._id}>{movie.name}</option>
                     ))}
                 </select>
+                {errors.movieId && <span className="error text-red-500">{errors.movieId}</span>}
+
             </div>
             <div>
                 <label htmlFor="roomSelect" className="block text-white">Select Room:</label>
@@ -66,6 +68,8 @@ const SelectMovieRoom: React.FC<SelectMovieRoomProps> = () => {
                         <option key={room._id} value={room._id}>{room.name}</option>
                     ))}
                 </select>
+                {errors.roomId && <span className="error text-red-500">{errors.roomId}</span>}
+
             </div>
         </div>
     );

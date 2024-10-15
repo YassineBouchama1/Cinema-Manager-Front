@@ -7,7 +7,7 @@ import { createShowTime } from '../apis/createShowTime';
 import { showTimesSchemaData, validateShowTimeData } from '../validators';
 
 const useFormShowTime = () => {
-    const { isUpdateMode, roomId, movieId, resetForm, price, startAt, iDShowTime } = useShowTimeFormStore();
+    const { isUpdateMode, roomId, movieId, resetForm, price, startAt, iDShowTime, setErrors } = useShowTimeFormStore();
 
 
 
@@ -51,7 +51,9 @@ const useFormShowTime = () => {
 
 
         try {
-            validateShowTimeData(data);
+            if (!validateShowTimeData(data, setErrors)) {
+                return;
+            }
             mutation.mutate(data);
         } catch (error: any) {
             toast.error(error.message);
