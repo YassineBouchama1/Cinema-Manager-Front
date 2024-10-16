@@ -1,6 +1,6 @@
 import { IUser } from "@/types/user";
 import customFetch from "@/utils/customFetch";
-import { UpdateData } from "../components/UsersItem";
+import { UpdateData } from "../hooks/useUserManagement";
 
 interface updateUserAdminResponse {
     message: string;

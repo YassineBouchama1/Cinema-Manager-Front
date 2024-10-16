@@ -1,55 +1,88 @@
 'use client';
 import React, { useMemo } from 'react';
-import { useFetchUsers } from '../hooks/useFetchUsers';
+import { useUserManagement } from '../hooks/useUserManagement';
 import { IUser } from '@/types/user';
-import UsersItem from './UsersItem';
+import { Lock, Edit, Trash } from 'lucide-react';
 import FilterUsers from './FilterUsers';
+import DynamicTable from '@/components/commen/DynamicTable';
+import { useUserAdminDashStore } from '../store/showTimeFormStore';
 
 const ListUsers: React.FC = () => {
-    const { users, isLoading, error, isFiltering,
-        handleFilter } = useFetchUsers();
+    const {
+        users,
+        isLoading,
+        error,
+        refetch,
+        updateUserStatus,
+        deleteUser,
+        mutation,
+    } = useUserManagement();
 
-    // Memoize the users data for performance
+
+    const { openModal } = useUserAdminDashStore();
+
+
+    // memoize the users data
     const usersData = useMemo(() => users?.data || [], [users]);
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 
+    // define columns for the DynamicTable
+    const columns = useMemo(() => [
+        { header: 'ID', accessor: '_id' },
+        { header: 'BASIC INFO', accessor: 'basicInfo' },
+        { header: 'PRICING PLAN', accessor: 'pricingPlan' },
+        { header: 'COMMENTS', accessor: 'comments' },
+        { header: 'STATUS', accessor: 'status' },
+        { header: 'CREATED DATE', accessor: 'createdAt' },
+    ], []);
+
+    // prepare data for the table
+    const tableData = useMemo(() => usersData.map((user: IUser) => ({
+        _id: user._id,
+        basicInfo: (
+            <div>
+                <div>{user.name}</div>
+                <div className="text-gray-500">{user.email}</div>
+            </div>
+        ),
+        pricingPlan: user.isSubscribe ? 'Premium' : 'Free',
+        comments: user.commentCount,
+        status: user.isActive ? 'Approved' : 'Banned',
+        createdAt: new Date(user.createdAt).toLocaleDateString(),
+    })), [usersData]);
+
+
+
+
     return (
         <div className="w-full relative overflow-x-auto shadow-md sm:rounded-lg p-6">
-            <FilterUsers isFiltering={isFiltering} onFilter={handleFilter} />
+            <FilterUsers onFilter={refetch} />
             <div className='shadow-lg shadow-gray-700 bg-blue-900 h-[1px] w-full mb-6' />
-
-            <table className="bg-gray-800  w-full text-sm text-left rtl:text-right text-gray-400 ">
-                <thead className="text-xs uppercase  text-white ">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">ID</th>
-                        <th scope="col" className="px-6 py-3">BASIC INFO</th>
-
-                        <th scope="col" className="px-6 py-3">PRICING PLAN</th>
-                        <th scope="col" className="px-6 py-3">COMMENTS</th>
-
-                        <th scope="col" className="px-6 py-3">STATUS</th>
-                        <th scope="col" className="px-6 py-3">CREATED DATE</th>
-                        <th scope="col" className="px-6 py-3">ACTIONS</th>
-                    </tr>
-                </thead>
-                {isLoading ? (
-                    <tbody>Loading...</tbody>
-                ) : (
-                    <tbody className='mt-4'>
-                        {usersData.length === 0 ? (
-                            <tr>
-                                <td colSpan={9} className="text-center">No user available.</td>
-                            </tr>
-                        ) : (
-                            usersData.map((user: IUser) => (
-                                <UsersItem key={user._id} user={user} />
-                            ))
-                        )}
-                    </tbody>
-                )}
-            </table>
-
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                <DynamicTable
+                    columns={columns}
+                    data={tableData}
+                    actions={(user: IUser) => [
+                        {
+                            label: <Lock size={16} className='text-green-700' />,
+                            onClick: () => updateUserStatus(user),
+                            isLoading: mutation.isPending && mutation.variables?.userId === user._id && mutation.variables?.isActive,
+                        },
+                        {
+                            label: <Edit size={16} className='text-blue-700' />,
+                            onClick: () => openModal('profile'),
+                        },
+                        {
+                            label: <Trash size={16} className='text-red-700' />,
+                            onClick: () => deleteUser(user),
+                            isLoading: mutation.isPending && mutation.variables?.userId === user._id && mutation.variables?.isDeleted,
+                        },
+                    ]}
+                />
+            )}
         </div>
     );
 };
