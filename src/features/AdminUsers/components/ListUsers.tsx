@@ -56,7 +56,7 @@ const ListUsers: React.FC = () => {
 
 
     return (
-        <div className="w-full relative overflow-x-auto shadow-md sm:rounded-lg p-6">
+        <div className="w-full relative  p-6">
             <FilterUsers onFilter={refetch} />
             <div className='shadow-lg shadow-gray-700 bg-blue-900 h-[1px] w-full mb-6' />
             {isLoading ? (
