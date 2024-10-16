@@ -1,54 +1,33 @@
-
+'use client'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShowTimeFormStore } from '../store/showTimeFormStore';
-import { showTimeDataForm, updateShowTime } from '../apis/updateShowTime';
-import { createShowTime } from '../apis/createShowTime';
 import { showTimesSchemaData, validateShowTimeData } from '../validators';
+import { useCallback } from 'react';
+import { updateShowTime } from '../apis/updateShowTime';
+import { createShowTime } from '../apis/createShowTime';
 
 const useFormShowTime = () => {
     const { isUpdateMode, roomId, movieId, resetForm, price, startAt, iDShowTime, setErrors } = useShowTimeFormStore();
-
-
-
-
-
-
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: async (data: showTimesSchemaData) => {
             console.log('Submitting data:', data);
-
-
-            if (isUpdateMode) {
-                return await updateShowTime(data, iDShowTime);
-            } else {
-                return await createShowTime(data);
-            }
+            return isUpdateMode ? await updateShowTime(data, iDShowTime) : await createShowTime(data);
         },
         onSuccess: (data) => {
             toast.success(data.message || (isUpdateMode ? 'Showtime updated successfully!' : 'Showtime created successfully!'));
             queryClient.invalidateQueries({ queryKey: ['showtimes-admin'] });
-
-            resetForm() // reset store state
+            resetForm(); // reset store state
         },
         onError: (error: Error) => {
             toast.error(error.message);
         },
     });
 
-    const onSubmit = () => {
-
-
-
-        const data: showTimesSchemaData = {
-            price,
-            startAt,
-            movieId,
-            roomId,
-        };
-
+    const onSubmit = useCallback(() => {
+        const data: showTimesSchemaData = { price, startAt, movieId, roomId };
 
         try {
             if (!validateShowTimeData(data, setErrors)) {
@@ -58,13 +37,9 @@ const useFormShowTime = () => {
         } catch (error: any) {
             toast.error(error.message);
         }
-    };
+    }, [price, startAt, movieId, roomId, mutation, setErrors]);
 
-    return {
-
-        onSubmit,
-
-    };
+    return { onSubmit, isLoading: mutation.isPending };
 };
 
 export default useFormShowTime;

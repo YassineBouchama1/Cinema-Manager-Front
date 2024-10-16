@@ -50,7 +50,7 @@ export default function ListMovies() {
             {isLoading && <div>Loading...</div>}
             {!isFiltering && (
                 <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
-                    {movies?.data?.length === 0 && <p>There are no movies available.</p>}
+                    {movies?.data?.length === 0 && <p> There are no movies available.</p>}
                     {renderedMovies}
                 </div>
             )}

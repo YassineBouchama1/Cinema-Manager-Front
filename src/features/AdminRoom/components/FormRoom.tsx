@@ -15,18 +15,18 @@ const FormRoom: React.FC = () => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-900 md:w-[40%] w-full mx-auto sm:p-6 text-white">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-800 md:w-[40%] w-full mx-auto sm:p-6 text-white">
             <div className="space-y-4">
-                <input {...register('name')} placeholder="Room Name" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input {...register('name')} placeholder="Room Name" className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-                <input {...register('capacity', { valueAsNumber: true })} type="number" placeholder="Capacity" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input {...register('capacity', { valueAsNumber: true })} type="number" placeholder="Capacity" className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 {errors.capacity && <p className="text-red-500">{errors.capacity.message}</p>}
 
-                <input {...register('seatsPerRow', { valueAsNumber: true })} type="number" placeholder="Seats Per Row" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input {...register('seatsPerRow', { valueAsNumber: true })} type="number" placeholder="Seats Per Row" className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 {errors.seatsPerRow && <p className="text-red-500">{errors.seatsPerRow.message}</p>}
 
-                <input {...register('type')} placeholder="Room Type (e.g., VIP)" className="w-full p-2 bg-gray-800 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input {...register('type')} placeholder="Room Type (e.g., VIP)" className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 {errors.type && <p className="text-red-500">{errors.type.message}</p>}
 
                 <button type="submit" className="mt-6 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">

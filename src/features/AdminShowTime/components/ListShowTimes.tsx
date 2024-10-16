@@ -1,19 +1,22 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useFetchShowTimes } from '../hooks/useFetchShowTimes';
 import ShowTimeItem from './ShowTimeItem';
 import { ShowTimeAdmin } from '@/types/showTime';
 
 const ListShowTimes: React.FC = () => {
     const { showTimes, isLoading, error } = useFetchShowTimes();
-    console.log(showTimes)
+
+    // memorze the showtimes data for performance
+    const showTimeData = useMemo(() => showTimes?.data || [], [showTimes]);
+
     if (error) return <div>Error: {(error as Error).message}</div>;
-    // if (!showTimes || !showTimes?.data) return <h2>There is no showtiimes</h2>
+
     return (
-        <div className="bg-gray-900 md:w-[60%] w-full relative overflow-x-auto shadow-md sm:rounded-lg  p-6">
-            <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Showtime List</h2>
-            {isLoading && <div>Loading...</div>}
-            {!isLoading && (
+        <div className="bg-gray-800 md:w-[60%] w-full relative overflow-x-auto shadow-md sm:rounded-lg p-6">
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
                 <table className="w-full text-sm text-left rtl:text-right text-gray-400">
                     <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                         <tr>
@@ -25,10 +28,15 @@ const ListShowTimes: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {showTimes && showTimes?.data.length === 0 && <tr><td colSpan={5} className="text-center">No showtimes available.</td></tr>}
-                        {showTimes?.data.map((showTime: ShowTimeAdmin) => (
-                            <ShowTimeItem key={showTime._id} showTime={showTime} />
-                        ))}
+                        {showTimeData.length === 0 ? (
+                            <tr>
+                                <td colSpan={5} className="text-center">No showtimes available.</td>
+                            </tr>
+                        ) : (
+                            showTimeData.map((showTime: ShowTimeAdmin) => (
+                                <ShowTimeItem key={showTime._id} showTime={showTime} />
+                            ))
+                        )}
                     </tbody>
                 </table>
             )}

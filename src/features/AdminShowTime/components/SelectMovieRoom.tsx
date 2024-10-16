@@ -51,7 +51,7 @@ const SelectMovieRoom: React.FC<SelectMovieRoomProps> = () => {
         <div className="space-y-4">
             <div>
                 <label htmlFor="movieSelect" className="block text-white">Select Movie:</label>
-                <select id="movieSelect" value={movieId} onChange={(e) => setMovieId(e.target.value)} className="w-full p-2 bg-gray-800 border border-gray-300 rounded">
+                <select id="movieSelect" value={movieId} onChange={(e) => setMovieId(e.target.value)} className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded">
                     <option value="">-- Select a Movie --</option>
                     {movies.map(movie => (
                         <option key={movie._id} value={movie._id}>{movie.name}</option>
@@ -62,7 +62,7 @@ const SelectMovieRoom: React.FC<SelectMovieRoomProps> = () => {
             </div>
             <div>
                 <label htmlFor="roomSelect" className="block text-white">Select Room:</label>
-                <select id="roomSelect" value={roomId} onChange={(e) => setRoomId(e.target.value)} className="w-full p-2 bg-gray-800 border border-gray-300 rounded">
+                <select id="roomSelect" value={roomId} onChange={(e) => setRoomId(e.target.value)} className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded">
                     <option value="">-- Select a Room --</option>
                     {rooms.map(room => (
                         <option key={room._id} value={room._id}>{room.name}</option>

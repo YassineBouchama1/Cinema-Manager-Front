@@ -1,10 +1,10 @@
 'use client';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { ShowTimeAdmin } from '@/types/showTime';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { removeShowTime } from '../apis/removeShowTime';
-import { Lock, Edit, Trash } from 'lucide-react';
+import { Lock, Edit, Trash, Loader } from 'lucide-react';
 import { useShowTimeFormStore } from '../store/showTimeFormStore';
 
 interface ShowTimeItemProps {
@@ -27,21 +27,23 @@ const ShowTimeItem: React.FC<ShowTimeItemProps> = ({ showTime }) => {
         },
     });
 
-    const onDeleteShowTime = () => {
+    const onDeleteShowTime = useCallback(() => {
         mutation.mutate(showTime._id);
-    };
+    }, [mutation, showTime._id]);
 
 
-    const onUpdateRoom = () => {
+    const onUpdateRoom = useCallback(() => {
+        setPrice(showTime.price);
+        setIdShowTime(showTime._id);
+        if (typeof showTime.roomId !== 'string') {
+            setRoomId(showTime.roomId._id);
+        }
+        if (typeof showTime.movieId !== 'string') {
+            setMovieId(showTime.movieId._id);
+        }
+        setUpdateMode(true);
+    }, [showTime, setPrice, setIdShowTime, setRoomId, setMovieId, setUpdateMode]);
 
-        setPrice(showTime.price)
-        setIdShowTime(showTime._id)
-        typeof showTime.roomId !== 'string' && setRoomId(showTime.roomId._id)
-        typeof showTime.movieId !== 'string' && setMovieId(showTime.movieId._id)
-
-        //  console.log
-        setUpdateMode(true); // switch to update mode
-    };
 
 
     return (
@@ -66,12 +68,25 @@ const ShowTimeItem: React.FC<ShowTimeItemProps> = ({ showTime }) => {
             <td className="py-2 px-4">
                 <div className="flex space-x-2">
                     <Lock size={16} className="cursor-pointer" />
-                    <Edit size={16} className="cursor-pointer" onClick={onUpdateRoom} />
-                    <Trash size={16} className="cursor-pointer" onClick={onDeleteShowTime} />
+                    <button
+                        className="cursor-pointer"
+                        onClick={onUpdateRoom}
+                    >
+                        <Edit size={16} />
+                    </button>
+                    <button
+                        className="cursor-pointer"
+                        onClick={onDeleteShowTime}
+                        disabled={mutation.isPending}
+                        style={{ opacity: mutation.isPending ? 0.4 : 1 }}
+                    >
+                        {mutation.isPending ? <Loader size={16} /> : <Trash size={16} />}
+                    </button>
+                    <Trash size={16} className="cursor-pointer" />
                 </div>
             </td>
         </tr>
     );
 };
 
-export default ShowTimeItem;
+export default React.memo(ShowTimeItem);
