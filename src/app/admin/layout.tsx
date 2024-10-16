@@ -1,5 +1,4 @@
 import TitleDashboard from "@/components/commen/TitleDashboard";
-import TitlePage from "@/components/commen/TitleDashboard";
 import DashboardHeader from "@/components/layouts/DashboardHeader";
 import Sidebar from "@/components/layouts/sidebar";
 import { getSession } from "@/lib/sessions";

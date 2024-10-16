@@ -1,4 +1,3 @@
-import TitlePage from '@/components/commen/TitleDashboard';
 import { Loader } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -8,8 +7,8 @@ interface FilterMoviesAdminProps {
 }
 
 const FilterMoviesAdmin: React.FC<FilterMoviesAdminProps> = ({ onFilter, isFiltering }) => {
-    const [genre, setGenre] = useState('');
-    const [date, setDate] = useState('');
+    const [genre] = useState('');
+    const [date] = useState('');
     const [search, setSearch] = useState('');
 
     const handleFilter = () => {

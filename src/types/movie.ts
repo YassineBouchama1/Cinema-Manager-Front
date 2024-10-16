@@ -8,12 +8,12 @@ export interface Movie {
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
-  __v: number;
+
   rating: number;
-  year?: number;
+  year: number;
   genre: string;
-  description?: string;
-  trailerUrl?: string;
-  hasStream?: boolean
+  description: string;
+
+  hasStream: boolean
   userRating?: null | number
 }

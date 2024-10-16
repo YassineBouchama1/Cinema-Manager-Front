@@ -3,26 +3,14 @@ import React from 'react';
 import Image from 'next/image';
 import { Loader, OctagonX } from 'lucide-react';
 import { Movie } from '@/types/movie';
-import { useMovieFormStore } from '../store/movieFormStore';
 
-interface RoomitemAdminProps {
+interface MovieCardAdminProps {
     movie: Movie;
     onDelete: (movieId: string) => void;
     isLoading: boolean;
 }
 
-const RoomitemAdmin: React.FC<RoomitemAdminProps> = React.memo(({ movie, onDelete, isLoading }) => {
-    const { setUpdateMode, setCurrentMovie } = useMovieFormStore();
-
-    const handleEditClick = () => {
-        setUpdateMode(true);
-        setCurrentMovie(movie);
-    };
-
-
-
-
-
+const MovieCardAdmin: React.FC<MovieCardAdminProps> = React.memo(({ movie, onDelete, isLoading }) => {
     return (
         <div className="md:w-52 w-full text-center relative">
             <div className="rounded-xl w-full h-72 relative overflow-hidden">
@@ -47,7 +35,7 @@ const RoomitemAdmin: React.FC<RoomitemAdminProps> = React.memo(({ movie, onDelet
             </div>
             <p className="mt-2 mb-4 text-white">{movie.name}</p>
             <button
-                onClick={handleEditClick}
+                onClick={() => console.log('Edit movie')}
                 className="mt-2 w-full bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
             >
                 Update
@@ -56,4 +44,7 @@ const RoomitemAdmin: React.FC<RoomitemAdminProps> = React.memo(({ movie, onDelet
     );
 });
 
-export default RoomitemAdmin;
+// assigning display name to the component
+MovieCardAdmin.displayName = 'MovieCardAdmin';
+
+export default React.memo(MovieCardAdmin);

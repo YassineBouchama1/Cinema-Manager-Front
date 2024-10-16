@@ -14,7 +14,7 @@ const MovieDetail: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) =
 
 
     // Fetch movie data using React Query
-    const { data: movieData, isLoading, error } = useQuery<Movie | any>({
+    const { data: movieData, isLoading, error } = useQuery<Movie | unknown>({
         queryKey: ['movie-details', currentMovieId], // if id changes, refetch data
         queryFn: () => getOneMovie(currentMovieId),
         enabled: true // Ensure the query runs automatically
@@ -35,7 +35,7 @@ const MovieDetail: React.FC<{ currentMovieId: string }> = ({ currentMovieId }) =
 
     return (
         <MarginWidthWrapper>
-            <MovieInfo {...movieData} />
+            <MovieInfo movie={movieData as Movie} />
             <div className='w-full h-1 shadow-sm shadow-gray-500 bg-gray-800 my-10'></div>
             <MovieDisplayWrapper />
         </MarginWidthWrapper>

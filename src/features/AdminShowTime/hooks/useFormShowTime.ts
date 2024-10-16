@@ -34,7 +34,7 @@ const useFormShowTime = () => {
                 return;
             }
             mutation.mutate(data);
-        } catch (error: any) {
+        } catch (error: { message: string }) {
             toast.error(error.message);
         }
     }, [price, startAt, movieId, roomId, mutation, setErrors]);

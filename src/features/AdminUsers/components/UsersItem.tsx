@@ -32,7 +32,7 @@ const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
             queryClient.invalidateQueries({ queryKey: ['users-admin'] });
             toast.success('User updated successfully!');
         },
-        onError: (error: any) => {
+        onError: (error: { message: string }) => {
             toast.error(`Error updating user: ${error.message}`);
         },
     });
@@ -43,7 +43,7 @@ const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
             isActive: !user.isActive,
         };
         mutation.mutate(updatedData);
-    }, [mutation, user.isActive, user._id]);
+    }, [mutation, user.isActive]);
 
     // Mark user as deleted
     const onDeleteUser = useCallback(() => {

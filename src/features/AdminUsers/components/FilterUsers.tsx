@@ -8,8 +8,8 @@ interface FilterUsersProps {
 }
 
 const FilterUsers: React.FC<FilterUsersProps> = ({ isFiltering, onFilter }) => {
-    const [genre, setGenre] = useState('');
-    const [date, setDate] = useState('');
+    const [genre] = useState('');
+    const [date] = useState('');
     const [search, setSearch] = useState('');
 
     const handleFilter = () => {

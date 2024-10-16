@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import { useMutation } from '@tanstack/react-query';
 import { paySubscription } from '../apis/paySubscription';
 import { useSubscriptionContext } from '@/context/user/SubscriptionContext';
-import { SessionData } from '@/lib/optionsSessions';
 
 export const usePayment = () => {
     const { openModelAuth, setAuthFormField } = useAuthFormContext();

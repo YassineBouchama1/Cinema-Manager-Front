@@ -6,7 +6,7 @@ import { Movie } from '@/types/movie';
 import { useMovies } from '../hooks/useMovies';
 
 const Movies: React.FC = () => {
-    const { movies, isLoading, error, isFiltering, handleFilter } = useMovies();
+    const { movies,  error, isFiltering, handleFilter } = useMovies();
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 

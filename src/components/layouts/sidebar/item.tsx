@@ -1,12 +1,12 @@
 'use client'
-import { useMemo, useState } from "react";
-import { ChevronDown, LucideIcon } from "lucide-react";
+import { useMemo } from "react";
+import { LucideIcon } from "lucide-react";
 import {
     usePathname,
-    useRouter,
-    useSelectedLayoutSegment,
+
 } from "next/navigation";
 import Link from "next/link";
+import { useGlobalTheme } from "@/context/GlobalThemeContext";
 
 
 
@@ -17,18 +17,15 @@ interface ISidebarItem {
     icon: LucideIcon;
 }
 
-// Interface for SubMenuItem data
-interface ISubItem {
-    name: string;
-    path: string;
-}
+
 
 // SidebarItem component with TypeScript types
 const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
     const { name, icon: Icon, path } = item;
 
     const pathname = usePathname();
-    const segment = useSelectedLayoutSegment();
+
+    const { toggleSidebar, isSidebarOpen } = useGlobalTheme()
 
 
 
@@ -37,11 +34,11 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
 
     //when path changed 
     const isActive = useMemo(() => {
-
+        toggleSidebar() // close sidebar
 
         // if pathname has same path  make it active
         return pathname.endsWith(path);
-    }, [path, pathname]);
+    }, [path, pathname, toggleSidebar]);
 
     return (
         <>

@@ -22,7 +22,7 @@ const RoomItem: React.FC<RoomItemProps> = ({ room }) => {
             queryClient.invalidateQueries({ queryKey: ['rooms-admin'] });
             toast.success('Room removed successfully!');
         },
-        onError: (error: any) => {
+        onError: (error: { message: string }) => {
             toast.error(`Error removing room: ${error.message}`);
         },
     });

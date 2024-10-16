@@ -4,7 +4,6 @@ import Image from 'next/image';
 import useFormMovie from '../hooks/useFormMovie';
 import { useMovieFormStore } from '../store/movieFormStore';
 import MovieSearch from './MovieSearch';
-import { Movie } from '@/types/movie';
 import { MovieTypeTMPD } from '../apis/tmdbApi';
 
 const FormMovie: React.FC = () => {

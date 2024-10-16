@@ -7,9 +7,7 @@ import { getMoviesAdmin } from '@/features/AdminMovie/apis/getMoviesAdmin';
 import { getRoomsAdmin } from '@/features/AdminRoom/apis/getRoomsAdmin';
 import { useShowTimeFormStore } from '../store/showTimeFormStore';
 
-interface SelectMovieRoomProps {
-
-}
+type SelectMovieRoomProps = object
 
 const SelectMovieRoom: React.FC<SelectMovieRoomProps> = () => {
     const [movies, setMovies] = useState<Movie[]>([]);

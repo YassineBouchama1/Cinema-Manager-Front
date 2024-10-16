@@ -4,7 +4,7 @@ import { ShowTimeAdmin } from '@/types/showTime';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { removeShowTime } from '../apis/removeShowTime';
-import { Lock, Edit, Trash, Loader } from 'lucide-react';
+import { Edit, Trash, Loader } from 'lucide-react';
 import { useShowTimeFormStore } from '../store/showTimeFormStore';
 
 interface ShowTimeItemProps {
@@ -22,7 +22,7 @@ const ShowTimeItem: React.FC<ShowTimeItemProps> = ({ showTime }) => {
             queryClient.invalidateQueries({ queryKey: ['showtimes-admin'] });
             toast.success('Showtime removed successfully!');
         },
-        onError: (error: any) => {
+        onError: (error: { message: string }) => {
             toast.error(`Error removing showtime: ${error.message}`);
         },
     });

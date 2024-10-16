@@ -1,6 +1,6 @@
 'use client'
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
-import { BadgeRussianRuble, LogOut, Menu, Search } from 'lucide-react';
+import { LogOut, Menu } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 

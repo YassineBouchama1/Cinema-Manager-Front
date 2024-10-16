@@ -1,9 +1,10 @@
+import { Movie } from "@/types/movie";
 import customFetch from "@/utils/customFetch";
 
 
 interface MovieData {
     message: string;
-    data?: any;
+    data?: Movie;
 }
 
 export const getOneMovie = async (id: string): Promise<MovieData> => {

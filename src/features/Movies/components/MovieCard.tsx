@@ -1,5 +1,4 @@
 'use client';
-import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import { Movie } from '@/types/movie';
 import { CirclePlay } from 'lucide-react';
 import Image from 'next/image';
@@ -11,12 +10,9 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
-    const { openModel } = useGlobalTheme();
     const [isHovered, setIsHovered] = useState(false);
 
-    const onBuyTickets = () => {
-        openModel(movie._id);
-    };
+
 
     return (
         <Link

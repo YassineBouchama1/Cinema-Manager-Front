@@ -1,6 +1,6 @@
-'use client';
+'use client'
 import { Movie } from '@/types/movie';
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useFetchMovies } from '../hooks/useFetchMovies';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
@@ -13,15 +13,15 @@ export default function ListMovies() {
     const queryClient = useQueryClient();
     const { movies, isLoading, error, isFiltering, handleFilter } = useFetchMovies();
 
-    // mutation for removing a movie
+    // Mutation for removing a movie
     const mutation = useMutation({
         mutationFn: (movieId: string) => removeMovie(movieId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['movies-admin'] }); // refresh movie list
+            queryClient.invalidateQueries({ queryKey: ['movies-admin'] }); // Refresh movie list
             toast.success('Movie removed successfully!');
             setLoadingMovieId(null); // Reset loading state after success
         },
-        onError: (error: any) => {
+        onError: (error: { message: string }) => {
             toast.error(`Error removing movie: ${error.message}`);
             setLoadingMovieId(null); // Reset loading state on error
         },
@@ -29,25 +29,11 @@ export default function ListMovies() {
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const onDeleteMovie = useCallback((movieId: string) => {
-        setLoadingMovieId(movieId); // Set the loading state for the specific movie
+        setLoadingMovieId(movieId);
         mutation.mutate(movieId);
     }, [mutation]);
-
-    const renderedMovies = useMemo(() => {
-        return movies?.data?.map((movie: Movie) => (
-            <MovieCardAdmin
-                key={movie._id}
-                movie={movie}
-                onDelete={onDeleteMovie}
-                isLoading={loadingMovieId === movie._id}
-            />
-        ));
-    }, [movies, loadingMovieId, onDeleteMovie]);
-
-
-
-
 
     return (
         <div className="mt-8">
@@ -57,7 +43,14 @@ export default function ListMovies() {
             {!isFiltering && (
                 <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
                     {movies?.data?.length === 0 && <p> There are no movies available.</p>}
-                    {renderedMovies}
+                    {movies?.data?.map((movie: Movie) => (
+                        <MovieCardAdmin
+                            key={movie._id}
+                            movie={movie}
+                            onDelete={onDeleteMovie}
+                            isLoading={loadingMovieId === movie._id}
+                        />
+                    ))}
                 </div>
             )}
         </div>

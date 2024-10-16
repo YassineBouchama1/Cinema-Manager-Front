@@ -8,8 +8,8 @@ const FormShowTime: React.FC = () => {
     const { onSubmit, isLoading } = useFormShowTime();
     const { isUpdateMode, price, setPrice, startAt, setStartAt, errors } = useShowTimeFormStore();
 
-    const handlePriceChange = useCallback((e: any) => setPrice(Number(e.target.value)), [setPrice]);
-    const handleStartAtChange = useCallback((e: any) => setStartAt(e.target.value), [setStartAt]);
+    const handlePriceChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setPrice(Number(e.target.value)), [setPrice]);
+    const handleStartAtChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setStartAt(e.target.value), [setStartAt]);
 
     return (
         <div className="bg-gray-800 md:w-[40%] w-full mx-auto sm:p-6 text-white">

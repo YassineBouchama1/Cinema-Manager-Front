@@ -1,4 +1,4 @@
-import { ShowTimeAdmin } from "@/types/showTime";
+
 import { IUser } from "@/types/user";
 import customFetch from "@/utils/customFetch";
 

@@ -14,7 +14,7 @@ export const useFetchUsers = () => {
 
     const { data: users, isLoading, error, refetch } = useQuery({
         queryKey: ['users-admin'],
-        queryFn: () => getUsersAdmin(),
+        queryFn: () => getUsersAdmin(searchParamsMemo),
     });
 
 
