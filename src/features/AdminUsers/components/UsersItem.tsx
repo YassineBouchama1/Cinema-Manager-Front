@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Lock, Edit, Trash, Loader } from 'lucide-react';
 import { IUser } from '@/types/user';
 import { updateUserAdmin } from '../apis/updateUserAdmin';
+import { useUserAdminDashStore } from '../store/showTimeFormStore';
 
 // Type for data update
 export type UpdateData = {
@@ -18,6 +19,11 @@ interface UsersItemProps {
 
 const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
     const queryClient = useQueryClient();
+
+    // modal user 
+    const { openModal, setUserId } = useUserAdminDashStore();
+
+
 
     // Update user mutation
     const mutation = useMutation({
@@ -47,23 +53,33 @@ const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
         mutation.mutate(updatedData);
     }, [mutation]);
 
+
+    // open page edit
+    const onViewUser = useCallback(() => {
+
+        setUserId(user._id)
+        openModal('profile')
+
+    }, [user._id]);
+
+
     return (
         <tr className="border-t my-3 bg-gray-900 rounded-md border-gray-700">
-            <td className="py-2 px-4">{user._id}</td> {/* ID Column */}
+            <td className="py-2 px-4 truncate max-w-3">{user._id}</td>
             <td className="py-2 px-4">
                 <div className="flex items-center">
                     <div>
                         <div>{user.name}</div>
-                        <div className="text-gray-500">{user.email}</div> {/* Email Column */}
+                        <div className="text-gray-500">{user.email}</div>
                     </div>
                 </div>
             </td>
 
-            <td className="py-2 px-4">{user.isSubscribe ? 'Premium' : 'Free'}</td> {/* Pricing Plan Column */}
-            <td className="py-2 px-4">{user.commentCount}</td> {/* Comments Column */}
+            <td className="py-2 px-4">{user.isSubscribe ? 'Premium' : 'Free'}</td>
+            <td className="py-2 px-4">{user.commentCount}</td>
 
-            <td className="py-2 px-4">{user.isActive ? 'Approved' : 'Banned'}</td> {/* Status Column */}
-            <td className="py-2 px-4">{new Date(user.createdAt).toLocaleDateString()}</td> {/* Created Date Column */}
+            <td className="py-2 px-4">{user.isActive ? 'Approved' : 'Banned'}</td>
+            <td className="py-2 px-4">{new Date(user.createdAt).toLocaleDateString()}</td>
             <td className="py-2 px-4">
                 <div className="flex space-x-2">
                     <button
@@ -79,7 +95,7 @@ const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
                     </button>
                     <button
                         className="cursor-pointer"
-                        onClick={() => console.log('Edit user')}
+                        onClick={() => onViewUser()}
                     >
                         <Edit size={16} className='text-blue-700' />
                     </button>
