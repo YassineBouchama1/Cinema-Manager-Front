@@ -19,7 +19,7 @@ const FormShowTime: React.FC = () => {
                     onChange={handlePriceChange}
                     type="number"
                     placeholder="Price"
-                    className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
                 {errors.price && <span className="error text-red-500">{errors.price}</span>}
 
@@ -29,7 +29,7 @@ const FormShowTime: React.FC = () => {
                     value={startAt}
                     onChange={handleStartAtChange}
                     type="datetime-local"
-                    className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2 bg-gray-900/80 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
                 {errors.startAt && <span className="error text-red-500">{errors.startAt}</span>}
 
@@ -38,7 +38,7 @@ const FormShowTime: React.FC = () => {
                     type="button"
                     disabled={isLoading}
                     style={{ opacity: isLoading ? 0.4 : 1 }}
-                    className="mt-6 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="mt-6 w-full bg-blue-900 text-white p-2 rounded hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:ring-offset-2"
                 >
                     {isUpdateMode ? (isLoading ? "Updating" : "Update Showtime") : (isLoading ? "Creating" : "Create Showtime")}
                 </button>

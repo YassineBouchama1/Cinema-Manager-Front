@@ -48,7 +48,7 @@ const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
     }, [mutation]);
 
     return (
-        <tr className="border-t bg-gray-800 rounded-md border-gray-700">
+        <tr className="border-t my-3 bg-gray-900 rounded-md border-gray-700">
             <td className="py-2 px-4">{user._id}</td> {/* ID Column */}
             <td className="py-2 px-4">
                 <div className="flex items-center">
@@ -74,14 +74,14 @@ const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
                         {mutation.isPending && mutation.variables?.isActive !== undefined ? (
                             <Loader size={16} className="animate-spin" />
                         ) : (
-                            <Lock size={16} />
+                            <Lock size={16} className='text-green-700' />
                         )}
                     </button>
                     <button
                         className="cursor-pointer"
                         onClick={() => console.log('Edit user')}
                     >
-                        <Edit size={16} />
+                        <Edit size={16} className='text-blue-700' />
                     </button>
                     <button
                         className="cursor-pointer"
@@ -92,7 +92,7 @@ const UsersItem: React.FC<UsersItemProps> = ({ user }) => {
                         {mutation.isPending && mutation.variables?.isDeleted ? (
                             <Loader size={16} className="animate-spin" />
                         ) : (
-                            <Trash size={16} />
+                            <Trash size={16} className='text-red-700' />
                         )}
                     </button>
                 </div>

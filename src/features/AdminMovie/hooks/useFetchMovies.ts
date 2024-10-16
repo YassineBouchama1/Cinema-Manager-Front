@@ -16,6 +16,7 @@ export const useFetchMovies = () => {
     const { data: movies, isLoading, error, refetch } = useQuery({
         queryKey: ['movies-admin', searchParamsMemo],
         queryFn: () => getMoviesAdmin(searchParamsMemo),
+      
     });
 
 

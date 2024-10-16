@@ -7,7 +7,8 @@ export default function page() {
         <div>
 
             <FormMovie />
+            <div className='shadow-lg shadow-gray-700 bg-blue-900/70 h-[1px] w-full my-6' />
             <ListMovies />
-        </div>
+        </div >
     )
 }

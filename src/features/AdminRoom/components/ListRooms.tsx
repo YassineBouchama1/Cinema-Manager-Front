@@ -10,26 +10,30 @@ const ListRooms: React.FC = () => {
 
     return (
         <div className="bg-gray-800 md:w-[60%] w-full relative overflow-x-auto shadow-md sm:rounded-lg p-6">
-            {isLoading && <div>Loading...</div>}
-            {!isLoading && (
-                <table className="w-full text-sm text-left rtl:text-right text-gray-400">
-                    <thead className="text-xs  uppercase bg-gray-700 text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">Name</th>
-                            <th scope="col" className="px-6 py-3">Capacity</th>
-                            <th scope="col" className="px-6 py-3">Seats Per Row</th>
-                            <th scope="col" className="px-6 py-3">Type</th>
-                            <th scope="col" className="px-6 py-3">Actions</th>
-                        </tr>
-                    </thead>
+
+
+            <table className="w-full text-sm text-left rtl:text-right text-gray-400">
+                <thead className="text-xs uppercase bg-gray-700 text-gray-400">
+                    <tr>
+                        <th scope="col" className="px-6 py-3">Name</th>
+                        <th scope="col" className="px-6 py-3">Capacity</th>
+                        <th scope="col" className="px-6 py-3">Seats Per Row</th>
+                        <th scope="col" className="px-6 py-3">Type</th>
+                        <th scope="col" className="px-6 py-3">Actions</th>
+                    </tr>
+                </thead>
+                {isLoading && <div>Loading...</div>}
+                {!isLoading && (
                     <tbody>
+
                         {rooms?.data?.length === 0 && <tr><td colSpan={5} className="text-center">No rooms available.</td></tr>}
                         {rooms?.data?.map((room) => (
                             <RoomItem key={room._id} room={room} />
                         ))}
-                    </tbody>
-                </table>
-            )}
+
+                    </tbody>)}
+            </table>
+
         </div>
     );
 };

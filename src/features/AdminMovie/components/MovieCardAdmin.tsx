@@ -19,6 +19,10 @@ const RoomitemAdmin: React.FC<RoomitemAdminProps> = React.memo(({ movie, onDelet
         setCurrentMovie(movie);
     };
 
+
+
+
+
     return (
         <div className="md:w-52 w-full text-center relative">
             <div className="rounded-xl w-full h-72 relative overflow-hidden">

@@ -67,12 +67,12 @@ const ShowTimeItem: React.FC<ShowTimeItemProps> = ({ showTime }) => {
             <td className="py-2 px-4">{new Date(showTime.startAt).toLocaleString()}</td>
             <td className="py-2 px-4">
                 <div className="flex space-x-2">
-                    <Lock size={16} className="cursor-pointer" />
+
                     <button
                         className="cursor-pointer"
                         onClick={onUpdateRoom}
                     >
-                        <Edit size={16} />
+                        <Edit size={16} className='text-green-700' />
                     </button>
                     <button
                         className="cursor-pointer"
@@ -80,9 +80,9 @@ const ShowTimeItem: React.FC<ShowTimeItemProps> = ({ showTime }) => {
                         disabled={mutation.isPending}
                         style={{ opacity: mutation.isPending ? 0.4 : 1 }}
                     >
-                        {mutation.isPending ? <Loader size={16} /> : <Trash size={16} />}
+                        {mutation.isPending ? <Loader size={16} /> : <Trash size={16} className='text-red-700' />}
                     </button>
-                    <Trash size={16} className="cursor-pointer" />
+
                 </div>
             </td>
         </tr>

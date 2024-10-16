@@ -1,4 +1,5 @@
-import TitlePage from "@/components/commen/TitlePage";
+import TitleDashboard from "@/components/commen/TitleDashboard";
+import TitlePage from "@/components/commen/TitleDashboard";
 import DashboardHeader from "@/components/layouts/DashboardHeader";
 import Sidebar from "@/components/layouts/sidebar";
 import { getSession } from "@/lib/sessions";
@@ -24,8 +25,8 @@ export default async function DashboardLayout({
       <Sidebar />
       <main className="flex-1 overflow-auto ">
         <DashboardHeader />
-        {/* <TitlePage /> */}
         <div className=" p-6">
+          <TitleDashboard />
 
           {children}
 

@@ -37,7 +37,7 @@ const RoomItem: React.FC<RoomItemProps> = ({ room }) => {
     };
 
     return (
-        <tr className="border-t border-gray-700 odd:bg-gray-900 dark:bg-gray-800">
+        <tr className="border-t border-gray-7000">
             <td className="py-2 px-4">{room.name}</td>
             <td className="py-2 px-4">{room.capacity}</td>
             <td className="py-2 px-4">{room.seatsPerRow}</td>
