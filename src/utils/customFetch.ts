@@ -43,6 +43,9 @@ async function customFetch<T = unknown, R = unknown>(
       await delay(delayMs);
     }
 
+
+
+
     const session = await getSession();
 
     const defaultHeaders: Record<string, string> = {
@@ -86,6 +89,7 @@ async function customFetch<T = unknown, R = unknown>(
 
       // Handle specific error cases
       if (errorData.statusCode === 401 && errorData.message === "Your token has expired, please login again") {
+
         throw new ApiError("Your session has expired. Please log in again.", response.status, errorData);
       }
 

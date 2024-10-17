@@ -6,7 +6,7 @@ import { Movie } from '@/types/movie';
 import { useMovies } from '../hooks/useMovies';
 
 const Movies: React.FC = () => {
-    const { movies,  error, isFiltering, handleFilter } = useMovies();
+    const { movies, error, isFiltering, handleFilter } = useMovies();
 
     if (error) return <div>Error: {(error as Error).message}</div>;
 
@@ -32,7 +32,7 @@ const Movies: React.FC = () => {
 
                 {!isFiltering && (
                     <div className="flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
-                        {!movies?.data && <p>There are no showtimes</p>}
+                        {!movies?.data && <p>There are no Movies</p>}
                         {movies?.data && movies?.data.map((movie: Movie) => (
                             <MovieCard key={movie._id} movie={movie} />
                         ))}

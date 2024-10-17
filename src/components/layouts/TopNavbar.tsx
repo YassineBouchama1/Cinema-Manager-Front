@@ -17,7 +17,7 @@ const TopNavbar: React.FC<{ isAuth: boolean }> = ({ isAuth }) => {
     }
 
     // here i determin which route will put here depand of user conected or admin
-    const routeProfile = isAuth && session ? `/${session.role}` : '/'
+    const routeProfile = isAuth && session ? `/${session.role === 'user' ? 'profile' : session.role}` : '/'
 
     return (
 

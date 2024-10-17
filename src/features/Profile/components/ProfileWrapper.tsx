@@ -3,8 +3,15 @@ import { useState } from 'react';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import ListMovieTickets from './ListMovieTickets';
 import ListMovieFavorite from './ListMovieFavorite';
+import ProfileForm from './ProfileForm';
 
 const tabs = [
+
+    {
+        name: 'setting',
+        label: 'Setting',
+        render: () => <ProfileForm />
+    },
     {
         name: 'tab1',
         label: 'My Tickets',
@@ -15,13 +22,7 @@ const tabs = [
         label: 'Favorite',
         render: () => <ListMovieFavorite />
     },
-    {
-        name: 'tab3',
-        label: 'Tab 3',
-        render: () => (
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis eos sequi ducimus voluptas, accusamus amet? Ducimus, velit doloremque atque est quidem ullam nisi quod. Aut quisquam ipsa exercitationem mollitia ratione?</p>
-        )
-    }
+
 ];
 
 const tabContentVariants: Variants = {
@@ -58,13 +59,13 @@ function ProfileWrapper() {
                 {tabs.map((tab) => (
                     <div
                         key={tab.name}
-                        className={`relative ${isSelected(tab) ? 'text-blue-400' : 'text-gray-700'}`}
+                        className={`relative ${isSelected(tab) ? 'text-red-400' : 'text-gray-700'}`}
                     >
                         <a href='#' onClick={(e) => handleClick(e, tab)} className="block px-2.5 py-1.5">
                             {tab.label}
                         </a>
 
-                        {isSelected(tab) && <motion.div layoutId='indicator' className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-400" />}
+                        {isSelected(tab) && <motion.div layoutId='indicator' className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-400" />}
                     </div>
                 ))}
             </div>

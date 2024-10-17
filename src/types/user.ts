@@ -10,5 +10,8 @@ export interface IUser {
     isDeleted: boolean;
     createdAt: Date;
     updatedAt?: Date;
+    address: string;
+    avatar: string;
     commentCount?: number;
 }
+
