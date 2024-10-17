@@ -13,7 +13,7 @@ export interface Movie {
   year: number;
   genre: string;
   description: string;
-
+  isFavorite: boolean;
   hasStream: boolean
   userRating?: null | number
 }

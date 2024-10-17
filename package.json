@@ -32,6 +32,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8",
     "zustand": "^5.0.0-rc.2"
   },

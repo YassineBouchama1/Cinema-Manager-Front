@@ -3,7 +3,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import getQueryClient from '@/utils/queryClient';
 import Hero from '@/components/layouts/Hero';
 import Movies from '@/features/Movies/components/Movies';
-import { getMovies } from '@/features/Movies/apis/getMovies';
+import { getMovies } from '@/features/Movies/apis/favoriteApi';
 
 
 export default async function PageDashboard({

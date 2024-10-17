@@ -8,7 +8,7 @@ export interface RatingData {
 
 interface RatingResponse {
     message: string;
-    data?: any;
+    data?: RatingData;
 }
 
 export async function submitRating(ratingData: RatingData): Promise<RatingResponse> {

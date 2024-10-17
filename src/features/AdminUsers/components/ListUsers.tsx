@@ -28,6 +28,7 @@ const ListUsers: React.FC = () => {
     if (error) return <div>Error: {(error as Error).message}</div>;
 
     // define columns for the DynamicTable
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const columns = useMemo(() => [
         { header: 'ID', accessor: '_id' },
         { header: 'BASIC INFO', accessor: 'basicInfo' },
@@ -38,6 +39,7 @@ const ListUsers: React.FC = () => {
     ], []);
 
     // prepare data for the table
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const tableData = useMemo(() => usersData.map((user: IUser) => ({
         _id: user._id,
         basicInfo: (

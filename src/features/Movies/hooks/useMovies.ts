@@ -2,7 +2,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getMovies } from '../apis/getMovies';
+import { getMovies } from '../apis/favoriteApi';
 
 export const useMovies = () => {
     const searchParams = useSearchParams();
@@ -17,9 +17,11 @@ export const useMovies = () => {
         queryKey: ['movies-user', searchParamsMemo],
         queryFn: () => getMovies(searchParamsMemo),
         enabled: isFiltering, // disable automatic refetching until filter
+        staleTime: 10000,
+
     });
 
-
+    console.log(movies)
 
     // Fthis funnction for filtering movies 
     const handleFilter = useCallback(async (filters: Record<string, string>) => {

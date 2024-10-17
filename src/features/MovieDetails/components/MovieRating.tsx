@@ -12,6 +12,7 @@ interface MovieRatingProps {
     userRating: number | null | undefined;
 }
 
+// eslint-disable-next-line react/display-name
 const MovieRating: React.FC<MovieRatingProps> = React.memo(({ movieId, initialRating, userRating }) => {
     const { session } = useAuthContext();
     const { openModelAuth, setAuthFormField } = useAuthFormContext();
@@ -26,7 +27,7 @@ const MovieRating: React.FC<MovieRatingProps> = React.memo(({ movieId, initialRa
             toast.success('Rating submitted successfully!');
             queryClient.invalidateQueries({ queryKey: ['movie-details'] });
         },
-        onError: (error: any) => {
+        onError: (error: { message: string }) => {
             toast.error(`Error submitting rating: ${error.message}`);
         },
     });
