@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 export default function useProfileForm() {
     const queryClient = useQueryClient();
 
-    // State variables for form fields
+    
     const [profileImage, setProfileImage] = useState<string>('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxwcm9maWxlfGVufDB8MHx8fDE3MTEwMDM0MjN8MA&ixlib=rb-4.0.3&q=80&w=1080');
     const [name, setName] = useState<string>('');
     const [address, setAddress] = useState<string>('');
@@ -16,18 +16,18 @@ export default function useProfileForm() {
     const [oldPassword, setOldPassword] = useState<string>('');
     const [imageFile, setImageFile] = useState<File | null>(null);
 
-    // Fetch user profile data
+    // fetch user profile data
     const { data, isLoading: loadingProfile, error } = useQuery({
         queryKey: ['user-profile'],
         queryFn: getMyProfile,
     });
 
-    // Populate form fields with fetched data
+    // populate form fields with fetched data
     useEffect(() => {
-        if (data && data.data) { // Check if data and data.data exist
+        if (data && data.data) { // check if data and data.data exist
             setName(data.data.name || '');
             setAddress(data.data.address || '');
-            setProfileImage(data.data.avatar || profileImage);
+            setProfileImage(data.data.avatar && `${process.env.NEXT_PUBLIC_IMAGE_URL}${data.data.avatar}` || profileImage);
             setEmail(data.data.email || '')
         }
     }, [data]);
@@ -68,12 +68,12 @@ export default function useProfileForm() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Create FormData object
+        // create FormData object
         const formData = new FormData();
         formData.append('name', name);
         formData.append('address', address);
-        formData.append('password', password);
-        formData.append('oldPassword', oldPassword);
+        // formData.append('password', password);
+        // formData.append('oldPassword', oldPassword);
         if (imageFile) {
             formData.append('image', imageFile);
         }
