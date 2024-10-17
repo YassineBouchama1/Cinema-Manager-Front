@@ -16,7 +16,7 @@ export const useMovies = () => {
     const { data: movies, isLoading, error, refetch } = useQuery({
         queryKey: ['movies-user', searchParamsMemo],
         queryFn: () => getMovies(searchParamsMemo),
-        enabled: isFiltering, // disable automatic refetching until filter
+        // enabled: isFiltering , // disable automatic refetching until filter
         staleTime: 10000,
 
     });

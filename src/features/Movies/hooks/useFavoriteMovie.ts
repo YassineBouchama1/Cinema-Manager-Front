@@ -14,7 +14,7 @@ export default function useFavoriteMovie() {
         mutationFn: (data: { movieId: string; isFavorite: boolean }) => {
 
             // if user already favorite movie excute delete api instead user addfavorite
-            return data.isFavorite ? deleteFavorite(data.movieId) : addFavorite({ movieId: data.movieId });
+            return data.isFavorite ? deleteFavorite({ movieId: data.movieId }) : addFavorite({ movieId: data.movieId });
         },
         onSuccess: () => {
             // after succeffully mutation 
@@ -25,7 +25,7 @@ export default function useFavoriteMovie() {
             toast.error(`Error updating favorite status: ${error.message}`);
         },
     });
-
+  
 
     // this func handle add or delete favorate
     const handleFavorite = useCallback((movieId: string, isFavorite: boolean) => {

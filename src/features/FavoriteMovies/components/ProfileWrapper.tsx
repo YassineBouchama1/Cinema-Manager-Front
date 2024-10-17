@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import ListMovieTickets from './ListMovieTickets';
-import ListMovieFavorite from './ListMovieFavorite';
 
 const tabs = [
     {
@@ -11,9 +10,11 @@ const tabs = [
         render: () => <ListMovieTickets />
     },
     {
-        name: 'favorite',
-        label: 'Favorite',
-        render: () => <ListMovieFavorite />
+        name: 'tab2',
+        label: 'Setting',
+        render: () => (
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita in non earum natus explicabo est aspernatur porro molestias fugiat eaque dignissimos, accusantium qui fugit praesentium ad cumque dolore temporibus excepturi.</p>
+        )
     },
     {
         name: 'tab3',

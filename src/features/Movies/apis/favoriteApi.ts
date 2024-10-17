@@ -33,10 +33,12 @@ interface DeleteResponse {
     message: string;
 }
 // del
-export async function deleteFavorite(movieId: string): Promise<DeleteResponse> {
+export async function deleteFavorite(favoritegData: FavoriteData): Promise<DeleteResponse> {
+    console.log('click favo')
+    console.log(favoritegData)
     try {
-        return await customFetch<void, DeleteResponse>(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/favorite/${movieId}`,
+        return await customFetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/favorite/${favoritegData.movieId}`,
             {
                 method: 'DELETE',
 
@@ -56,21 +58,21 @@ export async function deleteFavorite(movieId: string): Promise<DeleteResponse> {
 
 
 interface MovieResponse {
-  message: string;
-  data?: Movie[];
+    message: string;
+    data?: Movie[];
 }
 // fetch movies
 export const getMovies = async (params?: Record<string, string | string[] | undefined>): Promise<MovieResponse> => {
-  try {
-    const queryString = new URLSearchParams(params as Record<string, string>).toString();
-    return await customFetch<void, MovieResponse>(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie?${queryString}`,
-      {
-        method: 'GET',
-      }
-    );
-  } catch (error) {
-    console.error('Get movies error:', error);
-    throw error;
-  }
+    try {
+        const queryString = new URLSearchParams(params as Record<string, string>).toString();
+        return await customFetch<void, MovieResponse>(
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie?${queryString}`,
+            {
+                method: 'GET',
+            }
+        );
+    } catch (error) {
+        console.error('Get movies error:', error);
+        throw error;
+    }
 };

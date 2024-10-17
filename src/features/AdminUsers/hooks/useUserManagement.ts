@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getUsersAdmin } from '../apis/getUsersAdmin';
 import { updateUserAdmin } from '../apis/updateUserAdmin';
 import { useSearchParams } from 'next/navigation';
-import {  useMemo } from 'react';
+import { useMemo } from 'react';
 import { IUser } from '@/types/user';
 import toast from 'react-hot-toast';
 
