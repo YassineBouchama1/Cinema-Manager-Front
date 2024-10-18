@@ -34,7 +34,8 @@ const useFormShowTime = () => {
                 return;
             }
             mutation.mutate(data);
-        } catch (error: { message: string }) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error:any) {
             toast.error(error.message);
         }
     }, [price, startAt, movieId, roomId, mutation, setErrors]);

@@ -13,10 +13,11 @@ interface Action {
     isLoading?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface DynamicTableProps {
     columns: Column[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[]; // Ignore the any warning here
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     actions: (row: any) => Action[];
 }
 

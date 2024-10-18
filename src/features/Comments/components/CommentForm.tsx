@@ -7,9 +7,7 @@ import { useAuthContext } from '@/Providers/AuthProvider';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 
 // updated interface to include a property or use unknown
-interface CommentFormProps {
-    // You can add properties here if needed
-}
+type CommentFormProps = object
 
 const CommentForm: React.FC<CommentFormProps> = () => {
     const [comment, setComment] = useState<string>('');
