@@ -8,6 +8,7 @@ interface FilterMovieProps {
 
 const FilterMovie: React.FC<FilterMovieProps> = ({ onFilter, isFiltering }) => {
     const [genre, setGenre] = useState('');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [date, setDate] = useState('');
     const [search, setSearch] = useState('');
 

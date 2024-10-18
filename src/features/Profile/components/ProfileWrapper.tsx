@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState } from 'react';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import ListMovieTickets from './ListMovieTickets';
@@ -6,7 +6,6 @@ import ListMovieFavorite from './ListMovieFavorite';
 import ProfileForm from './ProfileForm';
 
 const tabs = [
-
     {
         name: 'setting',
         label: 'Setting',
@@ -22,7 +21,6 @@ const tabs = [
         label: 'Favorite',
         render: () => <ListMovieFavorite />
     },
-
 ];
 
 const tabContentVariants: Variants = {
@@ -41,15 +39,17 @@ const tabContentVariants: Variants = {
 }
 
 function ProfileWrapper() {
-    const [activeTab, setActiveTab] = useState(tabs[0]);
 
 
+    // check localStorage for the saved tab or default to the first tab
+    const savedTab = localStorage.getItem('activeTab') || tabs[0].name;
+    const [activeTab, setActiveTab] = useState(tabs.find(tab => tab.name === savedTab) || tabs[0]);
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: typeof tabs[number]) => {
         e.preventDefault();
         setActiveTab(tab);
+        localStorage.setItem('activeTab', tab.name); // save the active tab to localStorage
     }
-
 
     const isSelected = (tab: typeof tabs[number]) => activeTab.name === tab.name;
 

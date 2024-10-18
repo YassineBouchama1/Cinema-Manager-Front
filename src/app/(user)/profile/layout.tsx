@@ -1,6 +1,5 @@
 
-import { getSession } from '@/lib/sessions';
-import { delay } from '@/utils/delay';
+
 
 export default async function ProfileLayout({
     children,
@@ -12,7 +11,7 @@ export default async function ProfileLayout({
 
 
 
-        <main>
+        <main >
             {children}
         </main>
 

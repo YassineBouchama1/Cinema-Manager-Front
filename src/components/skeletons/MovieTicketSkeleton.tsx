@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Image } from 'lucide-react';
 import React from 'react'
 
-export default function ProfileSkeleton() {
+export default function MovieTicketSkeleton() {
 
     const tabs = [
         {
@@ -51,7 +52,7 @@ export default function ProfileSkeleton() {
                         <div className="flex space-x-4">
                             <div className="bg-gray-600 md:w-60 w-full text-center animate-pulse flex flex-col items-center ">
                                 <div className="flex items bg-gray-600 items-center justify-center rounded-xl w-full h-96 relative overflow-hidden ">
-                                    <Image className="w-10 h-10 text-gray-900" />
+                                    <Image className="w-10 h-10 text-gray-900"  />
                                 </div>
                             </div>
                             <div className="w-2/3 space-y-2">

@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getfavorites } from '../apis/fetchFavorites';
 import { FavoriteType } from '@/types/favorite';
 import MovieFavoriteCard from './MovieFavoriteCard';
+import FavoriteMoviesSkeleton from '@/components/skeletons/FavoriteMoviesSkeleton';
 
 const ListMovieFavorite: React.FC = () => {
 
@@ -21,7 +22,7 @@ const ListMovieFavorite: React.FC = () => {
 
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <FavoriteMoviesSkeleton />;
     }
 
     if (error) {
@@ -31,11 +32,14 @@ const ListMovieFavorite: React.FC = () => {
     return (
 
 
-        <section className="movie-tickets-list  flex flex-wrap gap-5">
-            {data && data?.data?.map((favorite: FavoriteType) => (
-                <MovieFavoriteCard key={favorite.id} favorite={favorite} />
-            ))}
-        </section>
+        <div className="mt-8">
+            <h2 className="text-2xl font-bold mb-4 text-gray-400 md:text-start text-center">Favorites Movies</h2>
+            <div className=" flex gap-4 flex-wrap w-full p-4 md:p-2 xl:p-5 justify-start">
+                {data && data?.data?.map((favorite: FavoriteType) => (
+                    <MovieFavoriteCard key={favorite.id} favorite={favorite} />
+                ))}
+            </div>
+        </div>
 
     );
 };

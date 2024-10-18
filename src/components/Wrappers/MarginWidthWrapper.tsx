@@ -7,7 +7,7 @@ export default function MarginWidthWrapper({
     children: ReactNode;
 }) {
     return (
-        <div className="flex flex-col  lg:mx-20 m-auto  min-h-screen pb-20 no-scrollbar">
+        <div className="flex flex-col md:w-auto w-full lg:mx-20 m-auto  min-h-screen pb-20 no-scrollbar">
             <MotionWrapper>
 
                 {children}

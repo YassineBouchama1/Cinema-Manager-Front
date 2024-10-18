@@ -2,8 +2,9 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getReservations } from '@/features/Profile/apis/getReservations';
-import MovieTicket from './MovieTicket'; // Adjust the import path as necessary
+import MovieTicket from './MovieTicket';
 import { Reservation } from '../types';
+import MovieTicketSkeleton from '@/components/skeletons/MovieTicketSkeleton';
 
 const ListMovieTickets: React.FC = () => {
 
@@ -18,9 +19,8 @@ const ListMovieTickets: React.FC = () => {
 
 
 
-    console.log(data)
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <MovieTicketSkeleton />
     }
 
     if (error) {

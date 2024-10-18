@@ -7,6 +7,7 @@ import MovieRating from './MovieRating';
 import { useAuthContext } from '@/Providers/AuthProvider';
 import toast from 'react-hot-toast';
 import { useAuthFormContext } from '@/context/AuthFormContext';
+import Image from 'next/image';
 
 // eslint-disable-next-line react/display-name
 const MovieInfo = ({ movie }: { movie: Movie }) => {
@@ -41,10 +42,11 @@ const MovieInfo = ({ movie }: { movie: Movie }) => {
         <div className="bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto py-4">
             <div className="flex flex-col md:flex-row">
                 <div className="md:w-2/5 relative">
-                    <img
+                    <Image
                         src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${movie.image}`}
                         alt={movie.name}
                         className="w-full h-full object-cover rounded-md"
+                        fill
                     />
                 </div>
                 <div className="p-6 md:w-3/5 relative flex flex-col md:items-start items-center">
@@ -65,7 +67,7 @@ const MovieInfo = ({ movie }: { movie: Movie }) => {
                     </div>
                     <div className="flex space-x-4 mb-4">
                         <div className="bg-gray-800 rounded-full px-3 py-1">
-                            <span className="font-bold">{movie.rating}</span>
+                            <span className="font-bold">{movie.rating?.toFixed(2)}</span>
                             <StarIcon className="inline-block ml-1 text-yellow-400" size={16} />
                         </div>
                         <div className="bg-gray-800 rounded-full px-3 py-1">

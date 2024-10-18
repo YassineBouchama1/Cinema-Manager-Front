@@ -9,41 +9,44 @@ export default function ProfileForm() {
         name,
         address,
         password,
-        oldPassword,
+        passwordConfirm,
         handleProfileImageChange,
         handleSubmit,
         setName,
         setAddress,
         setPassword,
-        setOldPassword,
+        setPasswordConfirm,
         email,
         isLoading,
         isError,
         error,
     } = useProfileForm();
 
-    if (isError) {
-        return <div>Error: {error?.message}</div>;
-    }
+
 
     return (
         <section className="py-10 my-auto dark:bg-gray-900">
             <form onSubmit={handleSubmit}>
                 {/* Profile Image */}
+                {isError && <div>Error: {error?.message}</div>}
                 <div className="w-full rounded-sm bg-cover bg-center bg-no-repeat items-center">
-                    {isLoading ? <div className=" mx-auto flex bg-gray-900 animate-pulse justify-center w-[141px] h-[141px] text-white rounded-full bg-cover bg-center bg-no-repeat cursor-pointer" /> : (
+                    {isLoading ? <div className=" z-40 mx-auto flex bg-gray-900 animate-pulse justify-center items-center w-[141px] h-[141px] text-white rounded-full bg-cover bg-center bg-no-repeat cursor-pointer" >
+                        <Loader className='text-white opacity-50 animate-spin' size={50} />
+                    </div> : (
 
                         <div
                             className="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat cursor-pointer"
                             onClick={() => document.getElementById('profileImageInput')?.click()}
-                            style={{ backgroundImage: `url(${profileImage})` }}
+                            style={{ backgroundImage: `url(${profileImage})`, opacity: isLoading ? 0.3 : 1 }}
                         >
+
                             <input
                                 type="file"
                                 id="profileImageInput"
                                 accept="image/*"
                                 onChange={handleProfileImageChange}
                                 className="hidden"
+                                disabled={isLoading}
                             />
                         </div>
                     )}
@@ -86,10 +89,10 @@ export default function ProfileForm() {
                 <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                     <FormField
                         title="Old Password"
-                        id="oldPassword"
+                        id="passwordConfirm"
                         type="password"
-                        value={oldPassword}
-                        onChange={(e) => setOldPassword(e.target.value)}
+                        value={passwordConfirm}
+                        onChange={(e) => setPasswordConfirm(e.target.value)}
                         styleInput="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                         disabled={isLoading}
                         extraContent={isLoading && <Loader size={20} className="animate-spin absolute right-3 top-3 text-gray-400" />}
