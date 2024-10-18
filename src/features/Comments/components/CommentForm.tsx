@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation';
 import { useAuthContext } from '@/Providers/AuthProvider';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 
+// updated interface to include a property or use unknown
 interface CommentFormProps {
-
+    // You can add properties here if needed
 }
 
 const CommentForm: React.FC<CommentFormProps> = () => {
@@ -15,7 +16,6 @@ const CommentForm: React.FC<CommentFormProps> = () => {
 
     const { session } = useAuthContext();
     const { openModelAuth, setAuthFormField } = useAuthFormContext();
-
 
     const pathname = usePathname();
     const movieId = pathname.split('/').pop();
@@ -25,14 +25,12 @@ const CommentForm: React.FC<CommentFormProps> = () => {
         toast.error('Movie ID is required');
     }
 
-
-
     const queryClient = useQueryClient();
 
     // mutation for submitting the rating
     const mutation = useMutation({
         mutationFn: () => {
-            if (!movieId) { // check if movie id exist
+            if (!movieId) { // check if movie id exists
                 toast.error('Movie ID is required');
                 throw new Error('Movie ID is required');
             }
@@ -40,31 +38,29 @@ const CommentForm: React.FC<CommentFormProps> = () => {
         },
         onSuccess: () => {
             toast.success('Comment Posted successfully!');
-            queryClient.invalidateQueries({ queryKey: ['comments-movie'] }); // refrech comments
-            setComment(''); //reset commet stats ater comment submited
-
+            queryClient.invalidateQueries({ queryKey: ['comments-movie'] }); // refresh comments
+            setComment(''); // reset comment state after comment submitted
         },
-        onError: (error: any) => {
-            toast.error(`Error submitting rating: ${error.message}`);
+        onError: (error: unknown) => {
+            if (error instanceof Error) {
+                toast.error(`Error submitting rating: ${error.message}`);
+            } else {
+                toast.error('An unknown error occurred');
+            }
         },
     });
-
-
 
     const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!session?.token) {
             setAuthFormField('login');
             openModelAuth();
-            toast.error('You should be logged in to Comment a movie');
+            toast.error('You should be logged in to comment on a movie');
             return;
         }
 
         mutation.mutate();
-
-    }, [session, openModelAuth, setAuthFormField, mutation, comment]);
-
-
+    }, [session, openModelAuth, setAuthFormField, mutation]); // Removed comment from dependencies
 
     return (
         <form className="mb-6" onSubmit={handleSubmit}>
@@ -86,7 +82,7 @@ const CommentForm: React.FC<CommentFormProps> = () => {
                 style={{ opacity: mutation.isPending ? 0.4 : 1 }}
                 className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-500 rounded-lg focus:ring-4 focus:ring-primary-900 hover:bg-red-700"
             >
-                {mutation.isPending ? 'Commenting' : 'comment'}
+                {mutation.isPending ? 'Commenting' : 'Comment'}
             </button>
         </form>
     );

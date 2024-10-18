@@ -7,7 +7,7 @@ export interface ReservationData {
 
 interface ReservationResponse {
     message: string;
-    data?: any;
+
 }
 
 export async function makeReservation(reservationData: ReservationData): Promise<ReservationResponse> {

@@ -9,7 +9,6 @@ interface SeatSelectionProps {
 }
 
 const SeatSelection: React.FC<SeatSelectionProps> = React.memo(({ roomCapacity, reservedSeats, selectedSeats, onSeatSelect, seatsPerRow }) => {
-
     return (
         <div className="bg-gray-800 p-4 rounded-lg w-full">
             <h2 className="text-lg font-semibold mb-4 text-center">Select Seats</h2>
@@ -60,5 +59,8 @@ const SeatSelection: React.FC<SeatSelectionProps> = React.memo(({ roomCapacity, 
         </div>
     );
 });
+
+// Set the display name for the component
+SeatSelection.displayName = 'SeatSelection';
 
 export default SeatSelection;

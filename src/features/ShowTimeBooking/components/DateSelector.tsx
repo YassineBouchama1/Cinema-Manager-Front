@@ -28,4 +28,7 @@ const DateSelector: React.FC<DateSelectorProps> = React.memo(({ uniqueDates, sel
     </div>
 ));
 
+// Set the display name for the component
+DateSelector.displayName = 'DateSelector';
+
 export default DateSelector;

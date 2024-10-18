@@ -30,7 +30,7 @@ const AuthFormWapper = () => {
             setAuthFormField('resetPassword');
             openModelAuth()
         }
-    }, []);
+    }, [openModelAuth, searchParams, setAuthFormField]);
 
     if (!isModelAuthOpen) return null;
 

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import MotionWrapper from "@/components/Wrappers/MotionWrapper";
 import { GlobalThemeProvider } from "@/Providers/GlobalThemeProvider";
 import ReactQueryProvider from "@/Providers/ReactQueryProvider";
 import { AuthProvider } from "@/Providers/AuthProvider";

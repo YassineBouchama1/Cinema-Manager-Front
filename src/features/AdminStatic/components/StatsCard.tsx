@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/utils";
-import { Film, LucideIcon, MonitorPlay, Users } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 export type ItemType = {

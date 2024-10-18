@@ -1,4 +1,4 @@
-import { Image } from 'lucide-react';
+import { Images } from 'lucide-react';
 import React from 'react';
 
 const MovieCardSkeleton: React.FC = () => {
@@ -23,7 +23,7 @@ const MovieCardSkeleton: React.FC = () => {
 
                             <button key={i} className="md:w-60 w-full text-center animate-pulse flex flex-col items-center ">
                                 <div className="flex items-center justify-center rounded-xl w-full h-96 relative overflow-hidden bg-gray-800">
-                                    <Image className="w-10 h-10 text-gray-900" />
+                                    <Images className="w-10 h-10 text-gray-900" />
                                 </div>
                                 <div className="mt-2 mb-4 h-4 bg-gray-800 rounded w-3/4"></div>
                             </button>

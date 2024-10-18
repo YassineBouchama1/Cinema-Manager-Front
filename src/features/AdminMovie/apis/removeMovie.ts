@@ -2,7 +2,7 @@ import customFetch from "@/utils/customFetch";
 
 interface removeMovieResponse {
     message: string;
-    data?: any;
+
 }
 
 

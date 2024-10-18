@@ -10,7 +10,7 @@ export function SubmitButton({
 }: {
     title?: string;
     style?: string;
-    loadingForm?: any;
+    loadingForm?: string;
 }) {
     const { pending } = useFormStatus();
 

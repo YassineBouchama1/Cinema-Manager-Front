@@ -2,7 +2,7 @@ import customFetch from "@/utils/customFetch";
 
 interface RemoveCommentResponse {
     message: string;
-    data?: any;
+
 }
 
 
@@ -17,6 +17,6 @@ export async function removeComment(commentId: string): Promise<RemoveCommentRes
         );
     } catch (error) {
         console.error('Comment removal error:', error);
-        throw error; 
+        throw error;
     }
 }

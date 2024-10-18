@@ -1,5 +1,5 @@
 
-import { SessionOptions, getIronSession } from "iron-session";
+import { SessionOptions } from "iron-session";
 
 //types of thata saveing in  sessions
 export interface SessionData {

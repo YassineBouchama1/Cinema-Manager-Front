@@ -7,7 +7,7 @@ export interface CommentData {
 
 interface CommentResponse {
     message: string;
-    data?: any;
+
 }
 
 export async function submitComment(commentData: CommentData): Promise<CommentResponse> {

@@ -1,4 +1,4 @@
-import { Dispatch, useCallback } from 'react';
+import { useCallback } from 'react';
 import { ShowTime } from '@/types/showTime';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 import { useAuthContext } from '@/Providers/AuthProvider';
@@ -7,29 +7,27 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { makeReservation, ReservationData } from '../apis/makeReservation';
 import { useRouter } from 'next/navigation';
 
-
 type SetSelectedSeatsFunction = React.Dispatch<React.SetStateAction<number[]>>;
-
 
 export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: number[], setSelectedSeats: SetSelectedSeatsFunction) => {
     const { openModelAuth, setAuthFormField } = useAuthFormContext();
-    const { session } = useAuthContext(); // bring session contain user info
+    const { session } = useAuthContext(); // bring session containing user info
     const router = useRouter();
     const queryClient = useQueryClient();
 
-    // this using react query for mutate with backend
+    // Using react-query for mutation with backend
     const reservationMutation = useMutation({
         mutationFn: (reservationData: ReservationData) => makeReservation(reservationData),
         onSuccess: (data) => {
             console.log(data);
             toast.success(data.message || 'Reservation successful!');
 
-            // refresh the page
+            // Refresh the page
             router.refresh();
 
-            // invalidate and refetch the movie-booking query
+            // Invalidate and refetch the movie-booking query
             queryClient.invalidateQueries({ queryKey: ['movie-booking'] });
-            setSelectedSeats([])
+            setSelectedSeats([]);
             router.push('/profile');
         },
         onError: (error: Error) => {
@@ -38,19 +36,17 @@ export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: nu
     });
 
     const handleBuy = useCallback(async () => {
-        // check if user is logged in
-
-
+        // Check if user is logged in
         if (!session?.token) {
-            setAuthFormField('login')
+            setAuthFormField('login');
             openModelAuth();
             toast.error('You should be logged in to purchase a ticket');
             return;
         }
 
         if (session.role !== 'user') {
-            toast.error('You are not allowed to reserve , you are not normal user');
-            return
+            toast.error('You are not allowed to reserve; you are not a normal user');
+            return;
         }
 
         if (selectedShowTime) {
@@ -63,7 +59,7 @@ export const usePurchase = (selectedShowTime: ShowTime | null, selectedSeats: nu
         } else {
             toast.error('No showtime selected.');
         }
-    }, [selectedShowTime, selectedSeats, session, openModelAuth, reservationMutation]);
+    }, [selectedShowTime, selectedSeats, session, openModelAuth, reservationMutation, setAuthFormField]); // Added setAuthFormField to dependencies
 
     return {
         handleBuy,

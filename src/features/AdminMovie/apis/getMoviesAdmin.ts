@@ -1,8 +1,9 @@
+import { Movie } from "@/types/movie";
 import customFetch from "@/utils/customFetch";
 
 interface MovieResponse {
   message: string;
-  data?: any;
+  data: Movie[];
 }
 
 export const getMoviesAdmin = async (params?: Record<string, string | string[] | undefined>): Promise<MovieResponse> => {

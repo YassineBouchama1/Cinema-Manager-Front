@@ -1,10 +1,9 @@
-import { ShowTimeAdmin } from "@/types/showTime";
 import customFetch from "@/utils/customFetch";
 import { showTimesSchemaData } from "../validators";
 
 interface UpdateShowTimeResponse {
     message: string;
-    data?: any;
+
 }
 
 

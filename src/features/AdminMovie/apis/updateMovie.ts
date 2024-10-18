@@ -2,7 +2,7 @@ import customFetch from "@/utils/customFetch";
 
 interface UpdateMovieResponse {
     message: string;
-    data?: any;
+
 }
 
 export async function updateMovie(formData: FormData, id: string): Promise<UpdateMovieResponse> {

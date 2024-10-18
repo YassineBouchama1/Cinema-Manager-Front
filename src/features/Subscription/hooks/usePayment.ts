@@ -9,8 +9,7 @@ import { useSubscriptionContext } from '@/context/user/SubscriptionContext';
 export const usePayment = () => {
     const { openModelAuth, setAuthFormField } = useAuthFormContext();
     const { closeModalSubscription } = useSubscriptionContext();
-    const { session, setSession, onUpdateSession } = useAuthContext(); // bring session containing user info
-
+    const { session, onUpdateSession } = useAuthContext(); // bring session containing user info
 
     // mutation for making a reservation
     const reservationMutation = useMutation({
@@ -18,17 +17,12 @@ export const usePayment = () => {
         onSuccess: (data) => {
             toast.success(data.message || 'Payment successful!');
 
+            // update session of user after he subscribes  
+            onUpdateSession();
 
-            // update session f user after he susbicrbe  
-            onUpdateSession()
-            // setSession({
-            //     ...session!,
-            //     isSubscribe: true,
+     
 
-            // });
-
-            closeModalSubscription()  // after susbcribe successfuly hid modal 
-
+            closeModalSubscription();  // after subscribing successfully hide modal 
         },
         onError: (error: Error) => {
             toast.error(error.message);
@@ -36,7 +30,6 @@ export const usePayment = () => {
     });
 
     const handlePay = useCallback(async () => {
-
         // check if user is logged in
         if (!session?.token) {
             setAuthFormField('login');
@@ -52,7 +45,7 @@ export const usePayment = () => {
 
         // call the mutation to make the reservation
         await reservationMutation.mutateAsync();
-    }, [session, openModelAuth, reservationMutation]);
+    }, [session, openModelAuth, reservationMutation, setAuthFormField]); // Added setAuthFormField to dependencies
 
     return {
         handlePay,

@@ -1,7 +1,9 @@
+import { LucideIcon } from "lucide-react";
+
 export type ItemType = {
     title: string;
     data: string;
-    icon: any;
+    icon: LucideIcon;
     color: string;
     bgColor: string;
 };
@@ -26,7 +28,7 @@ export interface SelectorType {
 export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     title: string;
     name: string;
-    options: any[];
+    options: Option[];
 
     defaultValue?: string | number;
 }

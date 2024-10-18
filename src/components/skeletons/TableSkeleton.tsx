@@ -90,7 +90,7 @@ export function TableSkeleton() {
                   </tr>
                 </thead>
                 <tbody className="ltr:text-left rtl:text-right">
-                  {Array.from({ length: 10 }).map((_item: any, index: number) => (
+                  {Array.from({ length: 10 }).map((_item, index: number) => (
                     <tr key={index} className="border-b ">
                       <td className="flex items-center ">
                         <svg

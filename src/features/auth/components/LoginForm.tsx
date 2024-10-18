@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { loginUser } from '@/features/auth/apis/login'

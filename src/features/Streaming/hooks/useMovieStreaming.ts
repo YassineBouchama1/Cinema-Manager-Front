@@ -3,7 +3,11 @@ import { useAuthContext } from '@/Providers/AuthProvider';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 import { useMovieDetailsStore } from '@/features/MovieDetails/store/MovieDetailsStore.user';
 import toast from 'react-hot-toast';
+interface ReactPlayerError {
+    message: string;
+    code: number;
 
+}
 export const useMovieStreaming = () => {
     const { movie } = useMovieDetailsStore();
     const { openModelAuth } = useAuthFormContext();
@@ -11,7 +15,7 @@ export const useMovieStreaming = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    console.log(movie)
+
     useEffect(() => {
         if (!session?.token) {
             openModelAuth();
@@ -35,7 +39,7 @@ export const useMovieStreaming = () => {
         console.log('Video is ready to play');
     };
 
-    const handleError = (e: any) => {
+    const handleError = (e: ReactPlayerError) => {
         setIsLoading(false);
         setError('Error loading video. Please try again later.');
         console.error('ReactPlayer error:', e);

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -58,7 +58,7 @@ export default function ForgotPasswordForm() {
                     Forgot Password
                 </h3>
                 <p className="text-sm text-gray-300 ">
-                    Enter your email address and we'll send you a link to reset your password.
+                    Enter your email address and we willl send you a link to reset your password.
                 </p>
                 <div>
                     <label htmlFor="email" className="text-sm font-medium text-white block mb-2 dark:text-gray-300">

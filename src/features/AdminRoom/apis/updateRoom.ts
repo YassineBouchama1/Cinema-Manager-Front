@@ -3,7 +3,7 @@ import customFetch from "@/utils/customFetch";
 
 interface UpdateRoomResponse {
     message: string;
-    data?: any;
+
 }
 
 export async function updateRoom(data: Room, id: string): Promise<UpdateRoomResponse> {

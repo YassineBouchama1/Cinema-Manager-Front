@@ -1,7 +1,7 @@
 import customFetch from "@/utils/customFetch";
 
 interface RegisterResponse {
-    data: any
+
     message: string;
 }
 

@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { removeShowTime } from '../apis/removeShowTime';
 import { Edit, Trash, Loader } from 'lucide-react';
 import { useShowTimeFormStore } from '../store/showTimeFormStore';
+import Image from 'next/image';
 
 interface ShowTimeItemProps {
     showTime: ShowTimeAdmin;
@@ -52,10 +53,12 @@ const ShowTimeItem: React.FC<ShowTimeItemProps> = ({ showTime }) => {
             <td className="py-2 px-4">
                 {typeof showTime.movieId !== 'string' && (
                     <div className="flex items-center">
-                        <img
+                        <Image
                             src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${showTime.movieId.image}`}
                             alt={showTime.movieId.name || 'Movie Image'}
                             className="w-10 h-10 rounded-full mr-2"
+                            height={'40'}
+                            width={'40'}
                         />
                         <div>
                             <div>{showTime.movieId.name}</div>

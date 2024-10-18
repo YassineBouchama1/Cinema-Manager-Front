@@ -1,7 +1,6 @@
 import React from 'react';
 import { StarIcon } from 'lucide-react';
 import { Movie } from '@/types/movie';
-import { useUserModalSwapperContext } from '@/context/user/UserModalSwapperContext';
 import { useSubscriptionContext } from '@/context/user/SubscriptionContext';
 import MovieRating from './MovieRating';
 import { useAuthContext } from '@/Providers/AuthProvider';

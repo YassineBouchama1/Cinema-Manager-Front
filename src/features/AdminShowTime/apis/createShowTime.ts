@@ -1,11 +1,9 @@
-import { ShowTimeAdmin } from "@/types/showTime";
 import customFetch from "@/utils/customFetch";
-import { showTimeDataForm } from "./updateShowTime";
 import { showTimesSchemaData } from "../validators";
 
 interface ShowTimeResponse {
     message: string;
-    data?: any;
+
 }
 
 export async function createShowTime(data: showTimesSchemaData): Promise<ShowTimeResponse> {

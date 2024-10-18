@@ -21,7 +21,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comments }) => {
             queryClient.invalidateQueries({ queryKey: ['comments-movie'] });
             toast.success('Comment removed successfully!');
         },
-        onError: (error: any) => {
+        onError: (error: { message: string }) => {
             toast.error(`Error removing comment: ${error.message}`);
         },
     });

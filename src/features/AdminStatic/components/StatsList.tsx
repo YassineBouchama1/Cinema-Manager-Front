@@ -4,7 +4,6 @@ import { ItemType, StatsCard } from './StatsCard';
 import { DollarSign, Eye, Film, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { useStatistics } from '../hooks/useStatistics';
-import { cn } from '@/utils';
 import StatisticsSkeleton from '@/components/skeletons/StatisticsSkeleton';
 
 export default function StatsList() {

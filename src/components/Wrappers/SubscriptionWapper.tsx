@@ -1,12 +1,6 @@
 'use client'
-import React, { useEffect } from 'react';
-import RegisterForm from '../../features/auth/components/RegisterForm';
-import ForgotPasswordForm from '../../features/auth/components/ForgotPasswordForm';
-import Modal from '../commen/Modal';
-import { useSearchParams } from 'next/navigation';
-import LoginForm from '../../features/auth/components/LoginForm';
-import ResetPasswordForm from '../../features/auth/components/ResetPasswordForm';
-import { useAuthFormContext } from '@/context/AuthFormContext';
+import React from 'react';
+
 import { useSubscriptionContext } from '@/context/user/SubscriptionContext';
 import PaymentForm from '@/features/Subscription/components/PaymentForm';
 import ModalWide from '../commen/ModalWide';

@@ -3,7 +3,7 @@ import customFetch from "@/utils/customFetch";
 
 interface ReservationResponse {
     message: string;
-    data?: any;
+   
 }
 
 export async function paySubscription(): Promise<ReservationResponse> {

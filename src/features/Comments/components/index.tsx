@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Comment, CommentsResponse } from '@/types/comment';
+import {  useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { CommentsResponse } from '@/types/comment';
 import { getComments } from '../apis/getComments';
 import { usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -19,7 +19,7 @@ export default function ListComments(): JSX.Element {
     }
 
     // fetch comments using React Query
-    const { data: commentsData, isLoading, error, refetch } = useQuery<CommentsResponse>({
+    const { data: commentsData, isLoading, error } = useQuery<CommentsResponse>({
         queryKey: ['comments-movie', id],
         queryFn: () => (id ? getComments(id as string) : Promise.resolve({ data: [] })),
         enabled: !!id // fetch only if id provided

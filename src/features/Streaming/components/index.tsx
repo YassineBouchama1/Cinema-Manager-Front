@@ -1,6 +1,4 @@
 'use client';
-
-import { usePathname } from 'next/navigation';
 import React from 'react';
 import ReactPlayer from 'react-player';
 import { useMovieStreaming } from '../hooks/useMovieStreaming';
@@ -33,7 +31,7 @@ export default function MovieStreaming() {
                                 forceHLS: false,
                                 forceFLV: false,
                                 hlsOptions: {
-                                    xhrSetup: (xhr: XMLHttpRequest, url: string) => {
+                                    xhrSetup: (xhr: XMLHttpRequest) => {
                                         xhr.setRequestHeader('Authorization', `Bearer ${token}`);
                                     },
                                 },

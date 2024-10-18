@@ -2,7 +2,6 @@
 import React from 'react'
 import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
 import { registerUser } from '@/features/auth/apis/Register'
 import { useAuthFormContext } from '@/context/AuthFormContext'
 import { X } from 'lucide-react'

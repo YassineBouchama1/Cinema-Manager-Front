@@ -1,6 +1,5 @@
 'use client'
 import DragCloseDrawer from '@/components/commen/DragCloseDrawer';
-import { useUserModalSwapperContext } from '@/context/user/UserModalSwapperContext';
 import ShowTimeBooking from '@/features/ShowTimeBooking/components';
 import MovieStreaming from '@/features/Streaming/components';
 import React from 'react';

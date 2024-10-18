@@ -5,8 +5,7 @@ interface TicketSummaryProps {
   totalPrice: number;
   onBuy: () => void;
   showTimeId: string;
-  loading: boolean,
-
+  loading: boolean;
 }
 
 const TicketSummary: React.FC<TicketSummaryProps> = React.memo(({ selectedSeatsCount, totalPrice, onBuy, showTimeId, loading }) => (
@@ -34,5 +33,8 @@ const TicketSummary: React.FC<TicketSummaryProps> = React.memo(({ selectedSeatsC
     </button>
   </div>
 ));
+
+// Set the display name for the component
+TicketSummary.displayName = 'TicketSummary';
 
 export default TicketSummary;

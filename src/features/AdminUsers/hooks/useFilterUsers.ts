@@ -28,7 +28,7 @@ export const useFilterUsers = () => {
         queryClient.invalidateQueries({ queryKey: ['users-admin'] });
         setIsFiltering(false);
 
-    }, [search, searchParams]);
+    }, [search, searchParams, queryClient, router]);
 
     return {
         isFiltering,

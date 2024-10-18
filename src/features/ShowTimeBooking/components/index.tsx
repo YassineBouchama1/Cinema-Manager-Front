@@ -4,7 +4,6 @@ import DateSelector from './DateSelector';
 import TimeSelector from './TimeSelector';
 import SeatSelection from './SeatSelection';
 import TicketSummary from './TicketSummary';
-import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import toast from 'react-hot-toast';
 import MarginWidthWrapper from '@/components/Wrappers/MarginWidthWrapper';
 import { usePurchase } from '../hooks/usePurchase';
@@ -13,16 +12,16 @@ import ShowTimesSkeleton from '@/components/skeletons/ShowTimesSkeleton';
 import { usePathname } from 'next/navigation';
 
 const ShowTimeBooking: React.FC = () => {
-
     const pathname = usePathname();
     const id = pathname.split('/').pop();
 
-    // chekc if id exist
+    // Check if id exists
     if (!id) {
         toast.error('Movie ID is required');
-        return null; // make it  null to avoid rendering the component
+        return null; // Return null to avoid rendering the component
     }
 
+    // Call hooks unconditionally
     const {
         showTimes,
         isLoading,
@@ -41,17 +40,21 @@ const ShowTimeBooking: React.FC = () => {
         handleSeatSelection,
         setSelectedSeats
     } = useShowTimeBooking({ currentMovieId: id });
-    const { handleBuy, loadingPurchase, errorPurchase } = usePurchase(selectedShowTime, selectedSeats, setSelectedSeats);
 
+    // Call usePurchase after useShowTimeBooking
+    const { handleBuy, loadingPurchase } = usePurchase(selectedShowTime, selectedSeats, setSelectedSeats);
+
+    // Handle loading state
     if (isLoading) {
         return <ShowTimesSkeleton />;
     }
 
-
+    // Handle error state
     if (error) {
         return <div>Error: {(error as Error).message}</div>;
     }
 
+    // Handle no showtimes available
     if (!showTimes || showTimes.length === 0) {
         return <div>No showtimes available</div>;
     }
