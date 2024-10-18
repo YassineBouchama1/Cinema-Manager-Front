@@ -49,10 +49,24 @@ export const clearSession = async () => {
     // Update session
     Object.assign(session, {
         isLoggedIn: false,
-        isSubscribe:false,
+        isSubscribe: false,
         token: ""
     });
     await session.save();
 
     return session
+};
+
+
+
+export const updateSession = async <T>(updateData: T) => {
+
+    const session = await getSession();
+
+    // ipdate session
+    Object.assign(session, updateData);
+    await session.save();
+
+    console.log(session);
+    return session;
 };

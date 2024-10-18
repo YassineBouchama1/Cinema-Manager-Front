@@ -7,7 +7,7 @@ import React, {
     useCallback,
 } from "react";
 import { SessionData } from "@/lib/optionsSessions";
-import { clearSession, getSession } from "@/lib/sessions";
+import { clearSession, getSession, updateSession } from "@/lib/sessions";
 import { useRouter } from "next/navigation";
 
 type Session = SessionData | null;
@@ -15,7 +15,8 @@ type GlobalContext = {
     session: Session;
     setSession: React.Dispatch<React.SetStateAction<Session>>;
     loading: boolean;
-    logout: () => void
+    logout: () => void;
+    onUpdateSession: () => void
 
 };
 
@@ -48,6 +49,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         router.refresh()
     };
 
+    const onUpdateSession = useCallback(async () => {
+        setLoading(true);
+        const sessionData = await updateSession<{ isSubscribe: boolean }>({ isSubscribe: true });
+        setSession(sessionData);
+
+        setLoading(false);
+    }, []);
+
 
     // before render, get session
     useEffect(() => {
@@ -55,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, [fetchSessions]);
 
     return (
-        <GlobalContext.Provider value={{ session, setSession, loading, logout }}>
+        <GlobalContext.Provider value={{ session, setSession, loading, logout, onUpdateSession }}>
             {children}
         </GlobalContext.Provider>
     );

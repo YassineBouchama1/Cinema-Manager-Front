@@ -8,16 +8,20 @@ import { useAuthContext } from '@/Providers/AuthProvider';
 import toast from 'react-hot-toast';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 import Image from 'next/image';
+import { useMovieDetailsStore } from '../store/MovieDetailsStore.user';
 
 // eslint-disable-next-line react/display-name
 const MovieInfo = ({ movie }: { movie: Movie }) => {
-    const { openModalSwapper } = useUserModalSwapperContext();
+
+    const { openModalSwapper, setMovie } = useMovieDetailsStore();
     const { openModalSubscription } = useSubscriptionContext();
     const { openModelAuth, setAuthFormField } = useAuthFormContext();
     const { session } = useAuthContext();
 
     const handleShowTimesClick = () => {
+
         openModalSwapper('showtimes');
+
     };
 
 
@@ -35,6 +39,7 @@ const MovieInfo = ({ movie }: { movie: Movie }) => {
             toast.error('You should be Subscribed to Watch Movie Stream');
             return;
         }
+        setMovie(movie.name, movie._id)
         openModalSwapper('streaming');
     };
 

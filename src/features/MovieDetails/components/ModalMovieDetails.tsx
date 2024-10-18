@@ -4,9 +4,10 @@ import { useUserModalSwapperContext } from '@/context/user/UserModalSwapperConte
 import ShowTimeBooking from '@/features/ShowTimeBooking/components';
 import MovieStreaming from '@/features/Streaming/components';
 import React from 'react';
+import { useMovieDetailsStore } from '../store/MovieDetailsStore.user';
 
 const MovieModal = () => {
-    const { isModalSwapperOpen, closeModalSwapper, currentModalSwapper } = useUserModalSwapperContext();
+    const { isModalSwapperOpen, closeModalSwapper, currentModalSwapper } = useMovieDetailsStore();
 
     if (!isModalSwapperOpen) return null;
 

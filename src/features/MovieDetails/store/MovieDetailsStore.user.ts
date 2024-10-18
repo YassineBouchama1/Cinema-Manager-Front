@@ -5,7 +5,7 @@ interface Movie {
     id: string;
 }
 
-interface UserModalSwapperState {
+interface MovieDetailsStore {
     isModalSwapperOpen: boolean;
     currentModalSwapper: 'showtimes' | 'streaming' | null;
     openModalSwapper: (modalSwapperType: null | 'showtimes' | 'streaming') => void;
@@ -14,7 +14,7 @@ interface UserModalSwapperState {
     setMovie: (name: string, id: string) => void;
 }
 
-export const useUserModalSwapperContext = create<UserModalSwapperState>((set) => ({
+export const useMovieDetailsStore = create<MovieDetailsStore>((set) => ({
     isModalSwapperOpen: false,
     currentModalSwapper: null,
     movie: {

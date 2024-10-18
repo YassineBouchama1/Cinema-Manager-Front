@@ -9,7 +9,7 @@ import { useSubscriptionContext } from '@/context/user/SubscriptionContext';
 export const usePayment = () => {
     const { openModelAuth, setAuthFormField } = useAuthFormContext();
     const { closeModalSubscription } = useSubscriptionContext();
-    const { session, setSession } = useAuthContext(); // bring session containing user info
+    const { session, setSession, onUpdateSession } = useAuthContext(); // bring session containing user info
 
 
     // mutation for making a reservation
@@ -19,12 +19,13 @@ export const usePayment = () => {
             toast.success(data.message || 'Payment successful!');
 
 
-            // update session f user after he susbicrbe      
-            setSession({
-                ...session!,
-                isSubscribe: true,
+            // update session f user after he susbicrbe  
+            onUpdateSession()
+            // setSession({
+            //     ...session!,
+            //     isSubscribe: true,
 
-            });
+            // });
 
             closeModalSubscription()  // after susbcribe successfuly hid modal 
 
