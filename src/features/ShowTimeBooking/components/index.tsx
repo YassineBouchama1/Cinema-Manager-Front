@@ -13,7 +13,7 @@ import ShowTimesSkeleton from '@/components/skeletons/ShowTimesSkeleton';
 import { usePathname } from 'next/navigation';
 
 const ShowTimeBooking: React.FC = () => {
- 
+
     const pathname = usePathname();
     const id = pathname.split('/').pop();
 
@@ -41,12 +41,12 @@ const ShowTimeBooking: React.FC = () => {
         handleSeatSelection,
         setSelectedSeats
     } = useShowTimeBooking({ currentMovieId: id });
-
     const { handleBuy, loadingPurchase, errorPurchase } = usePurchase(selectedShowTime, selectedSeats, setSelectedSeats);
 
     if (isLoading) {
         return <ShowTimesSkeleton />;
     }
+
 
     if (error) {
         return <div>Error: {(error as Error).message}</div>;

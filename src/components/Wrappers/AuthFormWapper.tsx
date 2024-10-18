@@ -8,7 +8,6 @@ import LoginForm from '../../features/auth/components/LoginForm';
 import ResetPasswordForm from '../../features/auth/components/ResetPasswordForm';
 import { useAuthFormContext } from '@/context/AuthFormContext';
 
-type FormField = 'login' | 'register' | '' | 'resetPassword';
 
 const AuthFormWapper = () => {
     const {

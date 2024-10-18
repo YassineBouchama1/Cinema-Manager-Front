@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from "react";
 
 // type tabs home display
-type Tab = 'Showtimes' | 'comments';
+type Tab = 'Showtimes' | 'Comments';
 
-const tabs: Tab[] = ["Showtimes", "comments"];
+const tabs: Tab[] = ["Showtimes", "Comments"];
 
 const MovieDisplayWrapper: React.FC = () => {
 
-    const [selected, setSelected] = useState<Tab>('comments');
+    const [selected, setSelected] = useState<Tab>('Comments');
 
     // here i define conet ver
     const contentVariants = {
@@ -37,7 +37,7 @@ const MovieDisplayWrapper: React.FC = () => {
             </div>
             <div className="min-h-[500px]">
                 <AnimatePresence mode="wait">
-                    {selected === 'comments' ? (
+                    {selected === 'Comments' ? (
                         <motion.div
                             key="showtimes"
                             initial="hidden"

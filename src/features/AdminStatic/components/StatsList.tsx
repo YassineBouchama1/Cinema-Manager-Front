@@ -1,30 +1,65 @@
 'use client';
 import React from 'react';
 import { ItemType, StatsCard } from './StatsCard';
-import { Film, MonitorPlay, Users } from "lucide-react";
+import { DollarSign, Eye, Film, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { useStatistics } from '../hooks/useStatistics';
+import { cn } from '@/utils';
+import StatisticsSkeleton from '@/components/skeletons/StatisticsSkeleton';
 
 export default function StatsList() {
+    const { statistics, isLoading, error } = useStatistics();
+
+
+
+
+    // loading
+    if (isLoading) {
+        return <StatisticsSkeleton />
+
+    }
+
+
+
+    //handle loading and error states
+    if (error) return <div>Error fetching statistics</div>;
+    if (!statistics || !statistics.data) return null;
+
+
+
+
+
+
+    // destructure the data
+    const { numberOfCustomers, numberOfMovies, numberOfVisits, revenue } = statistics.data;
+
     const items: ItemType[] = [
         {
-            title: 'users',
-            data: '25',
+            title: 'Users',
+            data: isLoading ? 'Loading...' : numberOfCustomers.toString(),
             icon: Users,
             color: "#8280FF",
             bgColor: "#8280FF",
         },
         {
-            title: 'movies',
-            data: '14',
+            title: 'Movies',
+            data: isLoading ? 'Loading...' : numberOfMovies.toString(),
             icon: Film,
             color: "#FEC53D",
             bgColor: "#8280FF",
         },
         {
             title: 'Revenue',
-            data: '\\$210,050',
-            icon: MonitorPlay,
+            data: isLoading ? 'Loading...' : `$${revenue.toLocaleString()}`,
+            icon: DollarSign,
             color: "#4AD991",
+            bgColor: "#8280FF",
+        },
+        {
+            title: 'Visitors',
+            data: isLoading ? 'Loading...' : numberOfVisits.toString(),
+            icon: Eye,
+            color: "#80d7ff",
             bgColor: "#8280FF",
         }
     ];

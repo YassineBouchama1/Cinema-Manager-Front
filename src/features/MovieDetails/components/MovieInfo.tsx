@@ -46,11 +46,11 @@ const MovieInfo = ({ movie }: { movie: Movie }) => {
     return (
         <div className="bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto py-4">
             <div className="flex flex-col md:flex-row">
-                <div className="md:w-2/5 relative">
+                <div className="md:w-2/5 relative ">
                     <Image
                         src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${movie.image}`}
                         alt={movie.name}
-                        className="w-full h-full object-cover rounded-md"
+                        className="w-full h-[270px] object-cover rounded-md"
                         fill
                     />
                 </div>
@@ -78,9 +78,7 @@ const MovieInfo = ({ movie }: { movie: Movie }) => {
                         <div className="bg-gray-800 rounded-full px-3 py-1">
                             {movie.duration} min
                         </div>
-                        <div className="bg-gray-800 rounded-full px-3 py-1">
-                            {movie.year}
-                        </div>
+
                     </div>
 
                     <MovieRating movieId={movie._id} initialRating={movie.rating} userRating={movie.userRating} />

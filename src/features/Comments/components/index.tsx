@@ -35,7 +35,7 @@ export default function ListComments(): JSX.Element {
     return (
         <section className="bg-gray-900 py-8 lg:py-16 antialiased">
             <div className="max-w-2xl mx-auto px-4">
-                <h2 className="text-lg lg:text-2xl font-bold text-white">
+                <h2 className="text-lg lg:text-2xl font-bold text-white mb-4">
                     Discussion ({comments.length})
                 </h2>
                 <CommentForm />
