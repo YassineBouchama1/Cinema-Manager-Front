@@ -20,12 +20,13 @@ export default function useFavoriteMovie() {
             // after succeffully mutation 
             toast.success('Favorite status updated successfully!');
             queryClient.invalidateQueries({ queryKey: ['movies-user'] });
+            queryClient.invalidateQueries({ queryKey: ['favorite-profile'] });
         },
         onError: (error: { message: string }) => {
             toast.error(`Error updating favorite status: ${error.message}`);
         },
     });
-  
+
 
     // this func handle add or delete favorate
     const handleFavorite = useCallback((movieId: string, isFavorite: boolean) => {

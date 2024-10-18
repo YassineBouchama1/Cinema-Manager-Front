@@ -1,14 +1,10 @@
 import customFetch from "@/utils/customFetch";
 
 
-interface GetMovieStreamData {
-    message: string;
-    showtimes?: any[];
-}
 
-export const getMovieStream = async (id: string): Promise<GetMovieStreamData> => {
+export const getMovieStream = async (id: string) => {
     try {
-        return await customFetch<void, GetMovieStreamData>(
+        return await customFetch(
             `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/movie/stream/${id}`,
             {
                 method: 'GET',

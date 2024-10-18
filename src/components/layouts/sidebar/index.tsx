@@ -1,14 +1,16 @@
 'use client'
 
-import { Clapperboard, DoorOpen, Film, LayoutDashboard, LucideIcon, Ticket, Tickets, User } from 'lucide-react';
+import { Clapperboard, DoorOpen, Film, LayoutDashboard, Loader, LogOut, LucideIcon, Ticket, Tickets, User } from 'lucide-react';
 import Link from 'next/link';
 
 import { useGlobalTheme } from '@/context/GlobalThemeContext';
 import React, { useMemo } from 'react';
 import SidebarItem from './item';
+import { useAuthContext } from '@/Providers/AuthProvider';
 
 const Sidebar: React.FC = () => {
     const { isSidebarOpen, toggleSidebar } = useGlobalTheme();
+    const { loading, logout } = useAuthContext()
 
 
 
@@ -91,6 +93,24 @@ const Sidebar: React.FC = () => {
                             .map((item, index) => (
                                 <SidebarItem key={index} item={item} />
                             ))}
+                    </div>
+                    <div className='shadow-lg shadow-gray-700 bg-blue-900/70 h-[1px] w-full my-6' />
+                    <div className='flex flex-col space-y-2 h-full justify-end'>
+
+                        <button
+                            disabled={loading}
+                            onClick={() => logout()}
+                            className="flex items-center space-x-2 gap-x-2 cursor-pointer pl-3 justify-self-end">
+                            {loading ? <Loader className="animate-spin h-5 w-5 " /> :
+                                (
+                                    <>
+                                        <LogOut size={20} className=" text-white" />
+                                        <p className="text-sm font-semibold">Logout </p>
+                                    </>
+
+                                )
+                            }
+                        </button>
                     </div>
 
                 </div>

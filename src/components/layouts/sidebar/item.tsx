@@ -25,7 +25,7 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
 
     const pathname = usePathname();
 
-    const { toggleSidebar, isSidebarOpen } = useGlobalTheme()
+    const { toggleSidebar} = useGlobalTheme()
 
 
 

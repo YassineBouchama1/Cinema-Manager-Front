@@ -14,10 +14,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     const [isHovered, setIsHovered] = useState(false);
     const { handleFavorite, isLoading } = useFavoriteMovie();
 
-    
+
     const handleFavoriteClick = (e: React.MouseEvent) => {
-        e.preventDefault(); 
-        handleFavorite(movie._id, movie.isFavorite); 
+        e.preventDefault();
+        handleFavorite(movie._id, movie.isFavorite);
     };
 
     return (
@@ -55,7 +55,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
                         </div>
                         <div className="absolute top-4 right-2 flex flex-row items-center justify-center bg-gray-900 p-1 rounded-xl">
                             <Star className='text-red-500 z-30 hover:text-yellow-600' size={16} />
-                            <p className='font-semibold'>{movie.rating}.0</p>
+                            <p className='font-semibold'>{movie.rating?.toFixed(2)}</p>
                         </div>
                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50">
                             <CirclePlay className='opacity-70 hover:text-red-700' size={55} />
