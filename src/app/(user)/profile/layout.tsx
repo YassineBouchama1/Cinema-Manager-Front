@@ -1,3 +1,4 @@
+import SubscriptionStatusModal from "@/components/commen/SubscriptionStatusModal";
 
 
 
@@ -13,6 +14,7 @@ export default async function ProfileLayout({
 
         <main >
             {children}
+            <SubscriptionStatusModal />
         </main>
 
     );

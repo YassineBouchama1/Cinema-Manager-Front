@@ -8,13 +8,6 @@ export default async function middleware(req: NextRequest) {
 
 
 
-  // const guestRoutes = [
-  //   "/forgot-password",
-  //   "/login",
-  //   "/password-reset",
-  //   "/register",
-  //   "/",
-  // ];
 
   const session = await getSession();
 

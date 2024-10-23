@@ -16,12 +16,12 @@ export const useMovies = () => {
     const { data: movies, isLoading, error, refetch } = useQuery({
         queryKey: ['movies-user', searchParamsMemo],
         queryFn: () => getMovies(searchParamsMemo),
-        enabled: isFiltering, // disable automatic refetching until filter
-        staleTime: 10000,
+        enabled: true, // disable automatic refetching until filter
+        // staleTime: 10000,
 
     });
 
-    console.log(movies)
+
 
     // Fthis funnction for filtering movies 
     const handleFilter = useCallback(async (filters: Record<string, string>) => {

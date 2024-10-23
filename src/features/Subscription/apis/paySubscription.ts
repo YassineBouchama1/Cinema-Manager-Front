@@ -1,22 +1,27 @@
 import customFetch from "@/utils/customFetch";
 
-
 interface ReservationResponse {
+    id: string;
     message: string;
-   
 }
 
-export async function paySubscription(): Promise<ReservationResponse> {
+export interface PaySubscriptionParams {
+    paymentMethodId?: string;
+    planId: string;
+}
+
+export async function paySubscription(subscrbeData: PaySubscriptionParams): Promise<ReservationResponse> {
     try {
         return await customFetch<unknown, ReservationResponse>(
-            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/user/subscribe`,
+            `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/subscribe/checkout`,
             {
-                method: 'PUT',
+                method: 'POST',
+                data: subscrbeData,
 
             }
         );
     } catch (error) {
-        console.error('subscribe error:', error);
+        console.error('Subscription error:', error);
         throw error;
     }
 }

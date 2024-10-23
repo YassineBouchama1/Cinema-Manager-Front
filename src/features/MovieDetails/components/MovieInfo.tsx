@@ -33,7 +33,7 @@ const MovieInfo = ({ movie }: { movie: Movie }) => {
             toast.error('You should be logged in to Watch Movie Stream');
             return;
         }
-        if (!session?.isSubscribe) {
+        if (!session?.isSubscribe || true) {
             openModalSubscription('paymentForm');
             toast.error('You should be Subscribed to Watch Movie Stream');
             return;
