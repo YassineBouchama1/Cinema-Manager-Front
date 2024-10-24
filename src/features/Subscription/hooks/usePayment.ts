@@ -12,7 +12,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 export const usePayment = () => {
     const { openModelAuth, setAuthFormField } = useAuthFormContext();
     const { closeModalSubscription } = useSubscriptionContext();
-    const { session, onUpdateSession } = useAuthContext();
+    const { session } = useAuthContext();
 
     const checkoutMutation = useMutation({
         mutationFn: (subscribeData: PaySubscriptionParams) => paySubscription(subscribeData),
@@ -34,7 +34,7 @@ export const usePayment = () => {
                 }
 
                 // These lines will only execute if the redirect fails
-                onUpdateSession();
+                // onUpdateSession();
                 closeModalSubscription();
             } catch (error) {
                 toast.error(error instanceof Error ? error.message : 'Payment failed');

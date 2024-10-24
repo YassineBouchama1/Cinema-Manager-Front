@@ -1,4 +1,5 @@
-'use client'
+// context/AuthProvider.tsx
+'use client';
 import React, {
     createContext,
     useState,
@@ -7,8 +8,9 @@ import React, {
     useCallback,
 } from "react";
 import { SessionData } from "@/lib/optionsSessions";
-import { clearSession, getSession, updateSession } from "@/lib/sessions";
+import { clearSession, getSession } from "@/lib/sessions";
 import { useRouter } from "next/navigation";
+import { updateUserSession } from "@/utils/sessionManager";
 
 type Session = SessionData | null;
 type GlobalContext = {
@@ -16,8 +18,7 @@ type GlobalContext = {
     setSession: React.Dispatch<React.SetStateAction<Session>>;
     loading: boolean;
     logout: () => void;
-    onUpdateSession: () => void
-
+    onUpdateSession: (data: { isSubscribe: boolean }) => Promise<void>; // Update the type
 };
 
 export const GlobalContext = createContext<GlobalContext | null>(null);
@@ -29,36 +30,37 @@ type AuthProviderProps = {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [session, setSession] = useState<Session>(null);
     const [loading, setLoading] = useState<boolean>(true);
-
-    const router = useRouter()
+    const router = useRouter();
 
     // Function to get session data
     const fetchSessions = useCallback(async () => {
         setLoading(true);
         const sessionData = await getSession();
         setSession(sessionData);
-
         setLoading(false);
     }, []);
 
     const logout = async () => {
         setLoading(true);
-        const sessionData = await clearSession();
-        setSession(sessionData);
+        await clearSession();
+        setSession(null);
         setLoading(false);
-        router.refresh()
+        router.refresh();
     };
 
-    const onUpdateSession = useCallback(async () => {
+    const onUpdateSession = useCallback(async (data: { isSubscribe: boolean }) => {
         setLoading(true);
-        const sessionData = await updateSession<{ isSubscribe: boolean }>({ isSubscribe: true });
-        setSession(sessionData);
-
-        setLoading(false);
+        try {
+            const updatedSession = await updateUserSession(data);
+            setSession(updatedSession);
+        } catch (error) {
+            console.error("Failed to update session:", error);
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
-
-    // before render, get session
+    // Before render, get session
     useEffect(() => {
         fetchSessions();
     }, [fetchSessions]);

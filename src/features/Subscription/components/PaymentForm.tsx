@@ -87,6 +87,8 @@ export default function PaymentForm() {
                                 </div>
                             )}
 
+
+
                             <button
                                 type="submit"
                                 disabled={loadingPayment || !selectedPlan}
@@ -132,6 +134,7 @@ export default function PaymentForm() {
                     </div>
                 </div>
             </div>
+
         </section>
     );
 }
